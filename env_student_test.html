@@ -647,13 +647,36 @@ async function submitAll(){
   btn.disabled=false;btn.textContent="Submit & Save Results";
 }
 function closeResult(){document.getElementById("resultModal").classList.remove("open");}
-// ── AI CHECKING FOR PARTS G, H, I ─────────────────────────────────────────
-const G_QUESTIONS = ['The iceberg melted.', 'Sea levels rose.', 'Scientists warned governments.', 'The coral reef died.', 'The flood devastated the village.', 'Nations disagreed at the summit.', 'Renewable energy expanded.', 'The activist protested.', 'Wildlife habitats disappeared.', 'The agreement was reached.'];
-const H_QUESTIONS = ['The weather is getting worse.', 'Many animals are dying.', 'The air in the city is bad.', 'People wasted a lot of energy.', 'The government made new environment rules.', 'Plastic is a big problem in the ocean.', 'Scientists found worrying results.', 'Young people started caring about the environment.', 'Trees were cut down in the forest.', 'The temperature went up every year.'];
+// ── GRAMMAR CHECKER (LanguageTool Free API) ───────────────────────────────
+const G_QUESTIONS=['The iceberg melted.','Sea levels rose.','Scientists warned governments.','The coral reef died.','The flood devastated the village.','Nations disagreed at the summit.','Renewable energy expanded.','The activist protested.','Wildlife habitats disappeared.','The agreement was reached.'];
+const H_QUESTIONS=['The weather is getting worse.','Many animals are dying.','The air in the city is bad.','People wasted a lot of energy.','The government made new environment rules.','Plastic is a big problem in the ocean.','Scientists found worrying results.','Young people started caring about the environment.','Trees were cut down in the forest.','The temperature went up every year.'];
 
+const LT_API = "https://api.languagetool.org/v2/check";
+
+// Check sentence length & complexity
+function analyseComplexity(text, part) {
+  const words = text.trim().split(/\s+/).length;
+  const hasAdj = /\b(enormous|vast|severe|critical|alarming|devastating|irreversible|unprecedented|catastrophic|significant|dramatic|widespread|acute|chronic|rapid|accelerating|fragile|vulnerable|urgent)\b/i.test(text);
+  const hasAdv = /\b(rapidly|severely|dramatically|significantly|increasingly|relentlessly|tirelessly|urgently|critically|devastatingly|alarmingly|profoundly)\b/i.test(text);
+  const hasClause = /\b(which|that|because|although|despite|while|when|as|since|unless|if|before|after|until|who|whose)\b/i.test(text);
+  const hasPunctuation = /[,;:]/.test(text);
+  
+  const issues = [];
+  if (part === 'g') {
+    if (words < 12) issues.push("Your sentence is too short. Try to expand it with adjectives, adverbs, or clauses (aim for at least 15 words).");
+    if (!hasAdj && !hasAdv) issues.push("Add descriptive adjectives (e.g. 'enormous', 'devastating') or adverbs (e.g. 'rapidly', 'alarmingly') to make your sentence more vivid.");
+    if (!hasClause) issues.push("Try adding a subordinate clause using words like 'which', 'because', 'although', or 'as' to create a more complex sentence.");
+  } else if (part === 'h') {
+    if (words < 10) issues.push("Your rewritten sentence is too short. Make it more formal and descriptive.");
+    if (!hasAdj && !hasAdv && !hasClause) issues.push("Use more sophisticated vocabulary, adjectives, or clause structures to make the sentence more formal and impactful.");
+  }
+  return issues;
+}
+
+// Main check function using LanguageTool
 async function checkAI(part, qnum) {
   const val = document.getElementById(part+qnum).value.trim();
-  if(!val) { alert("Please write your answer first."); return; }
+  if (!val) { alert("Please write your answer first."); return; }
 
   const btn = document.getElementById("ai-btn-"+part+qnum);
   const spin = document.getElementById("ai-spin-"+part+qnum);
@@ -662,141 +685,220 @@ async function checkAI(part, qnum) {
   const body = document.getElementById("ai-body-"+part+qnum);
 
   btn.disabled = true;
-  if(spin) spin.style.display = "inline-block";
+  if (spin) spin.style.display = "inline-block";
   fb.className = "ai-fb show loading";
-  top.innerHTML = '<span class="ai-spinner"></span> AI is checking your answer...';
+  top.innerHTML = '<span class="ai-spinner"></span> Checking grammar...';
   body.innerHTML = "";
 
-  const questions = part === "g" ? G_QUESTIONS : H_QUESTIONS;
-  const context = part === "g" ? "Part G (Sentence Expansion): The student must expand a simple sentence into a complex, descriptive sentence using adjectives, adverbs, or clauses related to environment and climate change." : "Part H (Composition Practice): The student must rewrite a simple sentence to make it more vivid, formal, and impactful, using sophisticated vocabulary and structure.";
-  const originalSentence = questions[qnum-1];
-
-  const prompt = `You are an English language teacher marking a student's answer. 
-
-Context: Part G (Sentence Expansion): The student must expand a simple sentence into a complex, descriptive sentence using adjectives, adverbs, or clauses related to environment and climate change.
-Original simple sentence: "${originalSentence}"
-Student's answer: "${val}"
-
-Evaluate the student's answer on:
-1. Grammar correctness
-2. Vocabulary richness and appropriateness  
-3. Whether it successfully expands/improves the original sentence
-4. Whether the meaning relates to environment/climate change
-
-Respond in this EXACT JSON format (no markdown, no extra text):
-{"verdict":"correct|partial|incorrect","summary":"One sentence verdict","grammar":"Grammar feedback in 1-2 sentences. If correct say so. If wrong, explain the error and the rule.","vocabulary":"Vocabulary feedback. Praise good word choices. Suggest better words if needed.","suggestion":"If not fully correct, provide ONE improved example sentence. If correct, write CORRECT."}`;
-
+  let grammarErrors = [];
   try {
-    const res = await fetch("/api/check", {
+    const params = new URLSearchParams({ text: val, language: "en-GB" });
+    const res = await fetch(LT_API, {
       method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt: prompt, max_tokens: 500 })
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params
     });
     const data = await res.json();
-    const text = data.result || data.error || "";
-    let result;
-    try { result = JSON.parse(text.replace(/```json|```/g,"").trim()); }
-    catch(e) { result = {verdict:"partial", summary:text, grammar:"", vocabulary:"", suggestion:""}; }
-
-    fb.className = "ai-fb show " + (result.verdict||"partial");
-    const icon = result.verdict==="correct"?"✓":result.verdict==="partial"?"~":"✗";
-    top.innerHTML = icon + " " + (result.summary||"");
-    
-    let bodyHtml = "";
-    if(result.grammar) bodyHtml += `<div style="margin-bottom:10px"><strong>Grammar:</strong> ${result.grammar}</div>`;
-    if(result.vocabulary) bodyHtml += `<div style="margin-bottom:10px"><strong>Vocabulary:</strong> ${result.vocabulary}</div>`;
-    if(result.suggestion && result.suggestion !== "CORRECT") {
-      bodyHtml += `<div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:6px;padding:10px 13px;margin-top:4px"><em style="display:block;margin-bottom:4px;font-size:11px;font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;color:var(--a3)">Suggested improvement:</em>${result.suggestion}</div>`;
-    }
-    body.innerHTML = bodyHtml;
-
-    // Auto-save progress after AI check
-    autoSave(part);
-
+    grammarErrors = data.matches || [];
   } catch(e) {
-    fb.className = "ai-fb show incorrect";
-    top.innerHTML = "✗ Could not connect to AI. Check your internet connection.";
-    body.innerHTML = "";
+    grammarErrors = [];
   }
 
+  // Complexity / style analysis
+  const styleIssues = analyseComplexity(val, part);
+  const totalIssues = grammarErrors.length + styleIssues.length;
+
+  // Determine verdict
+  let verdict, icon, summaryText;
+  if (totalIssues === 0) {
+    verdict = "correct"; icon = "✓";
+    summaryText = "Well done! Your sentence is grammatically correct and well-structured.";
+  } else if (grammarErrors.length === 0 && styleIssues.length > 0) {
+    verdict = "partial"; icon = "~";
+    summaryText = "Grammar is correct but your sentence needs to be more expanded and descriptive.";
+  } else if (grammarErrors.length <= 2 && styleIssues.length <= 1) {
+    verdict = "partial"; icon = "~";
+    summaryText = `Almost there — ${grammarErrors.length} grammar issue${grammarErrors.length!==1?'s':''} found. See details below.`;
+  } else {
+    verdict = "incorrect"; icon = "✗";
+    summaryText = `${grammarErrors.length} grammar issue${grammarErrors.length!==1?'s':''} found. Please review and correct.`;
+  }
+
+  fb.className = "ai-fb show " + verdict;
+  top.innerHTML = icon + " " + summaryText;
+
+  let bodyHtml = "";
+
+  // Grammar errors from LanguageTool
+  if (grammarErrors.length > 0) {
+    bodyHtml += `<div style="margin-bottom:12px"><strong>Grammar Issues:</strong></div>`;
+    grammarErrors.slice(0,4).forEach(err => {
+      const wrong = val.substring(err.offset, err.offset + err.length);
+      const suggestions = err.replacements.slice(0,3).map(r=>r.value).join(', ');
+      bodyHtml += `<div style="background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px">
+        <div style="color:var(--err);font-family:var(--mono);font-size:10px;letter-spacing:1px;margin-bottom:4px">ERROR</div>
+        <div><span style="background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)">${wrong}</span> — ${err.message}</div>
+        ${suggestions ? `<div style="margin-top:5px;color:var(--ok)">&#10003; Suggestion: <strong>${suggestions}</strong></div>` : ''}
+      </div>`;
+    });
+  }
+
+  // Style / complexity suggestions
+  if (styleIssues.length > 0) {
+    bodyHtml += `<div style="margin-top:8px;margin-bottom:6px"><strong>How to improve:</strong></div>`;
+    styleIssues.forEach(tip => {
+      bodyHtml += `<div style="background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px">${tip}</div>`;
+    });
+  }
+
+  // Show example if incorrect
+  if (verdict !== "correct") {
+    const questions = part === 'g' ? G_QUESTIONS : H_QUESTIONS;
+    const original = questions[qnum-1];
+    bodyHtml += `<div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:6px;padding:10px 13px;margin-top:8px;font-size:12px">
+      <div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Original sentence to expand</div>
+      <div style="color:var(--muted)">${original}</div>
+      <div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin:8px 0 5px">Example of a good expansion</div>
+      <div>${getExample(part, qnum)}</div>
+    </div>`;
+  }
+
+  body.innerHTML = bodyHtml || (verdict === "correct" ? "<div style='color:var(--ok)'>Your answer meets all the requirements for this question.</div>" : "");
+
   btn.disabled = false;
-  if(spin) spin.style.display = "none";
+  if (spin) spin.style.display = "none";
+  autoSave(part);
+}
+
+// Example expansions for guidance (not the only correct answer)
+function getExample(part, qnum) {
+  const gEx = [
+    "The enormous iceberg, destabilised by rising ocean temperatures, melted rapidly into the sea, contributing to the alarming rise in global sea levels.",
+    "Sea levels have risen dramatically over the past century as a direct consequence of melting polar ice caps and the thermal expansion of warming oceans.",
+    "Alarmed by decades of irrefutable evidence, scientists urgently warned governments around the world that immediate action was required to avert a climate catastrophe.",
+    "Bleached by warming ocean temperatures and suffocated by pollution, the once-vibrant coral reef died silently, taking with it thousands of marine species that depended on it.",
+    "The devastating flood swept through the village without warning, destroying homes, submerging farmland, and displacing hundreds of families who had nowhere to turn.",
+    "Despite years of negotiation, nations disagreed bitterly at the summit over carbon reduction targets, threatening the collapse of a fragile international climate agreement.",
+    "Driven by falling costs and growing public demand for clean energy, renewable energy expanded at an unprecedented rate, powering millions of homes across the continent.",
+    "Clutching a hand-painted banner, the determined activist protested tirelessly outside the government building, demanding immediate action to protect the environment for future generations.",
+    "As deforestation and urban development accelerated, wildlife habitats disappeared at an alarming rate, pushing countless endangered species closer to the brink of extinction.",
+    "After months of tense negotiations, the landmark environmental agreement was finally reached, committing all participating nations to achieving net-zero carbon emissions by 2050."
+  ];
+  const hEx = [
+    "Climate patterns are deteriorating at an unprecedented rate, with extreme weather events becoming increasingly frequent and severe across the globe.",
+    "Thousands of animal species face imminent extinction as a direct consequence of habitat destruction, pollution, and the accelerating impacts of climate change.",
+    "Air quality in the city has deteriorated to dangerously hazardous levels, posing serious health risks to residents, particularly the elderly and young children.",
+    "Decades of reckless overconsumption have resulted in the catastrophic squandering of the planet's finite energy reserves.",
+    "The government introduced sweeping environmental legislation, imposing strict regulations on carbon emissions in a decisive effort to combat the climate crisis.",
+    "The catastrophic proliferation of plastic waste in our oceans poses a severe and irreversible threat to marine biodiversity and aquatic ecosystems.",
+    "Researchers uncovered deeply alarming data indicating that global temperatures are rising at a rate far exceeding previous scientific projections.",
+    "A new generation of environmentally conscious young people has emerged, passionately advocating for urgent action to safeguard the planet's future.",
+    "Vast swathes of ancient forest were systematically cleared by industrial logging operations, resulting in catastrophic biodiversity loss and accelerated soil erosion.",
+    "Global average temperatures have risen consistently year upon year, establishing a deeply troubling trend that scientists warn will have irreversible consequences."
+  ];
+  const examples = part === 'g' ? gEx : hEx;
+  return examples[(qnum-1)] || "Try expanding the sentence with more details, adjectives, and a subordinate clause.";
 }
 
 async function checkAllAI(part) {
   const btn = document.getElementById("check-all-"+part);
   btn.disabled = true;
-  btn.textContent = "Checking all...";
-  for(let i=1; i<=10; i++) {
+  btn.innerHTML = "Checking... please wait";
+  for (let i=1; i<=10; i++) {
     const val = document.getElementById(part+i).value.trim();
-    if(val) await checkAI(part, i);
+    if (val) { await checkAI(part, i); await new Promise(r=>setTimeout(r,600)); }
   }
   btn.disabled = false;
-  btn.innerHTML = "&#129302; Check All Part " + part.toUpperCase() + " with AI";
+  btn.innerHTML = "&#129302; Check All Part " + part.toUpperCase();
   autoSave(part);
 }
 
+// Paragraph checker for Part I
 async function checkParaAI() {
   const val = document.getElementById("i1").value.trim();
-  if(!val) { alert("Please write your paragraph first."); return; }
+  if (!val) { alert("Please write your paragraph first."); return; }
 
   const btn = document.getElementById("check-para-btn");
   const fb = document.getElementById("para-ai-fb");
   btn.disabled = true;
-  btn.textContent = "AI is reading your paragraph...";
+  btn.textContent = "Checking paragraph...";
   fb.className = "para-ai-fb show";
   document.getElementById("para-ai-top").innerHTML = '<span style="font-family:var(--mono);font-size:12px;color:var(--a3)">&#9679; Analysing your paragraph...</span>';
   ["para-ai-grammar","para-ai-vocab","para-ai-structure","para-ai-suggestion"].forEach(id=>document.getElementById(id).innerHTML="");
 
-  const prompt = `You are an English language teacher. A student has written a paragraph on the topic: "The Most Urgent Environmental Challenge Facing the World Today."
-
-Student's paragraph:
-"${val}"
-
-Evaluate this paragraph carefully. Respond in EXACT JSON format (no markdown):
-{"overall":"excellent|good|fair|needs_work","overallComment":"2 sentences overall assessment","grammar":{"score":"X/10","feedback":"Specific grammar feedback. List any errors found and explain the rule. If no errors, say so."},"vocabulary":{"score":"X/10","feedback":"Assess the vocabulary range. Praise strong word choices. Suggest 2-3 better alternatives for weak words."},"structure":{"score":"X/10","feedback":"Comment on paragraph structure: topic sentence, supporting details, conclusion. Is it well-organised?"},"suggestion":"Write one specific actionable tip to most improve this paragraph."}`;
-
+  let matches = [];
   try {
-    const res = await fetch("/api/check", {
-      method: "POST",
-      headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({ prompt: prompt, max_tokens: 800 })
-    });
+    const params = new URLSearchParams({ text: val, language: "en-GB" });
+    const res = await fetch(LT_API, { method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body: params });
     const data = await res.json();
-    const text = data.result || data.error || "";
-    let r;
-    try { r = JSON.parse(text.replace(/```json|```/g,"").trim()); }
-    catch(e) { r = {overall:"fair", overallComment:text, grammar:{score:"?",feedback:""}, vocabulary:{score:"?",feedback:""}, structure:{score:"?",feedback:""}, suggestion:""}; }
+    matches = data.matches || [];
+  } catch(e) { matches = []; }
 
-    const colours = {excellent:"var(--ok)", good:"var(--ok)", fair:"var(--warn)", needs_work:"var(--err)"};
-    const col = colours[r.overall]||"var(--warn)";
-    document.getElementById("para-ai-top").innerHTML = `<span style="font-family:var(--mono);font-size:13px;font-weight:700;color:${col}">${(r.overall||"").toUpperCase().replace("_"," ")}</span><span style="font-size:13px;margin-left:10px">${r.overallComment||""}</span>`;
+  const words = val.trim().split(/\s+/).length;
+  const sentences = val.split(/[.!?]+/).filter(s=>s.trim()).length;
+  const hasTopicSentence = sentences >= 1;
+  const hasSupportDetails = sentences >= 4;
+  const hasConclusion = sentences >= 6;
 
-    document.getElementById("para-ai-grammar").innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Grammar — ${r.grammar?.score||""}</div><div>${r.grammar?.feedback||""}</div>`;
-    document.getElementById("para-ai-vocab").innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Vocabulary — ${r.vocabulary?.score||""}</div><div>${r.vocabulary?.feedback||""}</div>`;
-    document.getElementById("para-ai-structure").innerHTML = `<div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Structure — ${r.structure?.score||""}</div><div>${r.structure?.feedback||""}</div>`;
-    if(r.suggestion) document.getElementById("para-ai-suggestion").innerHTML = `<div style="background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:10px 13px;border-radius:0 6px 6px 0"><div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">&#128161; Key Tip to Improve</div><div style="font-size:13px">${r.suggestion}</div></div>`;
+  // Grammar score
+  const grammarScore = Math.max(1, 10 - matches.length * 2);
+  // Vocab check
+  const richWords = (val.match(/\b(unprecedented|catastrophic|devastating|irreversible|accelerating|biodiversity|ecosystem|emissions|sustainability|renewable|conservation|deforestation|pollution|consequence|deterioration|proliferation|mitigation|vulnerable|alarming|significant)\b/gi)||[]).length;
+  const vocabScore = Math.min(10, 5 + richWords);
+  // Structure score
+  const structScore = (hasTopicSentence?3:0) + (hasSupportDetails?4:0) + (hasConclusion?3:0);
+  const avgScore = Math.round((grammarScore + vocabScore + structScore) / 3);
 
-    autoSave('i');
-  } catch(e) {
-    document.getElementById("para-ai-top").innerHTML = '<span style="color:var(--err);font-family:var(--mono);font-size:12px">✗ Could not connect to AI. Check your internet connection.</span>';
+  const col = avgScore >= 8 ? "var(--ok)" : avgScore >= 6 ? "var(--warn)" : "var(--err)";
+  const rating = avgScore >= 8 ? "GOOD" : avgScore >= 6 ? "FAIR" : "NEEDS WORK";
+  document.getElementById("para-ai-top").innerHTML = `<span style="font-family:var(--mono);font-size:13px;font-weight:700;color:${col}">${rating}</span><span style="font-size:13px;margin-left:10px">${words} words · ${sentences} sentence${sentences!==1?'s':''}</span>`;
+
+  // Grammar section
+  let gramHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Grammar — ${grammarScore}/10</div>`;
+  if (matches.length === 0) {
+    gramHtml += `<div style="color:var(--ok)">&#10003; No grammar errors detected. Well done!</div>`;
+  } else {
+    matches.slice(0,4).forEach(err => {
+      const wrong = val.substring(err.offset, err.offset+err.length);
+      const sug = err.replacements.slice(0,2).map(r=>r.value).join(', ');
+      gramHtml += `<div style="background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:8px 11px;border-radius:0 6px 6px 0;margin-bottom:7px;font-size:12px"><span style="background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)">${wrong}</span> — ${err.message}${sug?` <span style="color:var(--ok)">&#10003; Try: <strong>${sug}</strong></span>`:''}</div>`;
+    });
   }
+  document.getElementById("para-ai-grammar").innerHTML = gramHtml;
+
+  // Vocab section
+  let vocabHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Vocabulary — ${vocabScore}/10</div>`;
+  if (richWords >= 3) {
+    vocabHtml += `<div style="color:var(--ok)">&#10003; Good use of advanced vocabulary related to the environment.</div>`;
+  } else {
+    vocabHtml += `<div>Try using more advanced environmental vocabulary such as: <span style="color:var(--a2)">unprecedented, catastrophic, biodiversity, emissions, sustainability, irreversible, deterioration, mitigation</span>.</div>`;
+  }
+  document.getElementById("para-ai-vocab").innerHTML = vocabHtml;
+
+  // Structure section
+  let structHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Structure — ${structScore}/10</div>`;
+  structHtml += `<div style="font-size:12px;line-height:1.8">`;
+  structHtml += `<span style="color:${hasTopicSentence?'var(--ok)':'var(--err)'}">${hasTopicSentence?'✓':'✗'}</span> Clear topic sentence<br>`;
+  structHtml += `<span style="color:${hasSupportDetails?'var(--ok)':'var(--err)'}">${hasSupportDetails?'✓':'✗'}</span> Supporting details (${sentences} sentence${sentences!==1?'s':''})<br>`;
+  structHtml += `<span style="color:${hasConclusion?'var(--ok)':'var(--err)'}">${hasConclusion?'✓':'✗'}</span> Sufficient length (target: 6–8 sentences)`;
+  if (words < 80) structHtml += `<br><span style="color:var(--warn)">&#9888; Your paragraph is only ${words} words. Aim for 100–140 words.</span>`;
+  structHtml += `</div>`;
+  document.getElementById("para-ai-structure").innerHTML = structHtml;
+
+  // Key tip
+  let tip = "";
+  if (matches.length > 0) tip = "Correct your grammar errors first — fix the highlighted words above.";
+  else if (richWords < 3) tip = "Enrich your vocabulary by replacing simple words with more advanced environmental terms like 'unprecedented', 'catastrophic', or 'biodiversity'.";
+  else if (!hasConclusion) tip = "Your paragraph needs more sentences. Add a concluding sentence summarising your view or calling for action.";
+  else if (words < 80) tip = "Expand your paragraph — add more supporting evidence or examples to reach the 100–140 word target.";
+  else tip = "Great work! Try reading your paragraph aloud to ensure each sentence flows naturally into the next.";
+
+  document.getElementById("para-ai-suggestion").innerHTML = `<div style="background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:10px 13px;border-radius:0 6px 6px 0"><div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">&#128161; Key Tip</div><div style="font-size:13px">${tip}</div></div>`;
 
   btn.disabled = false;
-  btn.innerHTML = "&#129302; Check My Paragraph with AI";
+  btn.innerHTML = "&#129302; Check My Paragraph";
+  autoSave('i');
 }
-
-
-window.addEventListener("load",()=>{
-  buildMCQ();
-  document.getElementById("i1").addEventListener("input",function(){
-    document.getElementById("wc").textContent="Words: "+this.value.trim().split(/\s+/).filter(w=>w).length;
-    updateProgress();
-  });
-  document.querySelectorAll("input.fill,textarea.ta").forEach(el=>el.addEventListener("input",updateProgress));
-
-  // Open-ended parts G, H, I saved via explicit Save buttons
-});
 </script>
 </body>
 </html>
