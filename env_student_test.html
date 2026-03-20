@@ -687,17 +687,13 @@ Respond in this EXACT JSON format (no markdown, no extra text):
 {"verdict":"correct|partial|incorrect","summary":"One sentence verdict","grammar":"Grammar feedback in 1-2 sentences. If correct say so. If wrong, explain the error and the rule.","vocabulary":"Vocabulary feedback. Praise good word choices. Suggest better words if needed.","suggestion":"If not fully correct, provide ONE improved example sentence. If correct, write CORRECT."}`;
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/check", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 500,
-        messages: [{role:"user", content: prompt}]
-      })
+      body: JSON.stringify({ prompt: prompt, max_tokens: 500 })
     });
     const data = await res.json();
-    const text = data.content.map(c=>c.text||"").join("");
+    const text = data.result || data.error || "";
     let result;
     try { result = JSON.parse(text.replace(/```json|```/g,"").trim()); }
     catch(e) { result = {verdict:"partial", summary:text, grammar:"", vocabulary:"", suggestion:""}; }
@@ -761,17 +757,13 @@ Evaluate this paragraph carefully. Respond in EXACT JSON format (no markdown):
 {"overall":"excellent|good|fair|needs_work","overallComment":"2 sentences overall assessment","grammar":{"score":"X/10","feedback":"Specific grammar feedback. List any errors found and explain the rule. If no errors, say so."},"vocabulary":{"score":"X/10","feedback":"Assess the vocabulary range. Praise strong word choices. Suggest 2-3 better alternatives for weak words."},"structure":{"score":"X/10","feedback":"Comment on paragraph structure: topic sentence, supporting details, conclusion. Is it well-organised?"},"suggestion":"Write one specific actionable tip to most improve this paragraph."}`;
 
   try {
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/check", {
       method: "POST",
       headers: {"Content-Type":"application/json"},
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 800,
-        messages: [{role:"user", content: prompt}]
-      })
+      body: JSON.stringify({ prompt: prompt, max_tokens: 800 })
     });
     const data = await res.json();
-    const text = data.content.map(c=>c.text||"").join("");
+    const text = data.result || data.error || "";
     let r;
     try { r = JSON.parse(text.replace(/```json|```/g,"").trim()); }
     catch(e) { r = {overall:"fair", overallComment:text, grammar:{score:"?",feedback:""}, vocabulary:{score:"?",feedback:""}, structure:{score:"?",feedback:""}, suggestion:""}; }
