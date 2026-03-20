@@ -23,13 +23,13 @@ h1 span{color:#38bdf8}
 .test-title{font-weight:600;font-size:15px;color:#fff;margin-bottom:3px}
 .test-meta{font-size:12px;color:#64748b;font-family:'Space Mono',monospace}
 .test-arrow{color:#38bdf8;font-size:18px;flex-shrink:0}
-.card-blue .test-icon{background:rgba(56,189,248,.1);border:1px solid rgba(56,189,248,.2)}
-.card-purple .test-icon{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.2)}
-.card-blue:hover{border-color:#38bdf8}
-.card-purple:hover{border-color:#a855f7}
+
+
+.card-green .test-icon{background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.2)}.card-green:hover{border-color:#34d399}
+
 .divider{display:flex;align-items:center;gap:12px;margin:28px 0 20px;font-size:11px;color:#334155;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:2px}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:#1e2433}
-.teacher-links{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.teacher-links{display:grid;grid-template-columns:1fr;gap:10px;max-width:300px;margin:0 auto}
 .t-link{background:#0f1318;border:1px solid #1e2433;border-radius:8px;padding:14px 16px;text-decoration:none;transition:border-color .2s}
 .t-link:hover{border-color:#64748b}
 .t-link .tl-label{font-size:10px;color:#64748b;font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
@@ -44,38 +44,26 @@ h1 span{color:#38bdf8}
   <p class="sub">Select the test assigned by your teacher. Enter your name and submit when done — your results are saved automatically.</p>
 
   <div class="tests">
-    <a href="health_student_test.html" class="test-card card-blue">
+
+    <a href="./env_student_test.html" class="test-card card-green">
       <div class="test-card-inner">
-        <div class="test-icon">🏥</div>
+        <div class="test-icon">🌿</div>
         <div class="test-info">
-          <div class="test-title">Health &amp; Medicine</div>
-          <div class="test-meta">Advanced Level &nbsp;·&nbsp; Parts A–I &nbsp;·&nbsp; 70 Questions</div>
+          <div class="test-title">Environment &amp; Climate Change</div>
+          <div class="test-meta">Advanced Level &nbsp;&middot;&nbsp; Parts A&ndash;I &nbsp;&middot;&nbsp; 70 Questions</div>
         </div>
-        <div class="test-arrow">→</div>
-      </div>
-    </a>
-    <a href="student_test_READY.html" class="test-card card-purple">
-      <div class="test-card-inner">
-        <div class="test-icon">🌍</div>
-        <div class="test-info">
-          <div class="test-title">Global Issues &amp; Society</div>
-          <div class="test-meta">Advanced Level &nbsp;·&nbsp; Parts A–I &nbsp;·&nbsp; 70 Questions</div>
-        </div>
-        <div class="test-arrow">→</div>
+        <div class="test-arrow">&#8594;</div>
       </div>
     </a>
   </div>
 
   <div class="divider">Teacher Access</div>
   <div class="teacher-links">
-    <a href="health_teacher_dashboard.html" class="t-link">
+    <a href="./env_teacher_dashboard.html" class="t-link">
       <div class="tl-label">Dashboard</div>
-      <div class="tl-title">Health &amp; Medicine</div>
+      <div class="tl-title">Environment &amp; Climate Change</div>
     </a>
-    <a href="teacher_dashboard_READY.html" class="t-link">
-      <div class="tl-label">Dashboard</div>
-      <div class="tl-title">Global Issues &amp; Society</div>
-    </a>
+
   </div>
 
   <div class="footer">Results are saved securely · Open in Chrome or Safari</div>

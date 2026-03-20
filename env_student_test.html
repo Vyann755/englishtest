@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>English Test — Environment & Climate Change</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060d08;--surf:#0b1410;--card:#111c14;--border:#1a2d1e;
+  --accent:#34d399;--a2:#f97316;--a3:#60a5fa;
+  --text:#e2e8f0;--muted:#64748b;
+  --ok:#34d399;--err:#f87171;--warn:#fbbf24;
+  --mono:"Space Mono",monospace;--sans:"DM Sans",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(52,211,153,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:28px 16px 80px}
+#nameGate{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
+#nameGate::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(52,211,153,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,.025) 1px,transparent 1px);background-size:40px 40px}
+.name-box{position:relative;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:44px 32px;max-width:420px;width:92%;text-align:center;box-shadow:0 0 60px rgba(52,211,153,.1)}
+.badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:3px;border:1px solid var(--accent);color:var(--accent);padding:3px 12px;border-radius:2px;margin-bottom:16px;text-transform:uppercase}
+.name-box h2{font-family:var(--mono);font-size:20px;color:#fff;margin-bottom:8px}
+.name-box p{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.7}
+input.big{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:15px;padding:13px 16px;outline:none;text-align:center;margin-bottom:12px}
+input.big:focus{border-color:var(--accent)}
+.btn-primary{width:100%;font-family:var(--mono);font-size:13px;font-weight:700;letter-spacing:1px;padding:14px;background:linear-gradient(135deg,var(--a2),var(--accent));color:#000;border:none;border-radius:8px;cursor:pointer;text-transform:uppercase}
+.err-msg{color:var(--err);font-size:12px;font-family:var(--mono);margin-top:6px;display:none}
+.hdr{text-align:center;padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:24px}
+.hdr h1{font-family:var(--mono);font-size:clamp(18px,4vw,30px);font-weight:700;color:#fff;margin-bottom:10px}
+.hdr h1 span{color:var(--accent)}
+.student-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.2);border-radius:6px;padding:6px 14px;margin-top:8px}
+.student-tag .lbl{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.student-tag .nm{font-size:13px;color:var(--accent);font-family:var(--mono);font-weight:700}
+.dash{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:22px}
+.dash-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center}
+.dash-card .v{font-family:var(--mono);font-size:24px;font-weight:700;color:var(--accent)}
+.dash-card .l{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:1px}
+.prog-wrap{margin-bottom:26px}
+.prog-lbl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-family:var(--mono);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--a2),var(--accent));border-radius:2px;transition:width .5s ease}
+.autosave-bar{background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:10px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.autosave-bar .as-left{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);font-family:var(--mono)}
+.as-dot{width:8px;height:8px;border-radius:50%;background:var(--muted);flex-shrink:0;transition:background .3s}
+.as-dot.saving{background:var(--warn);animation:pulse .8s infinite}
+.as-dot.saved{background:var(--ok)}
+.as-dot.error{background:var(--err)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.restore-banner{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.restore-banner p{font-size:13px;color:var(--warn);font-family:var(--mono)}
+.restore-banner button{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:7px 14px;background:var(--warn);color:#000;border:none;border-radius:5px;cursor:pointer;text-transform:uppercase;flex-shrink:0}
+.section{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:18px;overflow:hidden}
+.sec-hdr{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.sec-tag{font-family:var(--mono);font-size:10px;font-weight:700;color:#000;background:var(--accent);padding:3px 8px;border-radius:2px;flex-shrink:0}
+.sec-title{font-weight:600;font-size:13px;flex:1}
+.sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.sec-arrow{color:var(--accent);font-size:13px;transition:transform .3s;flex-shrink:0}
+.sec-arrow.open{transform:rotate(180deg)}
+.sec-body{padding:18px;display:none;border-top:1px solid var(--border)}
+.sec-body.open{display:block}
+.qb{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.qb:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.qnum{font-family:var(--mono);font-size:10px;color:var(--a2);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
+.qtext{font-size:13px;line-height:1.75;margin-bottom:10px}
+.qsub{font-size:11px;color:var(--a3);font-family:var(--mono);margin-bottom:8px}
+.qwords{font-family:var(--mono);color:var(--a2);font-size:12px}
+input.fill{width:100%;max-width:420px;background:var(--surf);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none;-webkit-appearance:none}
+input.fill:focus{border-color:var(--accent)}
+input.fill.ok{border-color:var(--ok);background:rgba(52,211,153,.05)}
+input.fill.bad{border-color:var(--err);background:rgba(248,113,113,.05)}
+textarea.ta{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.75;padding:12px;resize:vertical;min-height:80px;outline:none;-webkit-appearance:none}
+textarea.ta:focus{border-color:var(--accent)}
+textarea.ta.ok{border-color:var(--ok)}
+textarea.ta.bad{border-color:var(--err)}
+.mcq-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.mcq-opt{background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent}
+.mcq-opt.sel{border-color:var(--a2);background:rgba(249,115,22,.1)}
+.mcq-opt.right{border-color:var(--ok);background:rgba(52,211,153,.08)}
+.mcq-opt.wrong{border-color:var(--err);background:rgba(248,113,113,.08)}
+.opt-l{font-family:var(--mono);font-size:10px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.05);width:22px;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mcq-opt.sel .opt-l{background:rgba(249,115,22,.25);color:var(--a2)}
+.fb-correct{margin-top:8px;padding:9px 12px;border-radius:6px;background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);font-size:12px;color:var(--ok);font-family:var(--mono);display:none}
+.fb-wrong{margin-top:8px;border-radius:8px;overflow:hidden;border:1px solid rgba(248,113,113,.3);display:none}
+.fb-wrong-top{padding:9px 12px;background:rgba(248,113,113,.08);font-size:12px;color:var(--err);font-family:var(--mono)}
+.fb-hint{padding:11px 14px;background:rgba(251,191,36,.05);border-top:1px solid rgba(251,191,36,.15)}
+.fb-hint .lbl{font-size:10px;color:var(--warn);font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.fb-hint .txt{font-size:12px;color:var(--text);line-height:1.65}
+.fb-rule{padding:11px 14px;background:rgba(96,165,250,.05);border-top:1px solid rgba(96,165,250,.15)}
+.fb-rule .lbl{font-size:10px;color:var(--a3);font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.fb-rule .txt{font-size:12px;color:var(--text);line-height:1.65}
+.btn-check{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:9px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:16px}
+
+.btn-submit{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:1px;padding:14px 44px;background:linear-gradient(135deg,var(--a2),var(--accent));color:#000;border:none;border-radius:8px;cursor:pointer;text-transform:uppercase;width:100%;max-width:340px}
+.btn-submit:disabled{opacity:.5}
+.submit-sec{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:30px;text-align:center;margin-top:16px}
+.submit-sec h3{font-family:var(--mono);font-size:15px;margin-bottom:8px}
+.submit-sec p{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.65}
+#resultModal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+#resultModal.open{display:flex}
+.res-box{background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:36px 28px;max-width:460px;width:100%;text-align:center;box-shadow:0 0 80px rgba(52,211,153,.1)}
+.res-score{font-family:var(--mono);font-size:52px;font-weight:700;line-height:1}
+.res-label{font-size:12px;color:var(--muted);font-family:var(--mono);margin:8px 0 16px}
+.res-saved{border-radius:8px;padding:11px;margin-bottom:16px;font-size:12px;font-family:var(--mono)}
+.res-msg{font-size:13px;line-height:1.65;margin-bottom:22px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
+.res-item{background:var(--surf);border-radius:6px;padding:10px}
+.res-item .v{font-family:var(--mono);font-size:18px;font-weight:700}
+.res-item .l{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
+.btn-close{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 28px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
+.example-box{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:14px;margin-bottom:18px}
+.example-box .ex-lbl{font-size:10px;color:var(--accent);font-family:var(--mono);margin-bottom:6px}
+.example-box .ex-s{font-size:12px;color:var(--muted)}
+.example-box .ex-e{font-size:13px;color:var(--text);margin-top:5px;line-height:1.7}
+.topic-box{background:rgba(249,115,22,.06);border:1px solid rgba(249,115,22,.2);border-radius:10px;padding:18px;margin-bottom:18px}
+.topic-box .t-lbl{font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase}
+.topic-box h4{font-size:15px;font-weight:600;margin-bottom:8px}
+.topic-box p{font-size:13px;color:var(--muted);line-height:1.75}
+.topic-box ul{padding-left:16px;font-size:13px;color:var(--muted);line-height:2.1;margin-top:8px}
+.open-note{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+@media(max-width:500px){.mcq-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="nameGate">
+  <div class="name-box">
+    <div class="badge">Environment &amp; Climate Change</div>
+    <h2>Advanced Level Test</h2>
+    <p>Enter your full name to begin. Your progress saves after each part so you never lose your work.</p>
+    <input class="big" id="nameInput" placeholder="Your full name..." maxlength="80" autocomplete="name">
+    <div class="err-msg" id="nameErr">Please enter your full name.</div>
+    <button class="btn-primary" onclick="startTest()">Begin Test &#8594;</button>
+  </div>
+</div>
+
+<div class="wrap" id="mainTest" style="display:none">
+  <div id="restoreBanner" style="display:none" class="restore-banner">
+    <p>&#128196; Saved progress found. Restore your answers?</p>
+    <button onclick="restoreProgress()">Restore Answers</button>
+  </div>
+  <div class="autosave-bar">
+    <div class="as-left"><div class="as-dot" id="asDot"></div><span id="asText">Auto-saves when you check answers</span></div>
+    <span style="font-size:11px;color:var(--muted);font-family:var(--mono)" id="lastSaved"></span>
+  </div>
+
+  <div class="hdr">
+    <div class="badge">Advanced Level &middot; Environment &amp; Climate Change</div>
+    <h1>English Language <span>Assessment</span></h1>
+    <div class="student-tag"><span class="lbl">Student:</span><span class="nm" id="dispName">&mdash;</span></div>
+  </div>
+  <div class="dash">
+    <div class="dash-card"><div class="v" id="dScore">0</div><div class="l">Score</div></div>
+    <div class="dash-card"><div class="v" id="dAnswered">0</div><div class="l">Answered</div></div>
+    <div class="dash-card"><div class="v">70</div><div class="l">Total</div></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-lbl"><span>Progress</span><span id="dPct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+  </div>
+
+  <!-- PART A -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('a')"><span class="sec-tag">PART A</span><div><div class="sec-title">Verb Forms (Tenses)</div><div class="sec-sub">Fill in the correct form of the verb in brackets</div></div><span class="sec-arrow open" id="arr-a">&#9660;</span></div>
+    <div class="sec-body open" id="body-a">
+      <div class="qb"><div class="qnum">Question 1</div><div class="qtext">Environmental activists ______ (march) through the capital city last Saturday to demand urgent climate action.</div><input class="fill" id="a1" placeholder="Type your answer..." data-ans="marched" data-hint="This action happened and was completed at a specific time in the past. What tense uses a specific past time signal?" data-rule="Simple Past = base verb + -ed for regular verbs. 'Last Saturday' is a specific past time signal."></div>
+      <div class="qb"><div class="qnum">Question 2</div><div class="qtext">The government ______ (introduce) several renewable energy initiatives since the Paris Agreement was signed.</div><input class="fill" id="a2" placeholder="Type your answer..." data-ans="has introduced" data-hint="This action started in the past and its results are still relevant now. Which tense connects past actions to the present?" data-rule="Present Perfect = has/have + past participle. 'Since the Paris Agreement' signals a connection from a past point to now."></div>
+      <div class="qb"><div class="qnum">Question 3</div><div class="qtext">By the time the environmental report was released, the committee ______ (review) all the data thoroughly.</div><input class="fill" id="a3" placeholder="Type your answer..." data-ans="had reviewed" data-hint="This action was completed BEFORE another past action. Which tense goes further back in the past?" data-rule="Past Perfect = had + past participle. Use when one past action was completed before another past event."></div>
+      <div class="qb"><div class="qnum">Question 4</div><div class="qtext">Scientists ______ (monitor) the melting of Arctic ice caps for over three decades now.</div><input class="fill" id="a4" placeholder="Type your answer..." data-ans="have been monitoring" data-hint="This action started in the past and is still ongoing right now, emphasising the continuous duration of effort." data-rule="Present Perfect Continuous = have/has + been + verb-ing. 'For over three decades now' signals an ongoing action from the past."></div>
+      <div class="qb"><div class="qnum">Question 5</div><div class="qtext">The energy minister ______ (announce) the construction of fifty new solar farms next week.</div><input class="fill" id="a5" placeholder="Type your answer..." data-ans="will announce" data-hint="This is a scheduled future event. Use the simple future tense." data-rule="Simple Future = will + base verb. Used for planned or scheduled future events."></div>
+      <div class="qb"><div class="qnum">Question 6</div><div class="qtext">While researchers ______ (collect) soil samples in the rainforest, they discovered a new species of plant.</div><input class="fill" id="a6" placeholder="Type your answer..." data-ans="were collecting" data-hint="An ongoing past action was happening when something else occurred. What tense shows an action in progress in the past?" data-rule="Past Continuous = was/were + verb-ing. Shows an action in progress when another event interrupted or occurred simultaneously."></div>
+      <div class="qb"><div class="qnum">Question 7</div><div class="qtext">By 2050, rising sea levels ______ (displace) an estimated 200 million people from coastal areas.</div><input class="fill" id="a7" placeholder="Type your answer..." data-ans="will have displaced" data-hint="This will be completed before a specific point in the future. Think future + perfect combination." data-rule="Future Perfect = will + have + past participle. For actions that will be completed before a specific future deadline."></div>
+      <div class="qb"><div class="qnum">Question 8</div><div class="qtext">The conservation team ______ (plant) trees in the deforested region since the project began last spring.</div><input class="fill" id="a8" placeholder="Type your answer..." data-ans="has been planting" data-hint="This ongoing action started at a specific past point and is still continuing now, emphasising the continuity." data-rule="Present Perfect Continuous = has/have + been + verb-ing. 'Since the project began' signals the start of an ongoing action."></div>
+      <div class="qb"><div class="qnum">Question 9</div><div class="qtext">The glacier ______ (retreat) steadily for years when scientists first began documenting the changes.</div><input class="fill" id="a9" placeholder="Type your answer..." data-ans="had been retreating" data-hint="This action was already ongoing before another past point. Think past perfect + continuous combination." data-rule="Past Perfect Continuous = had + been + verb-ing. Shows an ongoing action that was already in progress before another past point."></div>
+      <div class="qb"><div class="qnum">Question 10</div><div class="qtext">Unless carbon emissions ______ (reduce) significantly, global temperatures will continue to rise.</div><input class="fill" id="a10" placeholder="Type your answer..." data-ans="are reduced" data-hint="This is a conditional clause using passive voice. The 'unless' clause refers to a future condition but uses which tense?" data-rule="In conditional sentences with 'unless', use Present Simple Passive (are/is + past participle) in the condition clause even when referring to the future."></div>
+      <button class="btn-check" onclick="checkFill('a',10)">Check Part A</button>
+    </div>
+  </div>
+
+  <!-- PART B -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('b')"><span class="sec-tag">PART B</span><div><div class="sec-title">Word Forms</div><div class="sec-sub">Use the correct form of the word in brackets</div></div><span class="sec-arrow" id="arr-b">&#9660;</span></div>
+    <div class="sec-body" id="body-b">
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext">The ______ of natural habitats has led to a dramatic decline in biodiversity worldwide. (DESTROY)</div><input class="fill" id="b1" placeholder="Type your answer..." data-ans="destruction" data-hint="A noun is needed as the subject. What noun form comes from 'destroy'?" data-rule="DESTROY (verb) → DESTRUCTION (noun). The suffix '-tion' creates nouns from verbs."></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext">Scientists must act ______ to prevent irreversible damage to our planet's ecosystems. (DECIDE)</div><input class="fill" id="b2" placeholder="Type your answer..." data-ans="decisively" data-hint="The word modifies 'act' — it needs to be an adverb. Build from DECIDE step by step." data-rule="DECIDE → DECISIVE (adj) → DECISIVELY (adverb). Add '-ly' to the adjective form."></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext">The ______ impact of climate change on agriculture threatens food security for billions. (DEVASTATE)</div><input class="fill" id="b3" placeholder="Type your answer..." data-ans="devastating" data-hint="The word describes 'impact' — it needs to be an adjective. Which participial form of 'devastate' acts as an adjective?" data-rule="DEVASTATE (verb) → DEVASTATING (adjective). The -ing participial form describes something that causes devastation."></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext">The government must ensure the ______ of natural resources for future generations. (PRESERVE)</div><input class="fill" id="b4" placeholder="Type your answer..." data-ans="preservation" data-hint="A noun is needed after 'the'. What noun form comes from 'preserve'?" data-rule="PRESERVE (verb) → PRESERVATION (noun). The suffix '-ation' creates nouns from verbs."></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext">The delegate spoke ______ about the need for immediate international cooperation on emissions. (PASSION)</div><input class="fill" id="b5" placeholder="Type your answer..." data-ans="passionately" data-hint="The word describes how the delegate spoke — it needs to be an adverb." data-rule="PASSION (noun) → PASSIONATE (adj) → PASSIONATELY (adverb). Add '-ly' to the adjective."></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext">The ______ of the new carbon tax policy was welcomed by environmental groups. (IMPLEMENT)</div><input class="fill" id="b6" placeholder="Type your answer..." data-ans="implementation" data-hint="A noun is needed as the subject. What noun form comes from 'implement'?" data-rule="IMPLEMENT (verb) → IMPLEMENTATION (noun). The suffix '-ation' creates nouns from verbs."></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext">The effects of ocean acidification are ______ more severe each passing decade. (GROW)</div><input class="fill" id="b7" placeholder="Type your answer..." data-ans="increasingly" data-hint="The word modifies 'more severe' — it needs to be an adverb meaning 'more and more'." data-rule="GROW → INCREASING (adj) → INCREASINGLY (adverb). 'Increasingly' means 'more and more', used before comparatives."></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext">The ______ between pollution levels and respiratory illness rates is well-established. (RELATE)</div><input class="fill" id="b8" placeholder="Type your answer..." data-ans="relationship" data-hint="A noun is needed after 'the'. What noun form comes from 'relate'?" data-rule="RELATE (verb) → RELATIONSHIP (noun). The suffix '-ship' creates nouns expressing a connection between things."></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext">Environmentalists argued ______ that corporations must be held accountable for carbon emissions. (PERSUADE)</div><input class="fill" id="b9" placeholder="Type your answer..." data-ans="persuasively" data-hint="The word modifies 'argued' — it needs to be an adverb. Build from PERSUADE step by step." data-rule="PERSUADE → PERSUASIVE (adj) → PERSUASIVELY (adverb). Add '-ly' to the adjective form."></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext">The ______ of plastic waste in our oceans poses a serious threat to marine ecosystems. (ACCUMULATE)</div><input class="fill" id="b10" placeholder="Type your answer..." data-ans="accumulation" data-hint="A noun is needed as the subject. What noun form comes from 'accumulate'?" data-rule="ACCUMULATE (verb) → ACCUMULATION (noun). The suffix '-ion' creates nouns from verbs."></div>
+      <button class="btn-check" onclick="checkFill('b',10)">Check Part B</button>
+    </div>
+  </div>
+
+  <!-- PART C -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('c')"><span class="sec-tag">PART C</span><div><div class="sec-title">Error Correction</div><div class="sec-sub">Each sentence has one error — rewrite it correctly</div></div><span class="sec-arrow" id="arr-c">&#9660;</span></div>
+    <div class="sec-body" id="body-c">
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext"><em>The number of endangered species have increased alarmingly in the past fifty years.</em></div><textarea class="ta" id="c1" placeholder="Rewrite the correct sentence..." data-ans="The number of endangered species has increased alarmingly in the past fifty years." data-hint="Look carefully at the subject. Is 'the number' singular or plural?" data-rule="'The number of + plural noun' takes a SINGULAR verb (has). 'A number of species HAVE' uses plural — a different meaning."></textarea></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext"><em>Despite of rising sea levels, many coastal communities refuse to relocate inland.</em></div><textarea class="ta" id="c2" placeholder="Rewrite the correct sentence..." data-ans="Despite rising sea levels, many coastal communities refuse to relocate inland." data-hint="'Despite' is a preposition that stands alone. What word must NOT follow it?" data-rule="Use 'despite + noun phrase' OR 'in spite of + noun phrase'. Never 'despite of' — always incorrect."></textarea></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext"><em>The government should of invested in renewable energy decades ago.</em></div><textarea class="ta" id="c3" placeholder="Rewrite the correct sentence..." data-ans="The government should have invested in renewable energy decades ago." data-hint="After a modal verb like 'should', what helping verb must follow? 'Of' is never a verb." data-rule="Modal + HAVE + past participle. 'Should of' is always wrong — it must be 'should HAVE'."></textarea></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext"><em>Neither the factory owners nor the government was willing to reduce carbon emissions.</em></div><textarea class="ta" id="c4" placeholder="Rewrite the correct sentence..." data-ans="Neither the factory owners nor the government was willing to reduce carbon emissions." data-hint="With 'neither...nor', which noun determines the verb — the one before or after 'nor'?" data-rule="With 'neither...nor', the verb agrees with the CLOSER subject. 'The government' is singular → 'was' is actually correct here. Check other errors carefully."></textarea></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext"><em>The rainforest, along with thousands of animal species, are under serious threat from deforestation.</em></div><textarea class="ta" id="c5" placeholder="Rewrite the correct sentence..." data-ans="The rainforest, along with thousands of animal species, is under serious threat from deforestation." data-hint="What is the true subject? The phrase 'along with thousands of animal species' adds information but does not change the subject." data-rule="Phrases like 'along with', 'as well as', 'together with' do NOT make the subject plural. Main subject = 'the rainforest' (singular) → 'is'."></textarea></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext"><em>Researchers have been study the effects of microplastics on marine life for several years.</em></div><textarea class="ta" id="c6" placeholder="Rewrite the correct sentence..." data-ans="Researchers have been studying the effects of microplastics on marine life for several years." data-hint="Look at the verb form after 'have been'. What form must always follow 'been' in this tense?" data-rule="Present Perfect Continuous = have/has + been + VERB-ING. 'Study' must become 'studying'."></textarea></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext"><em>The country lacks of sufficient funding to transition fully to clean energy sources.</em></div><textarea class="ta" id="c7" placeholder="Rewrite the correct sentence..." data-ans="The country lacks sufficient funding to transition fully to clean energy sources." data-hint="'Lacks' is a transitive verb. Does it need a preposition before its object?" data-rule="'Lack' takes a direct object with NO preposition. Say 'lacks something', never 'lacks of something'."></textarea></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext"><em>If world leaders had signed the climate agreement earlier, global warming can have been slowed significantly.</em></div><textarea class="ta" id="c8" placeholder="Rewrite the correct sentence..." data-ans="If world leaders had signed the climate agreement earlier, global warming could have been slowed significantly." data-hint="This is a third conditional sentence (past unreal). Check both clauses — do they match the correct pattern?" data-rule="Third conditional: If + had + past participle → would/could/might + have + past participle. Both clauses must match."></textarea></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext"><em>The climate report, which have been compiled by over 200 scientists, warns of catastrophic consequences.</em></div><textarea class="ta" id="c9" placeholder="Rewrite the correct sentence..." data-ans="The climate report, which has been compiled by over 200 scientists, warns of catastrophic consequences." data-hint="Look at the relative clause. What does 'which' refer to, and is it singular or plural?" data-rule="'Which' refers to 'the climate report' (singular). The relative clause verb must agree: 'which HAS been compiled'."></textarea></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext"><em>More awareness about the effects of climate change are needed among young people.</em></div><textarea class="ta" id="c10" placeholder="Rewrite the correct sentence..." data-ans="More awareness about the effects of climate change is needed among young people." data-hint="'Awareness' is an uncountable noun. What verb form do uncountable nouns always take?" data-rule="'Awareness' is uncountable. Always use a singular verb: 'awareness IS', never 'awareness ARE'."></textarea></div>
+      <button class="btn-check" onclick="checkTA('c',10)">Check Part C</button>
+    </div>
+  </div>
+
+  <!-- PART D -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('d')"><span class="sec-tag">PART D</span><div><div class="sec-title">Sentence Transformation</div><div class="sec-sub">Rewrite each sentence as instructed without changing its meaning</div></div><span class="sec-arrow" id="arr-d">&#9660;</span></div>
+    <div class="sec-body" id="body-d">
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext">The factory released toxic chemicals into the river last year.<br><span class="qsub">(Change to Passive Voice)</span></div><textarea class="ta" id="d1" placeholder="Rewrite here..." data-ans="Toxic chemicals were released into the river by the factory last year." data-hint="The object 'toxic chemicals' becomes the new subject. Use was/were + past participle." data-rule="Passive: Object + was/were + past participle + by + agent. Plural subject 'toxic chemicals' → 'were released'."></textarea></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext">She is a passionate environmentalist. She has campaigned against deforestation for ten years.<br><span class="qsub">(Join using: who)</span></div><textarea class="ta" id="d2" placeholder="Rewrite here..." data-ans="She is a passionate environmentalist who has campaigned against deforestation for ten years." data-hint="Use 'who' to introduce a relative clause that gives more information about the person." data-rule="Relative clause with 'who' is used for people. Place 'who + verb' directly after the noun it describes."></textarea></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext">The drought was very severe. It destroyed all the crops in the region.<br><span class="qsub">(Join using: so...that)</span></div><textarea class="ta" id="d3" placeholder="Rewrite here..." data-ans="The drought was so severe that it destroyed all the crops in the region." data-hint="'So...that' shows cause and result. Place 'so' before the adjective and 'that' before the result clause." data-rule="So + adjective + that + result clause. This structure emphasises degree and consequence."></textarea></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext">The environmentalist said, "We will fight to protect our forests until our last breath."<br><span class="qsub">(Change to Reported Speech)</span></div><textarea class="ta" id="d4" placeholder="Rewrite here..." data-ans="The environmentalist said that they would fight to protect their forests until their last breath." data-hint="Change pronouns, tense and remove inverted commas. What does 'will' become in reported speech?" data-rule="Reported speech: 'will' → 'would', 'we' → 'they', 'our' → 'their', present → past. Remove quotes and add 'that'."></textarea></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext">The pollution of the river was so extreme that it killed all aquatic life.<br><span class="qsub">(Begin with: Such)</span></div><textarea class="ta" id="d5" placeholder="Rewrite here..." data-ans="Such was the extent of the river pollution that it killed all aquatic life." data-hint="'Such' at the beginning requires inversion. Think of a noun form to replace the adjective phrase." data-rule="Such + was/were + the + noun + that... Formal inversion for emphasis. Use a noun phrase after 'the'."></textarea></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext">Although global temperatures are rising rapidly, many countries have not reduced their emissions.<br><span class="qsub">(Begin with: Despite)</span></div><textarea class="ta" id="d6" placeholder="Rewrite here..." data-ans="Despite the rapid rise in global temperatures, many countries have not reduced their emissions." data-hint="'Despite' must be followed by a noun phrase, not a clause. Convert the 'although' clause into a noun phrase." data-rule="'Despite' + noun phrase. 'global temperatures are rising rapidly' → 'the rapid rise in global temperatures'."></textarea></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext">The scientist asked, "Has the deforestation rate slowed down this year?"<br><span class="qsub">(Change to Reported Speech)</span></div><textarea class="ta" id="d7" placeholder="Rewrite here..." data-ans="The scientist asked whether the deforestation rate had slowed down that year." data-hint="This is a yes/no question in reported speech. Which word replaces the question structure?" data-rule="Reported yes/no questions use 'whether' or 'if'. Tense shifts: 'has slowed' → 'had slowed'. 'This year' → 'that year'."></textarea></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext">It is vital that all nations commit to net-zero emissions by 2050.<br><span class="qsub">(Begin with: All nations)</span></div><textarea class="ta" id="d8" placeholder="Rewrite here..." data-ans="All nations must commit to net-zero emissions by 2050." data-hint="'It is vital that' expresses strong necessity. Replace the whole structure with a modal verb on the new subject." data-rule="'It is vital that + subject + verb' → 'Subject + must + verb'. Both express strong obligation."></textarea></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext">The scientists completed their research. They presented their findings to the UN.<br><span class="qsub">(Join using: having)</span></div><textarea class="ta" id="d9" placeholder="Rewrite here..." data-ans="Having completed their research, the scientists presented their findings to the UN." data-hint="'Having + past participle' shows one action is completed before another begins. Which action comes first?" data-rule="'Having + past participle' = perfect participle clause. The first completed action uses this form; the second uses simple past."></textarea></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext">Deforestation has destroyed millions of hectares of tropical rainforest.<br><span class="qsub">(Change to Passive Voice)</span></div><textarea class="ta" id="d10" placeholder="Rewrite here..." data-ans="Millions of hectares of tropical rainforest have been destroyed by deforestation." data-hint="The object becomes the subject. The tense is Present Perfect — what is the passive form for a plural subject?" data-rule="Present Perfect Passive: subject + have/has + been + past participle + by + agent. Plural subject → 'have been destroyed'."></textarea></div>
+      <button class="btn-check" onclick="checkTA('d',10)">Check Part D</button>
+    </div>
+  </div>
+
+  <!-- PART E -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('e')"><span class="sec-tag">PART E</span><div><div class="sec-title">Sentence Building</div><div class="sec-sub">Rearrange the words to form a correct sentence</div></div><span class="sec-arrow" id="arr-e">&#9660;</span></div>
+    <div class="sec-body" id="body-e">
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext qwords">climate / the / represents / change / greatest / threat / of / the / time / our</div><textarea class="ta" id="e1" placeholder="Write the sentence..." data-ans="Climate change represents the greatest threat of our time." data-hint="Start with 'Climate change' as the subject. Find the main verb and build the predicate." data-rule="Subject + verb + predicate. 'The greatest threat of our time' is the predicate noun phrase."></textarea></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext qwords">despite / agreements / international / deforestation / many / continues / at / alarming / rate / an</div><textarea class="ta" id="e2" placeholder="Write the sentence..." data-ans="Despite many international agreements, deforestation continues at an alarming rate." data-hint="'Despite' introduces a concession. The main clause states the contrasting ongoing reality." data-rule="Despite + noun phrase, + main clause. 'Many international agreements' is the noun phrase after 'despite'."></textarea></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext qwords">nations / have / the / pledged / emissions / to / reduce / developed / carbon / their / significantly</div><textarea class="ta" id="e3" placeholder="Write the sentence..." data-ans="The developed nations have pledged to reduce their carbon emissions significantly." data-hint="Subject: 'The developed nations'. Verb: Present Perfect. The sentence involves a pledge about a future action." data-rule="Subject + have/has + past participle + infinitive. 'Have pledged to reduce' = committed to reducing."></textarea></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext qwords">only / damage / environmental / through / can / sustained / be / reversed / cooperation / international</div><textarea class="ta" id="e4" placeholder="Write the sentence..." data-ans="Environmental damage can only be reversed through sustained international cooperation." data-hint="This is a passive sentence. 'Environmental damage' is the subject. 'Only' typically comes after the modal verb." data-rule="Subject + modal + only + be + past participle + through + noun phrase."></textarea></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext qwords">the / threatened / pollution / has / air / health / of / millions</div><textarea class="ta" id="e5" placeholder="Write the sentence..." data-ans="Air pollution has threatened the health of millions." data-hint="Subject: 'Air pollution'. Verb: Present Perfect active. Object: 'the health of millions'." data-rule="Subject + has/have + past participle + object. 'Has threatened' = Present Perfect active."></textarea></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext qwords">it / all / that / is / factories / essential / reduce / their / are / emissions</div><textarea class="ta" id="e6" placeholder="Write the sentence..." data-ans="It is essential that all factories reduce their emissions." data-hint="This formal structure starts with 'It is + adjective + that'. Arrange the that-clause carefully." data-rule="It + is + adjective (essential) + that + subject (all factories) + verb (reduce their emissions)."></textarea></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext qwords">the / praised / organisation / scientists / environmental / for / groundbreaking / their / research</div><textarea class="ta" id="e7" placeholder="Write the sentence..." data-ans="The organisation praised the environmental scientists for their groundbreaking research." data-hint="Find who is doing the praising (subject) and who is being praised (object). 'For' introduces the reason." data-rule="Subject + verb + object + for + noun phrase. 'Praised...for' shows the reason for praise."></textarea></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext qwords">had / the / submitted / scientists / report / their / the / before / deadline / passed</div><textarea class="ta" id="e8" placeholder="Write the sentence..." data-ans="The scientists had submitted their report before the deadline passed." data-hint="One action happened before another in the past. Which action uses Past Perfect and which uses Simple Past?" data-rule="Past Perfect (had + past participle) for the earlier action; Simple Past for the later action."></textarea></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext qwords">being / of / the / addressed / causes / environmental / are / root / poverty / and / degradation</div><textarea class="ta" id="e9" placeholder="Write the sentence..." data-ans="The root causes of environmental degradation, poverty and inequality, are being addressed." data-hint="Subject: 'The root causes of environmental degradation'. The verb is passive and continuous. 'Poverty and inequality' are examples." data-rule="Subject + are + being + past participle. The appositive in commas elaborates on 'root causes'."></textarea></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext qwords">no / will / thrive / civilisation / without / clean / access / air / to / and / water</div><textarea class="ta" id="e10" placeholder="Write the sentence..." data-ans="No civilisation will thrive without access to clean air and water." data-hint="Start with 'No' to create a negative subject. Future simple verb followed by a 'without' phrase." data-rule="No + noun + will + verb + without + noun phrase. 'Without access to clean air and water' is the prepositional phrase."></textarea></div>
+      <button class="btn-check" onclick="checkTA('e',10)">Check Part E</button>
+    </div>
+  </div>
+
+  <!-- PART F -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('f')"><span class="sec-tag">PART F</span><div><div class="sec-title">Vocabulary &mdash; Choose the Best Word</div><div class="sec-sub">Select the most appropriate option</div></div><span class="sec-arrow" id="arr-f">&#9660;</span></div>
+    <div class="sec-body" id="body-f">
+      <div id="mcq-container"></div>
+      <button class="btn-check" onclick="checkMCQ()">Check Part F</button>
+    </div>
+  </div>
+
+  <!-- PART G -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow" id="arr-g">&#9660;</span></div>
+    <div class="sec-body" id="body-g">
+      <div class="example-box"><div class="ex-lbl">EXAMPLE</div><div class="ex-s">The forest burned.</div><div class="ex-e">&#8594; Driven by months of drought and record-breaking heat, the ancient forest burned uncontrollably for weeks, releasing vast amounts of carbon dioxide into an already fragile atmosphere.</div></div>
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext">The iceberg melted.</div><textarea class="ta" id="g1" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext">Sea levels rose.</div><textarea class="ta" id="g2" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext">Scientists warned governments.</div><textarea class="ta" id="g3" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext">The coral reef died.</div><textarea class="ta" id="g4" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext">The flood devastated the village.</div><textarea class="ta" id="g5" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext">Nations disagreed at the summit.</div><textarea class="ta" id="g6" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext">Renewable energy expanded.</div><textarea class="ta" id="g7" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext">The activist protested.</div><textarea class="ta" id="g8" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext">Wildlife habitats disappeared.</div><textarea class="ta" id="g9" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext">The agreement was reached.</div><textarea class="ta" id="g10" placeholder="Expand into a complex descriptive sentence..."></textarea></div>
+      <p style="font-size:11px;color:var(--muted);font-family:var(--mono)">* Open-ended &mdash; teacher-marked.</p>
+    </div>
+  </div>
+
+  <!-- PART H -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('h')"><span class="sec-tag">PART H</span><div><div class="sec-title">Composition Sentence Practice</div><div class="sec-sub">Rewrite each sentence to be more vivid, formal and impactful</div></div><span class="sec-arrow" id="arr-h">&#9660;</span></div>
+    <div class="sec-body" id="body-h">
+      <div class="qb"><div class="qnum">Q1</div><div class="qtext">The weather is getting worse.</div><textarea class="ta" id="h1" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q2</div><div class="qtext">Many animals are dying.</div><textarea class="ta" id="h2" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q3</div><div class="qtext">The air in the city is bad.</div><textarea class="ta" id="h3" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q4</div><div class="qtext">People wasted a lot of energy.</div><textarea class="ta" id="h4" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q5</div><div class="qtext">The government made new environment rules.</div><textarea class="ta" id="h5" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q6</div><div class="qtext">Plastic is a big problem in the ocean.</div><textarea class="ta" id="h6" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q7</div><div class="qtext">Scientists found worrying results.</div><textarea class="ta" id="h7" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q8</div><div class="qtext">Young people started caring about the environment.</div><textarea class="ta" id="h8" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q9</div><div class="qtext">Trees were cut down in the forest.</div><textarea class="ta" id="h9" placeholder="Rewrite more descriptively..."></textarea></div>
+      <div class="qb"><div class="qnum">Q10</div><div class="qtext">The temperature went up every year.</div><textarea class="ta" id="h10" placeholder="Rewrite more descriptively..."></textarea></div>
+      <p style="font-size:11px;color:var(--muted);font-family:var(--mono)">* Open-ended &mdash; teacher-marked.</p>
+    </div>
+  </div>
+
+  <!-- PART I -->
+  <div class="section">
+    <div class="sec-hdr" onclick="toggle('i')"><span class="sec-tag">PART I</span><div><div class="sec-title">Paragraph Writing</div><div class="sec-sub">Write 6&ndash;8 sentences &middot; Target: 100&ndash;140 words</div></div><span class="sec-arrow" id="arr-i">&#9660;</span></div>
+    <div class="sec-body" id="body-i">
+      <div class="topic-box">
+        <div class="t-lbl">Writing Topic</div>
+        <h4>The Most Urgent Environmental Challenge Facing the World Today</h4>
+        <p>Write a well-structured paragraph about what you believe is the most pressing environmental issue today (e.g. climate change, deforestation, ocean pollution, biodiversity loss, or air pollution).</p>
+        <ul>
+          <li>Clearly identify the issue and explain why it is urgent</li>
+          <li>Support your view with evidence or real-world examples</li>
+          <li>Discuss the impact on people, wildlife, or the planet</li>
+          <li>Suggest what governments, communities, or individuals can do</li>
+        </ul>
+      </div>
+      <textarea class="ta" id="i1" style="min-height:190px" placeholder="Write your paragraph here..."></textarea>
+      <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--muted);font-family:var(--mono)">
+        <span id="wc">Words: 0</span><span>Target: 100&ndash;140 words</span>
+      </div>
+      
+    </div>
+  </div>
+
+  <div class="submit-sec">
+    <h3>Submit Your Test</h3>
+    <p>Your answers and results will be saved permanently. Your teacher will be able to review everything in the dashboard.</p>
+    <button class="btn-submit" id="submitBtn" onclick="submitAll()">Submit &amp; Save Results</button>
+  </div>
+</div>
+
+<div id="resultModal">
+  <div class="res-box">
+    <div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:3px;margin-bottom:12px">FINAL RESULT</div>
+    <div class="res-score" id="resScore">0</div>
+    <div class="res-label">out of 60 auto-marked questions (Parts A&ndash;F)</div>
+    <div class="res-saved" id="resSaved"></div>
+    <div class="res-msg" id="resMsg"></div>
+    <div class="res-grid" id="resGrid"></div>
+    <button class="btn-close" onclick="closeResult()">Done</button>
+  </div>
+</div>
+
+<script>
+const BIN_ID="69babf10b7ec241ddc7d652f";
+const MASTER_KEY="$2a$10$GeOyXKViWuf6OsSoiA9eT.bifbFDXJ/AsilT9KSjMz.2Ibg5mPDGS";
+const API="https://api.jsonbin.io/v3";
+const STORAGE_KEY="ec_progress";
+
+const MCQ=[
+  {q:"The ______ of greenhouse gases into the atmosphere is the primary driver of global warming.",opts:["emission","omission","commission","permission"],ans:0,hint:"Which word specifically means the release of gases such as CO2 into the atmosphere?",rule:"EMISSION = the production and release of a substance into the environment. Key environmental vocabulary."},
+  {q:"The government implemented ______ measures to protect the endangered rainforest from further destruction.",opts:["stringent","lenient","ambiguous","redundant"],ans:0,hint:"These measures were strict and demanding. Which word means 'very strict and precise'?",rule:"STRINGENT = strict, precise, and exacting. The opposite is 'lenient' (not strict). Key word in policy discussions."},
+  {q:"Access to clean water and air is considered a fundamental environmental ______.",opts:["rite","right","might","plight"],ans:1,hint:"This is a legal or moral entitlement that every person deserves.",rule:"RIGHT (noun) = a moral or legal entitlement. 'Rite' = a ceremony; 'plight' = a difficult situation."},
+  {q:"The conference reached a ______ decision to phase out coal-powered energy by 2035.",opts:["ambiguous","contentious","unilateral","unanimous"],ans:3,hint:"All participating nations agreed on this decision. Which word means 'agreed upon by everyone'?",rule:"UNANIMOUS = agreed upon by all. 'Contentious' = causing disagreement; 'unilateral' = one-sided."},
+  {q:"The ______ of freshwater resources is one of the most serious consequences of climate change.",opts:["surplus","clarity","scarcity","disparity"],ans:2,hint:"There is not enough freshwater — supplies are running out. Which word means 'a severe shortage'?",rule:"SCARCITY = a severe shortage of something. 'Surplus' = excess; 'disparity' = inequality."},
+  {q:"Environmental groups urged the government to ______ all subsidies for fossil fuel companies.",opts:["diminish","admonish","abandon","abolish"],ans:3,hint:"They want to completely and permanently end these subsidies, not just reduce them.",rule:"ABOLISH = to formally and completely put an end to something. 'Diminish' = reduce gradually."},
+  {q:"The new policy aims to ______ the damage caused by decades of industrial pollution.",opts:["aggravate","alleviate","alienate","allocate"],ans:1,hint:"The policy is trying to make the damage less severe. Which word means to reduce suffering or harm?",rule:"ALLEVIATE = to make a problem less severe. 'Aggravate' = worsen; 'allocate' = distribute."},
+  {q:"The activist's documentary was highly ______, convincing millions to change their consumption habits.",opts:["redundant","divisive","ambivalent","persuasive"],ans:3,hint:"The documentary convinced millions of people to act. Which word means 'able to convince'?",rule:"PERSUASIVE = able to persuade or convince. 'Redundant' = unnecessary; 'divisive' = causing disagreement."},
+  {q:"The international climate treaty was formally ______ by all member nations at the summit.",opts:["clarified","justified","notified","ratified"],ans:3,hint:"All nations gave their official formal approval to make the treaty legally binding.",rule:"RATIFY = to give formal consent to a treaty or agreement, making it officially valid."},
+  {q:"The conservation team's ______ efforts over three decades helped bring the species back from extinction.",opts:["reckless","restless","helpless","relentless"],ans:3,hint:"The team worked persistently for decades without giving up. Which word captures this determination?",rule:"RELENTLESS = constant and determined, never stopping or weakening. 'Reckless' = careless; 'restless' = unable to rest."}
+];
+
+const sectionScores={a:0,b:0,c:0,d:0,e:0,f:0};
+const mcqSel={};
+let studentName="",startTime=null;
+
+function norm(s){return(s||"").toLowerCase().replace(/[^a-z0-9 ',]/g,"").replace(/\s+/g," ").trim()}
+function sc(pct){return pct>=80?"#34d399":pct>=60?"#fbbf24":"#f87171"}
+
+// ── LOCAL STORAGE ─────────────────────────────────────
+function saveLocal(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}}
+function loadLocal(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):null;}catch(e){return null;}}
+function clearLocal(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
+
+// ── STATUS ────────────────────────────────────────────
+function setStatus(state,msg){const dot=document.getElementById("asDot"),txt=document.getElementById("asText");if(!dot||!txt)return;dot.className="as-dot "+state;txt.textContent=msg;}
+function setLastSaved(){const el=document.getElementById("lastSaved");if(el)el.textContent="Saved: "+new Date().toLocaleTimeString("en-MY",{hour:"2-digit",minute:"2-digit"});}
+
+// ── BUILD SUBMISSION ──────────────────────────────────
+function buildSubmission(isFinal){
+  const score=Object.values(sectionScores).reduce((a,b)=>a+b,0);
+  const pct=Math.round((score/60)*100);
+  const duration=startTime?Math.round((new Date()-startTime)/60000)+" min":"N/A";
+  return{name:studentName,submittedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"}),duration,score,pct,sectionScores:{...sectionScores},answers:collectAnswers(),isDraft:!isFinal,testTheme:"Environment & Climate Change"};
+}
+
+// ── AUTO-SAVE (triggered silently after each check) ──────
+async function autoSave(part){
+  setStatus("saving","Saving Part "+part.toUpperCase()+"...");
+  const localData=buildSubmission(false);
+  saveLocal(localData);
+  let ok=false;
+  try{
+    const getRes=await fetch(`${API}/b/${BIN_ID}/latest`,{headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"}});
+    const existing=await getRes.json();
+    let subs=Array.isArray(existing.submissions)?existing.submissions:[];
+    const draftIdx=subs.findIndex(s=>s.name===studentName&&s.isDraft);
+    const draft={...localData,isDraft:true,partChecked:part.toUpperCase(),savedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"})};
+    if(draftIdx>=0)subs[draftIdx]=draft;else subs.push(draft);
+    const putRes=await fetch(`${API}/b/${BIN_ID}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":MASTER_KEY},body:JSON.stringify({submissions:subs})});
+    if(putRes.ok)ok=true;
+  }catch(e){ok=false;}
+  if(ok){setStatus("saved","Part "+part.toUpperCase()+" saved ✓");setLastSaved();}
+  else{setStatus("error","Saved locally — will sync when online");}
+}
+
+// ── RESTORE ───────────────────────────────────────────
+function restoreProgress(){
+  const data=loadLocal();
+  if(!data||!data.answers)return;
+  document.getElementById("restoreBanner").style.display="none";
+  const ans=data.answers;
+  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
+  for(let i=1;i<=10;i++){const key="f"+i;if(ans[key]){const ji="ABCD".indexOf(ans[key]);if(ji>=0){document.querySelectorAll(`#mcq-${i} .mcq-opt`).forEach(o=>o.classList.remove("sel"));const opt=document.getElementById(`opt-${i}-${ji}`);if(opt){opt.classList.add("sel");mcqSel[i]=ji;}}}}
+  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
+  const i1=document.getElementById("i1");if(i1&&ans.i1)i1.value=ans.i1;
+  if(data.sectionScores)Object.assign(sectionScores,data.sectionScores);
+  updateDash();setStatus("saved","Progress restored");setLastSaved();
+}
+
+// ── MCQ ───────────────────────────────────────────────
+function buildMCQ(){
+  const c=document.getElementById("mcq-container");
+  MCQ.forEach((q,i)=>{
+    const div=document.createElement("div");div.className="qb";
+    div.innerHTML=`<div class="qnum">Q${i+1}</div><div class="qtext">${q.q}</div>
+    <div class="mcq-grid" id="mcq-${i+1}">${q.opts.map((o,j)=>`<div class="mcq-opt" id="opt-${i+1}-${j}" onclick="selMCQ(${i+1},${j})"><div class="opt-l">${"ABCD"[j]}</div>${o}</div>`).join("")}</div>
+    <div class="fb-correct" id="fb-ok-f${i+1}">&#10003; Correct! Well done.</div>
+    <div class="fb-wrong" id="fb-bad-f${i+1}"><div class="fb-wrong-top">&#10007; Not quite &mdash; read the hints and try again.</div><div class="fb-hint"><div class="lbl">&#128161; Hint</div><div class="txt">${q.hint}</div></div><div class="fb-rule"><div class="lbl">&#128216; Vocabulary Rule</div><div class="txt">${q.rule}</div></div></div>`;
+    c.appendChild(div);
+  });
+}
+
+function selMCQ(qn,ji){
+  if(document.querySelector(`#mcq-${qn} .mcq-opt.right`))return;
+  document.querySelectorAll(`#mcq-${qn} .mcq-opt`).forEach(o=>o.classList.remove("sel"));
+  document.getElementById(`opt-${qn}-${ji}`).classList.add("sel");
+  mcqSel[qn]=ji;updateProgress();
+}
+
+// ── TOGGLE ────────────────────────────────────────────
+function toggle(id){document.getElementById("body-"+id).classList.toggle("open");document.getElementById("arr-"+id).classList.toggle("open");}
+
+// ── FEEDBACK ──────────────────────────────────────────
+function addFeedback(el){
+  const id=el.id,parent=el.closest(".qb");
+  if(parent.querySelector("#fb-ok-"+id))return;
+  const ok=document.createElement("div");ok.className="fb-correct";ok.id="fb-ok-"+id;ok.innerHTML="&#10003; Correct! Well done.";
+  const bad=document.createElement("div");bad.className="fb-wrong";bad.id="fb-bad-"+id;
+  bad.innerHTML=`<div class="fb-wrong-top">&#10007; Not quite &mdash; read the hints and try again.</div><div class="fb-hint"><div class="lbl">&#128161; Hint</div><div class="txt">${el.dataset.hint||""}</div></div><div class="fb-rule"><div class="lbl">&#128216; Grammar Rule</div><div class="txt">${el.dataset.rule||""}</div></div>`;
+  parent.appendChild(ok);parent.appendChild(bad);
+}
+function showFb(id,correct){
+  const ok=document.getElementById("fb-ok-"+id),bad=document.getElementById("fb-bad-"+id);
+  if(!ok||!bad)return;
+  if(correct){ok.style.display="block";bad.style.display="none";}else{ok.style.display="none";bad.style.display="block";}
+}
+
+// ── CHECK ─────────────────────────────────────────────
+function checkFill(pfx,n){
+  let score=0;
+  for(let i=1;i<=n;i++){
+    const el=document.getElementById(pfx+i);if(!el)continue;
+    addFeedback(el);const val=el.value.trim();
+    if(!val){el.classList.remove("ok","bad");const o=document.getElementById("fb-ok-"+pfx+i),b=document.getElementById("fb-bad-"+pfx+i);if(o)o.style.display="none";if(b)b.style.display="none";continue;}
+    const correct=norm(val)===norm(el.dataset.ans);
+    el.classList.remove("ok","bad");el.classList.add(correct?"ok":"bad");
+    showFb(pfx+i,correct);if(correct)score++;
+  }
+  sectionScores[pfx]=score;updateDash();
+  autoSave(pfx);
+}
+function checkTA(pfx,n){
+  let score=0;
+  for(let i=1;i<=n;i++){
+    const el=document.getElementById(pfx+i);if(!el)continue;
+    addFeedback(el);const val=el.value.trim();
+    if(!val){const o=document.getElementById("fb-ok-"+pfx+i),b=document.getElementById("fb-bad-"+pfx+i);if(o)o.style.display="none";if(b)b.style.display="none";continue;}
+    const correct=norm(val)===norm(el.dataset.ans);
+    el.classList.remove("ok","bad");el.classList.add(correct?"ok":"bad");
+    showFb(pfx+i,correct);if(correct)score++;
+  }
+  sectionScores[pfx]=score;updateDash();
+  autoSave(pfx);
+}
+function checkMCQ(){
+  let score=0;
+  MCQ.forEach((q,i)=>{
+    const qn=i+1,sel=mcqSel[qn];
+    const okEl=document.getElementById("fb-ok-f"+qn),badEl=document.getElementById("fb-bad-f"+qn);
+    if(sel===undefined){if(okEl)okEl.style.display="none";if(badEl)badEl.style.display="none";return;}
+    document.querySelectorAll(`#mcq-${qn} .mcq-opt`).forEach((o,j)=>{o.classList.remove("sel","right","wrong");if(j===q.ans)o.classList.add("right");else if(j===sel)o.classList.add("wrong");});
+    const correct=sel===q.ans;
+    if(correct){if(okEl)okEl.style.display="block";if(badEl)badEl.style.display="none";score++;}
+    else{if(okEl)okEl.style.display="none";if(badEl)badEl.style.display="block";}
+  });
+  sectionScores.f=score;updateDash();
+  autoSave('f');
+}
+
+// ── PROGRESS ──────────────────────────────────────────
+function updateProgress(){
+  let ans=0;
+  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
+  ans+=Object.keys(mcqSel).length;
+  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
+  if(document.getElementById("i1").value.trim())ans++;
+  document.getElementById("dAnswered").textContent=ans;
+  const pct=Math.round((ans/70)*100);
+  document.getElementById("dPct").textContent=pct+"%";
+  document.getElementById("progFill").style.width=pct+"%";
+}
+function updateDash(){
+  document.getElementById("dScore").textContent=Object.values(sectionScores).reduce((a,b)=>a+b,0);
+  updateProgress();
+}
+
+// ── COLLECT ───────────────────────────────────────────
+function collectAnswers(){
+  const data={};
+  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);data[p+i]=el?el.value.trim():""}});
+  for(let i=1;i<=10;i++)data["f"+i]=mcqSel[i]!==undefined?"ABCD"[mcqSel[i]]:"";
+  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);data[p+i]=el?el.value.trim():""}});
+  data.i1=document.getElementById("i1").value.trim();
+  return data;
+}
+
+// ── START ─────────────────────────────────────────────
+function startTest(){
+  const val=document.getElementById("nameInput").value.trim();
+  if(val.length<2){document.getElementById("nameErr").style.display="block";return;}
+  studentName=val;startTime=new Date();
+  document.getElementById("nameGate").style.display="none";
+  document.getElementById("mainTest").style.display="block";
+  document.getElementById("dispName").textContent=studentName;
+  const saved=loadLocal();
+  if(saved&&saved.name===studentName&&saved.answers)document.getElementById("restoreBanner").style.display="flex";
+}
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&document.getElementById("nameGate").style.display!=="none")startTest();});
+
+// ── SUBMIT ────────────────────────────────────────────
+async function submitAll(){
+  const btn=document.getElementById("submitBtn");
+  btn.disabled=true;btn.textContent="Saving...";
+  checkFill("a",10);checkFill("b",10);checkTA("c",10);checkTA("d",10);checkTA("e",10);checkMCQ();
+  const submission=buildSubmission(true);
+  let saved=false;
+  try{
+    const getRes=await fetch(`${API}/b/${BIN_ID}/latest`,{headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"}});
+    const existing=await getRes.json();
+    let subs=Array.isArray(existing.submissions)?existing.submissions:[];
+    subs=subs.filter(s=>!(s.name===studentName&&s.isDraft));
+    subs.push(submission);
+    const putRes=await fetch(`${API}/b/${BIN_ID}`,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":MASTER_KEY},body:JSON.stringify({submissions:subs})});
+    if(putRes.ok){saved=true;clearLocal();}
+  }catch(e){saved=false;}
+  const score=Object.values(sectionScores).reduce((a,b)=>a+b,0);
+  const pct=Math.round((score/60)*100);
+  const col=sc(pct);
+  document.getElementById("resScore").textContent=score+"/60";
+  document.getElementById("resScore").style.color=col;
+  document.getElementById("resSaved").style.cssText=`background:${saved?"rgba(52,211,153,.08)":"rgba(251,191,36,.08)"};border:1px solid ${saved?"rgba(52,211,153,.25)":"rgba(251,191,36,.25)"};color:${saved?"#34d399":"#fbbf24"}`;
+  document.getElementById("resSaved").textContent=saved?"&#10003; Saved! Your teacher will see your results.":"&#9888; Could not save. Please tell your teacher.";
+  const msg=pct>=85?"Excellent work! Your command of environmental English is impressive.":pct>=70?"Well done! Strong grammar skills with room to grow further.":pct>=55?"Good effort! Focus on verb tenses and sentence structure.":"Keep going! Review the grammar rules in the hints carefully.";
+  document.getElementById("resMsg").textContent=msg;
+  document.getElementById("resGrid").innerHTML=["a","b","c","d","e","f"].map(p=>`<div class="res-item"><div class="v" style="color:${sc((sectionScores[p]||0)*10)}">${sectionScores[p]||0}/10</div><div class="l">Part ${p.toUpperCase()}</div></div>`).join("");
+  document.getElementById("resultModal").classList.add("open");
+  btn.disabled=false;btn.textContent="Submit & Save Results";
+}
+function closeResult(){document.getElementById("resultModal").classList.remove("open");}
+
+window.addEventListener("load",()=>{
+  buildMCQ();
+  document.getElementById("i1").addEventListener("input",function(){
+    document.getElementById("wc").textContent="Words: "+this.value.trim().split(/\s+/).filter(w=>w).length;
+    updateProgress();
+  });
+  document.querySelectorAll("input.fill,textarea.ta").forEach(el=>el.addEventListener("input",updateProgress));
+
+  // Auto-save open-ended parts G, H, I when user stops typing (blur)
+  ["g","h"].forEach(p=>{
+    for(let i=1;i<=10;i++){
+      const el=document.getElementById(p+i);
+      if(el) el.addEventListener("blur",()=>autoSave(p));
+    }
+  });
+  document.getElementById("i1").addEventListener("blur",()=>autoSave("i"));
+});
+</script>
+</body>
+</html>
