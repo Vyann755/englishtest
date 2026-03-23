@@ -2,24 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>English Test — Media &amp; Communication</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>English Test — Media & Communication</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#060d08;--surf:#0b1410;--card:#111c14;--border:#1a2d1e;
-  --accent:#34d399;--a2:#f97316;--a3:#60a5fa;
-  --text:#e2e8f0;--muted:#64748b;
-  --ok:#34d399;--err:#f87171;--warn:#fbbf24;
-  --mono:"Space Mono",monospace;--sans:"DM Sans",sans-serif;
-}
+:root{--bg:#060d08;--surf:#0b1410;--card:#111c14;--border:#1a2d1e;--accent:#34d399;--a2:#f97316;--a3:#60a5fa;--text:#e2e8f0;--muted:#64748b;--ok:#34d399;--err:#f87171;--warn:#fbbf24;--mono:"Space Mono",monospace;--sans:"DM Sans",sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;overflow-x:hidden}
 body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(52,211,153,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,.025) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:28px 16px 80px}
 #nameGate{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center}
-#nameGate::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(52,211,153,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(52,211,153,.025) 1px,transparent 1px);background-size:40px 40px}
-.name-box{position:relative;background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:44px 32px;max-width:420px;width:92%;text-align:center;box-shadow:0 0 60px rgba(52,211,153,.1)}
+.name-box{background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:44px 32px;max-width:420px;width:92%;text-align:center;box-shadow:0 0 60px rgba(52,211,153,.1)}
 .badge{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:3px;border:1px solid var(--accent);color:var(--accent);padding:3px 12px;border-radius:2px;margin-bottom:16px;text-transform:uppercase}
 .name-box h2{font-family:var(--mono);font-size:20px;color:#fff;margin-bottom:8px}
 .name-box p{font-size:13px;color:var(--muted);margin-bottom:24px;line-height:1.7}
@@ -48,11 +41,11 @@ input.big:focus{border-color:var(--accent)}
 .as-dot.saved{background:var(--ok)}
 .as-dot.error{background:var(--err)}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.restore-banner{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:12px 16px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.restore-banner{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:12px 16px;margin-bottom:18px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 .restore-banner p{font-size:13px;color:var(--warn);font-family:var(--mono)}
-.restore-banner button{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:7px 14px;background:var(--warn);color:#000;border:none;border-radius:5px;cursor:pointer;text-transform:uppercase;flex-shrink:0}
+.restore-banner button{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:7px 14px;background:var(--warn);color:#000;border:none;border-radius:5px;cursor:pointer;text-transform:uppercase}
 .section{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:18px;overflow:hidden}
-.sec-hdr{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
+.sec-hdr{padding:14px 18px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
 .sec-tag{font-family:var(--mono);font-size:10px;font-weight:700;color:#000;background:var(--accent);padding:3px 8px;border-radius:2px;flex-shrink:0}
 .sec-title{font-weight:600;font-size:13px;flex:1}
 .sec-sub{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:2px}
@@ -66,16 +59,16 @@ input.big:focus{border-color:var(--accent)}
 .qtext{font-size:13px;line-height:1.75;margin-bottom:10px}
 .qsub{font-size:11px;color:var(--a3);font-family:var(--mono);margin-bottom:8px}
 .qwords{font-family:var(--mono);color:var(--a2);font-size:12px}
-input.fill{width:100%;max-width:420px;background:var(--surf);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none;-webkit-appearance:none}
+input.fill{width:100%;max-width:420px;background:var(--surf);border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:var(--sans);font-size:14px;padding:9px 12px;outline:none}
 input.fill:focus{border-color:var(--accent)}
 input.fill.ok{border-color:var(--ok);background:rgba(52,211,153,.05)}
 input.fill.bad{border-color:var(--err);background:rgba(248,113,113,.05)}
-textarea.ta{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.75;padding:12px;resize:vertical;min-height:80px;outline:none;-webkit-appearance:none}
+textarea.ta{width:100%;background:var(--surf);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:13px;line-height:1.75;padding:12px;resize:vertical;min-height:80px;outline:none}
 textarea.ta:focus{border-color:var(--accent)}
 textarea.ta.ok{border-color:var(--ok)}
 textarea.ta.bad{border-color:var(--err)}
 .mcq-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-.mcq-opt{background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:10px;-webkit-tap-highlight-color:transparent}
+.mcq-opt{background:var(--surf);border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;font-size:13px;display:flex;align-items:center;gap:10px}
 .mcq-opt.sel{border-color:var(--a2);background:rgba(249,115,22,.1)}
 .mcq-opt.right{border-color:var(--ok);background:rgba(52,211,153,.08)}
 .mcq-opt.wrong{border-color:var(--err);background:rgba(248,113,113,.08)}
@@ -91,51 +84,27 @@ textarea.ta.bad{border-color:var(--err)}
 .fb-rule .lbl{font-size:10px;color:var(--a3);font-family:var(--mono);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
 .fb-rule .txt{font-size:12px;color:var(--text);line-height:1.65}
 .btn-check{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:9px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:16px}
-
-.btn-submit{font-family:var(--mono);font-size:14px;font-weight:700;letter-spacing:1px;padding:14px 44px;background:linear-gradient(135deg,var(--a2),var(--accent));color:#000;border:none;border-radius:8px;cursor:pointer;text-transform:uppercase;width:100%;max-width:340px}
-.btn-submit:disabled{opacity:.5}
+.check-ai-btn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:9px 18px;background:linear-gradient(135deg,rgba(96,165,250,.15),rgba(52,211,153,.15));color:var(--text);border:1px solid rgba(96,165,250,.3);border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:14px;display:flex;align-items:center;gap:7px}
+.check-all-btn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 22px;background:linear-gradient(135deg,var(--a3),var(--accent));color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:16px}
 .ai-fb{margin-top:10px;border-radius:8px;overflow:hidden;border:1px solid var(--border);display:none}
 .ai-fb.show{display:block}
-.ai-fb.loading .ai-top{background:rgba(96,165,250,.08);border-bottom:1px solid rgba(96,165,250,.15)}
-.ai-fb.correct .ai-top{background:rgba(52,211,153,.08);border-bottom:1px solid rgba(52,211,153,.2)}
-.ai-fb.partial .ai-top{background:rgba(251,191,36,.08);border-bottom:1px solid rgba(251,191,36,.2)}
-.ai-fb.incorrect .ai-top{background:rgba(248,113,113,.08);border-bottom:1px solid rgba(248,113,113,.2)}
-.ai-top{padding:9px 13px;font-size:12px;font-family:var(--mono);display:flex;align-items:center;gap:8px}
+.ai-fb.loading .ai-top{background:rgba(96,165,250,.08)}
+.ai-fb.correct .ai-top{background:rgba(52,211,153,.08)}
+.ai-fb.partial .ai-top{background:rgba(251,191,36,.08)}
+.ai-fb.incorrect .ai-top{background:rgba(248,113,113,.08)}
+.ai-top{padding:9px 13px;font-size:12px;font-family:var(--mono)}
 .ai-fb.loading .ai-top{color:var(--a3)}
 .ai-fb.correct .ai-top{color:var(--ok)}
 .ai-fb.partial .ai-top{color:var(--warn)}
 .ai-fb.incorrect .ai-top{color:var(--err)}
 .ai-body{padding:12px 14px;font-size:13px;line-height:1.7;color:var(--text)}
-.ai-body strong{color:var(--a2)}
-.ai-body em{color:var(--a3);font-style:normal}
 .ai-spinner{display:inline-block;width:10px;height:10px;border:2px solid rgba(96,165,250,.3);border-top-color:var(--a3);border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
 @keyframes spin{to{transform:rotate(360deg)}}
-.check-ai-btn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:9px 18px;background:linear-gradient(135deg,rgba(96,165,250,.15),rgba(52,211,153,.15));color:var(--text);border:1px solid rgba(96,165,250,.3);border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:14px;transition:all .2s;display:flex;align-items:center;gap:7px}
-.check-ai-btn:hover{background:linear-gradient(135deg,rgba(96,165,250,.25),rgba(52,211,153,.25));border-color:rgba(96,165,250,.5)}
-.check-ai-btn:disabled{opacity:.5;pointer-events:none}
-.check-all-btn{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 22px;background:linear-gradient(135deg,var(--a3),var(--accent));color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase;margin-top:16px;transition:all .2s}
-.check-all-btn:disabled{opacity:.5}
 .para-ai-fb{margin-top:14px;border-radius:10px;overflow:hidden;border:1px solid var(--border);display:none}
 .para-ai-fb.show{display:block}
 .para-ai-top{padding:12px 16px;font-size:12px;font-family:var(--mono);border-bottom:1px solid var(--border)}
 .para-ai-section{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;line-height:1.75}
 .para-ai-section:last-child{border-bottom:none}
-.para-ai-label{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
-.submit-sec{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:30px;text-align:center;margin-top:16px}
-.submit-sec h3{font-family:var(--mono);font-size:15px;margin-bottom:8px}
-.submit-sec p{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.65}
-#resultModal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
-#resultModal.open{display:flex}
-.res-box{background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:36px 28px;max-width:460px;width:100%;text-align:center;box-shadow:0 0 80px rgba(52,211,153,.1)}
-.res-score{font-family:var(--mono);font-size:52px;font-weight:700;line-height:1}
-.res-label{font-size:12px;color:var(--muted);font-family:var(--mono);margin:8px 0 16px}
-.res-saved{border-radius:8px;padding:11px;margin-bottom:16px;font-size:12px;font-family:var(--mono)}
-.res-msg{font-size:13px;line-height:1.65;margin-bottom:22px}
-.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
-.res-item{background:var(--surf);border-radius:6px;padding:10px}
-.res-item .v{font-family:var(--mono);font-size:18px;font-weight:700}
-.res-item .l{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
-.btn-close{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 28px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
 .example-box{background:rgba(52,211,153,.04);border:1px solid rgba(52,211,153,.15);border-radius:8px;padding:14px;margin-bottom:18px}
 .example-box .ex-lbl{font-size:10px;color:var(--accent);font-family:var(--mono);margin-bottom:6px}
 .example-box .ex-s{font-size:12px;color:var(--muted)}
@@ -145,23 +114,29 @@ textarea.ta.bad{border-color:var(--err)}
 .topic-box h4{font-size:15px;font-weight:600;margin-bottom:8px}
 .topic-box p{font-size:13px;color:var(--muted);line-height:1.75}
 .topic-box ul{padding-left:16px;font-size:13px;color:var(--muted);line-height:2.1;margin-top:8px}
-.open-note{display:flex;align-items:center;gap:12px;margin-top:14px;flex-wrap:wrap}
+#resultModal{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:300;display:none;align-items:center;justify-content:center;padding:20px}
+#resultModal.open{display:flex}
+.res-box{background:var(--card);border:1px solid var(--accent);border-radius:16px;padding:36px 28px;max-width:460px;width:100%;text-align:center}
+.res-score{font-family:var(--mono);font-size:52px;font-weight:700;line-height:1}
+.res-label{font-size:12px;color:var(--muted);font-family:var(--mono);margin:8px 0 16px}
+.res-saved{border-radius:8px;padding:11px;margin-bottom:16px;font-size:12px;font-family:var(--mono)}
+.res-msg{font-size:13px;line-height:1.65;margin-bottom:22px}
+.res-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:22px}
+.res-item{background:var(--surf);border-radius:6px;padding:10px}
+.res-item .v{font-family:var(--mono);font-size:18px;font-weight:700}
+.res-item .l{font-size:10px;color:var(--muted);font-family:var(--mono);margin-top:3px}
+.btn-close{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:10px 28px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase}
 @media(max-width:500px){.mcq-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <script>
-// SYNCHRONOUS - runs before ANY rendering
-// If ?name= in URL, add class to body immediately
+// Hide nameGate instantly if name in URL
 if(new URLSearchParams(location.search).get('name')){
-  document.documentElement.className='has-name';
+  document.documentElement.className='autostart';
 }
 </script>
-<style>
-/* Hide nameGate instantly when name param present - no flash possible */
-html.has-name #nameGate { display: none !important; }
-html.has-name #mainTest { display: block !important; }
-</style>
+<style>html.autostart #nameGate{display:none!important}html.autostart #mainTest{display:block!important}</style>
 
 <div id="nameGate">
   <div class="name-box">
@@ -170,15 +145,14 @@ html.has-name #mainTest { display: block !important; }
     <p>Enter your name to begin.</p>
     <input class="big" id="nameInput" placeholder="Your name..." maxlength="80" autocomplete="name">
     <div class="err-msg" id="nameErr">Please enter your name.</div>
-    <div id="profilePreview" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-family:var(--mono);border:1px solid var(--border)"></div>
     <button class="btn-primary" onclick="startTest()">Begin Test &#8594;</button>
   </div>
 </div>
 
 <div class="wrap" id="mainTest" style="display:none">
-  <div id="restoreBanner" style="display:none" class="restore-banner">
+  <div class="restore-banner" id="restoreBanner">
     <p>&#128196; Saved progress found. Restore your answers?</p>
-    <button onclick="restoreProgress()">Restore Answers</button>
+    <button onclick="doRestore()">Restore Answers</button>
   </div>
   <div class="autosave-bar">
     <div class="as-left"><div class="as-dot" id="asDot"></div><span id="asText">Auto-saves when you check answers</span></div>
@@ -201,7 +175,7 @@ html.has-name #mainTest { display: block !important; }
     <div class="prog-lbl"><span>Progress</span><span id="dPct">0%</span></div>
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
   </div>
-  <div id="dynamicParts"></div>
+  <div id="dynParts"></div>
 <!-- PART G -->
   <div class="section">
     <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow open" id="arr-g">&#9660;</span></div>
@@ -318,6 +292,7 @@ html.has-name #mainTest { display: block !important; }
   </div>
 
 </div>
+</div>
 
 <div id="resultModal">
   <div class="res-box">
@@ -327,12 +302,14 @@ html.has-name #mainTest { display: block !important; }
     <div class="res-saved" id="resSaved"></div>
     <div class="res-msg" id="resMsg"></div>
     <div class="res-grid" id="resGrid"></div>
-    <button class="btn-close" onclick="closeResult()">Done</button>
+    <button class="btn-close" onclick="document.getElementById('resultModal').classList.remove('open')">Done</button>
   </div>
 </div>
 
 <script>
-───────────────────────
+// ════════════════════════════════════════════════════════
+// STUDENT PROFILES
+// ════════════════════════════════════════════════════════
 const STUDENT_PROFILES = {
 
   // ══════════════════════════════════════════════════════════════════
@@ -607,1044 +584,333 @@ const NAME_MAP = {"zenv":"ZenV","zenz":"ZenZ","zene":"ZenE"};
 
 function getProfile(name){
   if(!name) return null;
-  const key = name.trim().toLowerCase().replace(/\s+/g,"");
-  for(const [k,v] of Object.entries(NAME_MAP)){
-    if(key===k || key.includes(k)) return STUDENT_PROFILES[v];
+  var key = name.trim().toLowerCase().replace(/\s+/g,"");
+  for(var k in NAME_MAP){
+    if(key === k || key.indexOf(k) >= 0) return STUDENT_PROFILES[NAME_MAP[k]];
   }
   return null;
 }
 
-
-
+// ════════════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════════════
 const BIN_ID="69babf10b7ec241ddc7d652f";
 const MASTER_KEY="$2a$10$GeOyXKViWuf6OsSoiA9eT.bifbFDXJ/AsilT9KSjMz.2Ibg5mPDGS";
 const API="https://api.jsonbin.io/v3";
 const STORAGE_KEY="mc_progress";
-const sectionScores={a:0,b:0,c:0,d:0,e:0,f:0};
-const sectionChecked={a:false,b:false,c:false,d:false,e:false,f:false};
-const mcqSel={};
-let studentName="",startTime=null,currentProfile=null;
+var sectionScores={a:0,b:0,c:0,d:0,e:0,f:0};
+var sectionChecked={a:false,b:false,c:false,d:false,e:false,f:false};
+var mcqSel={};
+var studentName="", startTime=null, currentProfile=null;
 
-function norm(s){return(s||"").toLowerCase().replace(/[^a-z0-9 ',]/g,"").replace(/\s+/g," ").trim()}
+// ════════════════════════════════════════════════════════
+// HELPERS
+// ════════════════════════════════════════════════════════
+function norm(s){return(s||"").toLowerCase().replace(/[^a-z0-9 ',]/g,"").replace(/\s+/g," ").trim();}
+function sc(pct){return pct>=80?"#34d399":pct>=60?"#fbbf24":"#f87171";}
+function ea(s){return(s||"").replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function setStatus(state,msg){var d=document.getElementById("asDot"),t=document.getElementById("asText");if(d)d.className="as-dot "+state;if(t)t.textContent=msg;}
+function setLastSaved(){var el=document.getElementById("lastSaved");if(el)el.textContent="Saved: "+new Date().toLocaleTimeString("en-MY",{hour:"2-digit",minute:"2-digit"});}
 
-function sc(pct){return pct>=80?"#34d399":pct>=60?"#fbbf24":"#f87171"}
-
-function setStatus(state,msg){const dot=document.getElementById("asDot"),txt=document.getElementById("asText");if(!dot||!txt)return;dot.className="as-dot "+state;txt.textContent=msg;}
-
-function setLastSaved(){const el=document.getElementById("lastSaved");if(el)el.textContent="Saved: "+new Date().toLocaleTimeString("en-MY",{hour:"2-digit",minute:"2-digit"});}
-
-function saveLocal(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}}
-
-function loadLocal(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):null;}catch(e){return null;}}
-
+// ════════════════════════════════════════════════════════
+// LOCAL STORAGE
+// ════════════════════════════════════════════════════════
+function saveLocal(d){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(d));}catch(e){}}
+function loadLocal(){try{var d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):null;}catch(e){return null;}}
 function clearLocal(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
 
-function buildSubmission(isFinal){
-  const score=Object.values(sectionScores).reduce((a,b)=>a+b,0);
-  const pct=Math.round((score/60)*100);
-  const duration=startTime?Math.round((new Date()-startTime)/60000)+" min":"N/A";
-  // Detect if any open-ended part has identical answers (flag for teacher)
-  const ans = collectAnswers();
-  const duplicateFlags = {};
-  ["g","h"].forEach(p=>{
-    const vals = Array.from({length:10},(_,i)=>( ans[p+(i+1)]||"").trim().toLowerCase().replace(/\s+/g," "));
-    const filled = vals.filter(v=>v.length>0);
-    const unique = new Set(filled);
-    if(filled.length>=5 && unique.size<=2) duplicateFlags[p]="duplicate";
-    else if(filled.length>=5 && new Set(vals.map(v=>v.split(" ").slice(0,8).join(" "))).size<=2) duplicateFlags[p]="similar";
-  });
-  // Always save as final — each Check & Submit is a real submission
-  return{name:studentName,submittedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"}),duration,score,pct,sectionScores:{...sectionScores},answers:ans,isDraft:false,testTheme:"Media & Communication",studentLevel:currentProfile?currentProfile.level:"Unknown",studentGrade:currentProfile?currentProfile.grade:"?",duplicateFlags};
-}
-
-async function pushToServer(data, retries=3){
-  for(let attempt=1; attempt<=retries; attempt++){
+// ════════════════════════════════════════════════════════
+// SERVER PUSH
+// ════════════════════════════════════════════════════════
+async function pushToServer(data, retries){
+  if(retries===undefined) retries=3;
+  for(var attempt=1; attempt<=retries; attempt++){
     try{
-      // Step 1: GET current bin
-      const getRes = await fetch(`${API}/b/${BIN_ID}/latest`,{
-        headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"}
-      });
-      if(!getRes.ok) throw new Error("GET failed: "+getRes.status);
-      const existing = await getRes.json();
-      let subs = Array.isArray(existing.submissions) ? existing.submissions : [];
-
-      // Step 2: Upsert — one entry per student per theme (always replace)
-      const existingIdx = subs.findIndex(s=>
-        s.name===data.name &&
-        s.testTheme===data.testTheme
-      );
-      if(existingIdx >= 0){
-        subs[existingIdx] = data; // Replace existing
-      } else {
-        subs.push(data); // Add new
-      }
-
-      // Step 3: PUT back
-      const putRes = await fetch(`${API}/b/${BIN_ID}`,{
-        method:"PUT",
-        headers:{"Content-Type":"application/json","X-Master-Key":MASTER_KEY},
-        body:JSON.stringify({submissions:subs})
-      });
-      if(!putRes.ok) throw new Error("PUT failed: "+putRes.status);
-      return true; // Success!
-
-    } catch(e){
-      console.warn(`Save attempt ${attempt} failed:`, e.message);
-      setStatus("saving", `Attempt ${attempt} failed, retrying...`);
-      if(attempt < retries){
-        // Wait before retrying: 1s, 2s, 4s
-        await new Promise(r=>setTimeout(r, 1000 * Math.pow(2, attempt-1)));
-      }
+      var getRes=await fetch(API+"/b/"+BIN_ID+"/latest",{headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"},cache:"no-store"});
+      if(!getRes.ok) throw new Error("GET "+getRes.status);
+      var existing=await getRes.json();
+      var subs=Array.isArray(existing.submissions)?existing.submissions:[];
+      var existingIdx=subs.findIndex(function(s){return s.name===data.name && s.testTheme===data.testTheme;});
+      if(existingIdx>=0) subs[existingIdx]=data; else subs.push(data);
+      var putRes=await fetch(API+"/b/"+BIN_ID,{method:"PUT",headers:{"Content-Type":"application/json","X-Master-Key":MASTER_KEY},body:JSON.stringify({submissions:subs})});
+      if(!putRes.ok) throw new Error("PUT "+putRes.status);
+      return true;
+    }catch(e){
+      setStatus("saving","Attempt "+attempt+" failed, retrying...");
+      if(attempt<retries) await new Promise(function(r){setTimeout(r,1000*attempt);});
     }
   }
-  return false; // All retries failed
+  return false;
 }
 
 async function autoSave(part){
   setStatus("saving","Saving Part "+part.toUpperCase()+"...");
-  const localData = buildSubmission(false);
-  saveLocal(localData); // Always save locally first
-  const ok = await pushToServer(localData);
-  if(ok){ setStatus("saved","Part "+part.toUpperCase()+" saved ✓"); setLastSaved(); }
-  else{
-    setStatus("error","Save failed — tap button again to retry");
-    // Show a persistent retry notice
-    const ls = document.getElementById("lastSaved");
-    if(ls) ls.innerHTML = `<button onclick="retrySave()" style="font-family:var(--mono);font-size:10px;padding:4px 10px;background:var(--err);color:#fff;border:none;border-radius:4px;cursor:pointer">↻ Retry Save</button>`;
-  }
-}
-
-async function retrySave(){
-  setStatus("saving","Retrying save...");
-  const localData = loadLocal();
-  if(!localData){ setStatus("error","No local data found."); return; }
-  const ok = await pushToServer(localData);
-  if(ok){ setStatus("saved","Saved successfully ✓"); setLastSaved(); }
-  else{ setStatus("error","Still failing — check internet connection"); }
+  var data=buildSubmission();
+  saveLocal(data);
+  var ok=await pushToServer(data);
+  if(ok){setStatus("saved","Part "+part.toUpperCase()+" saved ✓");setLastSaved();}
+  else{setStatus("error","Saved locally — retry if needed");}
 }
 
 async function fetchAndRestore(){
   if(!studentName) return;
   try{
-    const res = await fetch(`${API}/b/${BIN_ID}/latest`,{
-      headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"},
-      cache:"no-store"
-    });
+    var res=await fetch(API+"/b/"+BIN_ID+"/latest",{headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"},cache:"no-store"});
     if(!res.ok) return;
-    const data = await res.json();
-    const subs = Array.isArray(data.submissions) ? data.submissions : [];
-    const theme = document.title.includes("Media") ? "Media & Communication" : "Environment & Climate Change";
-    const mine = subs.filter(s=>
-      (s.name||"").toLowerCase().replace(/\s+/g,"") === studentName.toLowerCase().replace(/\s+/g,"") &&
-      s.testTheme === theme
-    ).pop();
-    if(mine && mine.answers){
-      saveLocal({...mine, name:studentName});
-      restoreProgress(mine);
-    }
+    var data=await res.json();
+    var subs=Array.isArray(data.submissions)?data.submissions:[];
+    var mine=null;
+    subs.forEach(function(s){if((s.name||"").toLowerCase().replace(/\s+/g,"")=== studentName.toLowerCase().replace(/\s+/g,"") && s.testTheme==="Media & Communication") mine=s;});
+    if(mine && mine.answers){saveLocal(Object.assign({},mine,{name:studentName}));fillAnswers(mine.answers);}
   }catch(e){}
 }
 
-function restoreProgress(data){
-  if(!data) data=loadLocal();
-  if(!data||!data.answers)return;
-  // Hide restore banner if visible
-  const banner=document.getElementById("restoreBanner");
-  if(banner) banner.style.display="none";
-  const ans=data.answers;
-  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
-  for(let i=1;i<=10;i++){const key="f"+i;if(ans[key]){const ji="ABCD".indexOf(ans[key]);if(ji>=0){document.querySelectorAll(`#mcq-${i} .mcq-opt`).forEach(o=>o.classList.remove("sel"));const opt=document.getElementById(`opt-${i}-${ji}`);if(opt){opt.classList.add("sel");mcqSel[i]=ji;}}}}
-  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
-  const i1=document.getElementById("i1");if(i1&&ans.i1)i1.value=ans.i1;
-  if(data.sectionScores)Object.assign(sectionScores,data.sectionScores);
-  updateDash();setStatus("saved","Progress restored ✓");setLastSaved();
-}
-
+// ════════════════════════════════════════════════════════
+// BUILD SUBMISSION
+// ════════════════════════════════════════════════════════
 function collectAnswers(){
-  const data={};
-  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);data[p+i]=el?el.value.trim():""}});
-  for(let i=1;i<=10;i++)data["f"+i]=mcqSel[i]!==undefined?"ABCD"[mcqSel[i]]:"";
-  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);data[p+i]=el?el.value.trim():""}});
-  data.i1=document.getElementById("i1").value.trim();
+  var data={};
+  "abcde".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);data[p+i]=el?el.value.trim():"";} });
+  for(var i=1;i<=10;i++) data["f"+i]=mcqSel[i]!==undefined?"ABCD"[mcqSel[i]]:"";
+  "ghi".split("").forEach(function(p){
+    if(p==="i"){var el=document.getElementById("i1");data.i1=el?el.value.trim():"";}
+    else{for(var i=1;i<=10;i++){var el=document.getElementById(p+i);data[p+i]=el?el.value.trim():"";}}
+  });
   return data;
 }
 
+function buildSubmission(){
+  var score=Object.values(sectionScores).reduce(function(a,b){return a+b;},0);
+  var pct=Math.round((score/60)*100);
+  var duration=startTime?Math.round((new Date()-startTime)/60000)+" min":"N/A";
+  return{name:studentName,submittedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"}),duration:duration,score:score,pct:pct,sectionScores:Object.assign({},sectionScores),answers:collectAnswers(),isDraft:false,testTheme:"Media & Communication",studentLevel:currentProfile?currentProfile.level:"Unknown",studentGrade:currentProfile?currentProfile.grade:"?"};
+}
+
+// ════════════════════════════════════════════════════════
+// FILL ANSWERS (restore)
+// ════════════════════════════════════════════════════════
+function fillAnswers(ans){
+  if(!ans) return;
+  "abcde".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
+  for(var i=1;i<=10;i++){var key="f"+i;if(ans[key]){var ji="ABCD".indexOf(ans[key]);if(ji>=0){document.querySelectorAll("#mcq-"+i+" .mcq-opt").forEach(function(o){o.classList.remove("sel");});var opt=document.getElementById("opt-"+i+"-"+ji);if(opt){opt.classList.add("sel");mcqSel[i]=ji;}}}}
+  "gh".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
+  var i1=document.getElementById("i1");if(i1&&ans.i1)i1.value=ans.i1;
+  if(currentProfile) Object.assign(sectionScores,{});
+  updateDash();
+}
+
+function doRestore(){
+  var data=loadLocal();
+  if(data&&data.answers) fillAnswers(data.answers);
+  document.getElementById("restoreBanner").style.display="none";
+  setStatus("saved","Progress restored ✓");
+}
+
+// ════════════════════════════════════════════════════════
+// PROGRESS
+// ════════════════════════════════════════════════════════
 function updateProgress(){
-  let ans=0;
-  "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
+  var ans=0;
+  "abcde".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
   ans+=Object.keys(mcqSel).length;
-  "gh".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
-  if(document.getElementById("i1").value.trim())ans++;
+  "gh".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);if(el&&el.value.trim())ans++;}});
+  var i1=document.getElementById("i1");if(i1&&i1.value.trim())ans++;
   document.getElementById("dAnswered").textContent=ans;
-  const pct=Math.round((ans/70)*100);
+  var pct=Math.round((ans/70)*100);
   document.getElementById("dPct").textContent=pct+"%";
   document.getElementById("progFill").style.width=pct+"%";
 }
-
 function updateDash(){
-  document.getElementById("dScore").textContent=Object.values(sectionScores).reduce((a,b)=>a+b,0);
+  var score=Object.values(sectionScores).reduce(function(a,b){return a+b;},0);
+  document.getElementById("dScore").textContent=score;
   updateProgress();
 }
 
-function toggle(id){document.getElementById("body-"+id).classList.toggle("open");document.getElementById("arr-"+id).classList.toggle("open");}
+// ════════════════════════════════════════════════════════
+// TOGGLE SECTIONS
+// ════════════════════════════════════════════════════════
+function toggle(id){
+  document.getElementById("body-"+id).classList.toggle("open");
+  document.getElementById("arr-"+id).classList.toggle("open");
+}
 
-function addFeedback(el){
-  const id=el.id,parent=el.closest(".qb");
-  if(parent.querySelector("#fb-ok-"+id))return;
-  const ok=document.createElement("div");ok.className="fb-correct";ok.id="fb-ok-"+id;ok.innerHTML="&#10003; Correct! Well done.";
-  const bad=document.createElement("div");bad.className="fb-wrong";bad.id="fb-bad-"+id;
-  bad.innerHTML=`<div class="fb-wrong-top">&#10007; Not quite &mdash; read the hints and try again.</div><div class="fb-hint"><div class="lbl">&#128161; Hint</div><div class="txt">${el.dataset.hint||""}</div></div><div class="fb-rule"><div class="lbl">&#128216; Grammar Rule</div><div class="txt">${el.dataset.rule||""}</div></div>`;
+// ════════════════════════════════════════════════════════
+// FEEDBACK
+// ════════════════════════════════════════════════════════
+function addFb(el){
+  var id=el.id, parent=el.closest(".qb");
+  if(parent.querySelector("#fb-ok-"+id)) return;
+  var ok=document.createElement("div");ok.className="fb-correct";ok.id="fb-ok-"+id;ok.innerHTML="&#10003; Correct!";
+  var bad=document.createElement("div");bad.className="fb-wrong";bad.id="fb-bad-"+id;
+  bad.innerHTML="<div class='fb-wrong-top'>&#10007; Not quite.</div><div class='fb-hint'><div class='lbl'>&#128161; Hint</div><div class='txt'>"+(el.dataset.hint||"")+"</div></div><div class='fb-rule'><div class='lbl'>&#128216; Rule</div><div class='txt'>"+(el.dataset.rule||"")+"</div></div>";
   parent.appendChild(ok);parent.appendChild(bad);
 }
-
 function showFb(id,correct){
-  const ok=document.getElementById("fb-ok-"+id),bad=document.getElementById("fb-bad-"+id);
-  if(!ok||!bad)return;
-  if(correct){ok.style.display="block";bad.style.display="none";}else{ok.style.display="none";bad.style.display="block";}
+  var ok=document.getElementById("fb-ok-"+id),bad=document.getElementById("fb-bad-"+id);
+  if(ok) ok.style.display=correct?"block":"none";
+  if(bad) bad.style.display=correct?"none":"block";
 }
 
+// ════════════════════════════════════════════════════════
+// CHECK FUNCTIONS
+// ════════════════════════════════════════════════════════
 function checkFill(pfx,n){
-  let score=0;
-  for(let i=1;i<=n;i++){
-    const el=document.getElementById(pfx+i);if(!el)continue;
-    addFeedback(el);const val=el.value.trim();
-    if(!val){el.classList.remove("ok","bad");const o=document.getElementById("fb-ok-"+pfx+i),b=document.getElementById("fb-bad-"+pfx+i);if(o)o.style.display="none";if(b)b.style.display="none";continue;}
-    const correct=norm(val)===norm(el.dataset.ans);
+  var score=0;
+  for(var i=1;i<=n;i++){
+    var el=document.getElementById(pfx+i);if(!el) continue;
+    addFb(el);var val=el.value.trim();
+    if(!val){el.classList.remove("ok","bad");continue;}
+    var correct=norm(val)===norm(el.dataset.ans);
     el.classList.remove("ok","bad");el.classList.add(correct?"ok":"bad");
     showFb(pfx+i,correct);if(correct)score++;
   }
   sectionScores[pfx]=score;sectionChecked[pfx]=true;updateDash();
 }
-
 function checkTA(pfx,n){
-  let score=0;
-  for(let i=1;i<=n;i++){
-    const el=document.getElementById(pfx+i);if(!el)continue;
-    addFeedback(el);const val=el.value.trim();
-    if(!val){const o=document.getElementById("fb-ok-"+pfx+i),b=document.getElementById("fb-bad-"+pfx+i);if(o)o.style.display="none";if(b)b.style.display="none";continue;}
-    const correct=norm(val)===norm(el.dataset.ans);
+  var score=0;
+  for(var i=1;i<=n;i++){
+    var el=document.getElementById(pfx+i);if(!el) continue;
+    addFb(el);var val=el.value.trim();
+    if(!val) continue;
+    var correct=norm(val)===norm(el.dataset.ans);
     el.classList.remove("ok","bad");el.classList.add(correct?"ok":"bad");
     showFb(pfx+i,correct);if(correct)score++;
   }
   sectionScores[pfx]=score;sectionChecked[pfx]=true;updateDash();
 }
-
 function checkMCQ(){
-  let score=0;
-  const mcqData = (currentProfile && currentProfile.parts && currentProfile.parts.F)
-    ? currentProfile.parts.F.questions : MCQ;
-  mcqData.forEach((q,i)=>{
-    const qn=i+1,sel=mcqSel[qn];
-    const okEl=document.getElementById("fb-ok-f"+qn),badEl=document.getElementById("fb-bad-f"+qn);
+  var score=0;
+  var profile=currentProfile;
+  if(!profile||!profile.parts||!profile.parts.F) return;
+  var qs=profile.parts.F.questions;
+  qs.forEach(function(q,i){
+    var qn=i+1,sel=mcqSel[qn];
+    var okEl=document.getElementById("fb-ok-f"+qn),badEl=document.getElementById("fb-bad-f"+qn);
     if(sel===undefined){if(okEl)okEl.style.display="none";if(badEl)badEl.style.display="none";return;}
-    document.querySelectorAll(`#mcq-${qn} .mcq-opt`).forEach((o,j)=>{o.classList.remove("sel","right","wrong");if(j===q.ans)o.classList.add("right");else if(j===sel)o.classList.add("wrong");});
-    const correct=sel===q.ans;
-    if(correct){if(okEl)okEl.style.display="block";if(badEl)badEl.style.display="none";score++;}
-    else{if(okEl)okEl.style.display="none";if(badEl)badEl.style.display="block";}
+    document.querySelectorAll("#mcq-"+qn+" .mcq-opt").forEach(function(o,j){o.classList.remove("sel","right","wrong");if(j===q.ans)o.classList.add("right");else if(j===sel)o.classList.add("wrong");});
+    var correct=sel===q.ans;
+    if(okEl)okEl.style.display=correct?"block":"none";
+    if(badEl)badEl.style.display=correct?"none":"block";
+    if(correct)score++;
   });
   sectionScores.f=score;sectionChecked.f=true;updateDash();
 }
-
 function selMCQ(qn,ji){
-  if(document.querySelector(`#mcq-${qn} .mcq-opt.right`))return;
-  document.querySelectorAll(`#mcq-${qn} .mcq-opt`).forEach(o=>o.classList.remove("sel"));
-  document.getElementById(`opt-${qn}-${ji}`).classList.add("sel");
+  if(document.querySelector("#mcq-"+qn+" .mcq-opt.right")) return;
+  document.querySelectorAll("#mcq-"+qn+" .mcq-opt").forEach(function(o){o.classList.remove("sel");});
+  var opt=document.getElementById("opt-"+qn+"-"+ji);if(opt)opt.classList.add("sel");
   mcqSel[qn]=ji;updateProgress();
 }
 
-function renderDynamicParts(){
-  const container = document.getElementById("dynamicParts");
-  if(!container){ alert("ERROR: dynamicParts div not found"); return; }
-  const p = currentProfile;
-  if(!p){
-    container.innerHTML = "<div style='color:#f87171;font-family:monospace;padding:20px;font-size:14px'>"
-      + "<b>DEBUG: currentProfile is null</b><br>"
-      + "studentName = " + studentName + "<br>"
-      + "getProfile result = " + JSON.stringify(getProfile(studentName)) + "<br>"
-      + "NAME_MAP keys = " + JSON.stringify(Object.keys(NAME_MAP))
-      + "</div>";
-    return;
-  }
-  let html = "";
-  try {
-    ["A","B"].forEach(part=>{
-      const pd = p.parts[part];
-      if(!pd) throw new Error("Missing part "+part+" in profile for "+studentName);
-      html += renderFillSection(part, pd);
-    });
-    ["C","D","E"].forEach(part=>{
-      const pd = p.parts[part];
-      if(!pd) throw new Error("Missing part "+part+" in profile for "+studentName);
-      html += renderTASection(part, pd);
-    });
-    html += renderMCQSection(p.parts.F);
-    container.innerHTML = html;
-  } catch(err) {
-    container.innerHTML = "<div style='color:#f87171;font-family:monospace;padding:20px;font-size:13px;background:#1a0000;border-radius:8px'>"
-      + "<b>RENDER ERROR:</b><br>" + err.message + "<br><br>"
-      + "Profile keys: " + JSON.stringify(Object.keys(p.parts||{})) + "<br>"
-      + "Level: " + p.level
-      + "</div>";
-  }
-  
-  // Attach input listeners
-  container.querySelectorAll("input.fill,textarea.ta").forEach(el=>el.addEventListener("input",updateProgress));
+// ════════════════════════════════════════════════════════
+// CHECK & SUBMIT
+// ════════════════════════════════════════════════════════
+async function checkAndSubmit(part,type){
+  if(type==="fill") checkFill(part,10);
+  else if(type==="ta") checkTA(part,10);
+  else if(type==="mcq") checkMCQ();
+  await autoSave(part);
+  checkIfComplete();
+}
+async function checkAllAndSubmit(part){
+  await checkAllAI(part);
+  await autoSave(part);
+}
+async function checkAndSubmitPara(){
+  await checkParaAI();
+  await autoSave("i");
+}
+function checkIfComplete(){
+  var allDone=["a","b","c","d","e","f"].every(function(p){return sectionChecked[p];});
+  if(allDone) showResult();
+}
+function showResult(){
+  var score=Object.values(sectionScores).reduce(function(a,b){return a+b;},0);
+  var pct=Math.round((score/60)*100);
+  var col=sc(pct);
+  document.getElementById("resScore").textContent=score+"/60";
+  document.getElementById("resScore").style.color=col;
+  document.getElementById("resSaved").style.cssText="background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:#34d399";
+  document.getElementById("resSaved").textContent="✓ All parts saved! Your teacher can see your results.";
+  var msg=pct>=85?"Excellent work!":pct>=70?"Well done!":pct>=55?"Good effort!":"Keep going!";
+  document.getElementById("resMsg").textContent=msg;
+  document.getElementById("resGrid").innerHTML=["a","b","c","d","e","f"].map(function(p){return "<div class='res-item'><div class='v' style='color:"+sc((sectionScores[p]||0)*10)+"'>"+(sectionScores[p]||0)+"/10</div><div class='l'>Part "+p.toUpperCase()+"</div></div>";}).join("");
+  document.getElementById("resultModal").classList.add("open");
 }
 
-function renderFillSection(part, pd){
-  const pid = part.toLowerCase();
-  let qs = pd.questions.map((q,i)=>`
-    <div class="qb">
-      <div class="qnum">Question ${i+1}</div>
-      <div class="qtext">${q.q}</div>
-      <input class="fill" id="${pid}${i+1}" placeholder="Type your answer..." 
-        data-ans="${q.ans}" data-hint="${escAttr(q.hint)}" data-rule="${escAttr(q.rule)}">
-    </div>`).join("");
-  return `<div class="section">
-    <div class="sec-hdr" onclick="toggle('${pid}')">
-      <span class="sec-tag">PART ${part}</span>
-      <div><div class="sec-title">${pd.title}</div><div class="sec-sub">${pd.subtitle}</div></div>
-      <span class="sec-arrow${part==="A"?" open":""}" id="arr-${pid}">&#9660;</span>
-    </div>
-    <div class="sec-body${part==="A"?" open":""}" id="body-${pid}">
-      ${qs}
-      <button class="btn-check" onclick="checkAndSubmit('${pid}','fill')">Check &amp; Submit Part ${part}</button>
-    </div>
-  </div>`;
-}
+// ════════════════════════════════════════════════════════
+// RENDER PARTS A-F
+// ════════════════════════════════════════════════════════
+function renderParts(){
+  var p=currentProfile;
+  var container=document.getElementById("dynParts");
+  if(!container||!p) return;
+  var html="";
 
-function renderTASection(part, pd){
-  const pid = part.toLowerCase();
-  let qs = pd.questions.map((q,i)=>{
-    const qtext = Array.isArray(q.q)
-      ? `${q.q[0]}<br><span class="qsub">${q.q[1]}</span>`
-      : (part==="C" ? `<em>${q.q}</em>` : (part==="E" ? `<span class="qwords">${q.q}</span>` : q.q));
-    return `<div class="qb">
-      <div class="qnum">Q${i+1}</div>
-      <div class="qtext">${qtext}</div>
-      <textarea class="ta" id="${pid}${i+1}" placeholder="Write your answer here..."
-        data-ans="${escAttr(q.ans)}" data-hint="${escAttr(q.hint)}" data-rule="${escAttr(q.rule)}"></textarea>
-    </div>`;
+  // A & B — fill inputs
+  ["A","B"].forEach(function(part){
+    var pd=p.parts[part];
+    if(!pd) return;
+    var pid=part.toLowerCase();
+    var qs=pd.questions.map(function(q,i){
+      return "<div class='qb'><div class='qnum'>Question "+(i+1)+"</div><div class='qtext'>"+q.q+"</div><input class='fill' id='"+pid+(i+1)+"' placeholder='Type your answer...' data-ans='"+ea(q.ans)+"' data-hint='"+ea(q.hint)+"' data-rule='"+ea(q.rule)+"'></div>";
+    }).join("");
+    html+="<div class='section'><div class='sec-hdr' onclick="toggle('"+pid+"')"><span class='sec-tag'>PART "+part+"</span><div><div class='sec-title'>"+pd.title+"</div><div class='sec-sub'>"+pd.subtitle+"</div></div><span class='sec-arrow open' id='arr-"+pid+"'>&#9660;</span></div><div class='sec-body open' id='body-"+pid+"'>"+qs+"<button class='btn-check' onclick="checkAndSubmit('"+pid+"','fill')">Check &amp; Submit Part "+part+"</button></div></div>";
+  });
+
+  // C, D, E — textareas
+  var taTitles={C:"Error Correction",D:"Sentence Transformation",E:"Sentence Building"};
+  var taSubs={C:"Each sentence has one error — rewrite it correctly",D:"Rewrite each sentence as instructed",E:"Rearrange the words to form a correct sentence"};
+  ["C","D","E"].forEach(function(part){
+    var pd=p.parts[part];
+    if(!pd) return;
+    var pid=part.toLowerCase();
+    var qs=pd.questions.map(function(q,i){
+      var qtext=Array.isArray(q.q)?q.q[0]+"<br><span class='qsub'>"+q.q[1]+"</span>":(part==="C"?"<em>"+q.q+"</em>":(part==="E"?"<span class='qwords'>"+q.q+"</span>":q.q));
+      return "<div class='qb'><div class='qnum'>Q"+(i+1)+"</div><div class='qtext'>"+qtext+"</div><textarea class='ta' id='"+pid+(i+1)+"' placeholder='Write your answer here...' data-ans='"+ea(q.ans)+"' data-hint='"+ea(q.hint)+"' data-rule='"+ea(q.rule)+"'></textarea></div>";
+    }).join("");
+    html+="<div class='section'><div class='sec-hdr' onclick="toggle('"+pid+"')"><span class='sec-tag'>PART "+part+"</span><div><div class='sec-title'>"+taTitles[part]+"</div><div class='sec-sub'>"+taSubs[part]+"</div></div><span class='sec-arrow' id='arr-"+pid+"'>&#9660;</span></div><div class='sec-body' id='body-"+pid+"'>"+qs+"<button class='btn-check' onclick="checkAndSubmit('"+pid+"','ta')">Check &amp; Submit Part "+part+"</button></div></div>";
+  });
+
+  // F — MCQ
+  var fdq=p.parts.F?p.parts.F.questions:[];
+  var fqs=fdq.map(function(q,i){
+    var opts=q.opts.map(function(o,j){return "<div class='mcq-opt' id='opt-"+(i+1)+"-"+j+"' onclick='selMCQ("+(i+1)+","+j+")'><div class='opt-l'>"+"ABCD"[j]+"</div>"+o+"</div>";}).join("");
+    return "<div class='qb' id='qb-f"+(i+1)+"'><div class='qnum'>Q"+(i+1)+"</div><div class='qtext'>"+q.q+"</div><div class='mcq-grid' id='mcq-"+(i+1)+"'>"+opts+"</div><div class='fb-correct' id='fb-ok-f"+(i+1)+"'>&#10003; Correct!</div><div class='fb-wrong' id='fb-bad-f"+(i+1)+"'><div class='fb-wrong-top'>&#10007; Not quite.</div><div class='fb-hint'><div class='lbl'>&#128161; Hint</div><div class='txt'>"+q.hint+"</div></div><div class='fb-rule'><div class='lbl'>&#128216; Rule</div><div class='txt'>"+q.rule+"</div></div></div></div>";
   }).join("");
-  const titles = {C:"Error Correction",D:"Sentence Transformation",E:"Sentence Building"};
-  const subs = {C:"Each sentence has one error — rewrite it correctly",D:"Rewrite each sentence as instructed",E:"Rearrange the words to form a correct sentence"};
-  const checkFn = part==="E" ? "checkTA" : "checkTA";
-  return `<div class="section">
-    <div class="sec-hdr" onclick="toggle('${pid}')">
-      <span class="sec-tag">PART ${part}</span>
-      <div><div class="sec-title">${titles[part]}</div><div class="sec-sub">${subs[part]}</div></div>
-      <span class="sec-arrow" id="arr-${pid}">&#9660;</span>
-    </div>
-    <div class="sec-body" id="body-${pid}">
-      ${qs}
-      <button class="btn-check" onclick="checkAndSubmit('${pid}','ta')">Check &amp; Submit Part ${part}</button>
-    </div>
-  </div>`;
+  html+="<div class='section'><div class='sec-hdr' onclick="toggle('f')"><span class='sec-tag'>PART F</span><div><div class='sec-title'>Vocabulary &mdash; Choose the Best Word</div><div class='sec-sub'>Select the most appropriate option</div></div><span class='sec-arrow' id='arr-f'>&#9660;</span></div><div class='sec-body' id='body-f'>"+fqs+"<button class='btn-check' onclick="checkAndSubmit('f','mcq')">Check &amp; Submit Part F</button></div></div>";
+
+  container.innerHTML=html;
+
+  // Wire input listeners
+  container.querySelectorAll("input.fill,textarea.ta").forEach(function(el){el.addEventListener("input",updateProgress);});
 }
 
-function renderMCQSection(fd){
-  let qs = fd.questions.map((q,i)=>{
-    const opts = q.opts.map((o,j)=>`<div class="mcq-opt" id="opt-f${i+1}-${j}" onclick="selMCQ(${i+1},${j})"><div class="opt-l">${"ABCD"[j]}</div>${o}</div>`).join("");
-    return `<div class="qb" id="qb-f${i+1}">
-      <div class="qnum">Q${i+1}</div>
-      <div class="qtext">${q.q}</div>
-      <div class="mcq-grid" id="mcq-${i+1}">${opts}</div>
-      <div class="fb-correct" id="fb-ok-f${i+1}">&#10003; Correct! Well done.</div>
-      <div class="fb-wrong" id="fb-bad-f${i+1}">
-        <div class="fb-wrong-top">&#10007; Not quite &mdash; read the hints and try again.</div>
-        <div class="fb-hint"><div class="lbl">&#128161; Hint</div><div class="txt">${q.hint}</div></div>
-        <div class="fb-rule"><div class="lbl">&#128216; Vocabulary Rule</div><div class="txt">${q.rule}</div></div>
-      </div>
-    </div>`;
-  }).join("");
-  return `<div class="section">
-    <div class="sec-hdr" onclick="toggle('f')">
-      <span class="sec-tag">PART F</span>
-      <div><div class="sec-title">Vocabulary &mdash; Choose the Best Word</div><div class="sec-sub">Select the most appropriate option</div></div>
-      <span class="sec-arrow" id="arr-f">&#9660;</span>
-    </div>
-    <div class="sec-body" id="body-f">
-      ${qs}
-      <button class="btn-check" onclick="checkAndSubmit('f','mcq')">Check &amp; Submit Part F</button>
-    </div>
-  </div>`;
-}
-
-function escAttr(s){ return (s||"").replace(/"/g,"&quot;").replace(/'/g,"&#39;"); }
-
+// ════════════════════════════════════════════════════════
+// START / BEGIN TEST
+// ════════════════════════════════════════════════════════
 function startTest(){
-  const val=document.getElementById("nameInput").value.trim();
+  var val=document.getElementById("nameInput").value.trim();
   if(val.length<2){document.getElementById("nameErr").style.display="block";return;}
   beginTest(val);
 }
 
-function beginTest(val, autoRestore=false){
-  studentName=val; startTime=new Date();
-  currentProfile = getProfile(val);
+function beginTest(val){
+  studentName=val;
+  startTime=new Date();
+  currentProfile=getProfile(val);
   document.getElementById("nameGate").style.display="none";
   document.getElementById("mainTest").style.display="block";
   document.getElementById("dispName").textContent=studentName;
   if(currentProfile){
-    document.getElementById("levelBadge").textContent = currentProfile.level + " · Media & Communication";
-    document.getElementById("levelBadge").style.borderColor = currentProfile.colour;
-    document.getElementById("levelBadge").style.color = currentProfile.colour;
+    document.getElementById("levelBadge").textContent=currentProfile.level+" · Media & Communication";
+    document.getElementById("levelBadge").style.borderColor=currentProfile.colour;
+    document.getElementById("levelBadge").style.color=currentProfile.colour;
     document.getElementById("levelTag").style.display="inline-flex";
-    document.getElementById("dispLevel").textContent = currentProfile.level;
-    document.getElementById("dispLevel").style.color = currentProfile.colour;
+    document.getElementById("dispLevel").textContent=currentProfile.level;
+    document.getElementById("dispLevel").style.color=currentProfile.colour;
   }
-  renderDynamicParts();
-  // Wire up Part I word counter
-  const i1el = document.getElementById("i1");
-  if(i1el) i1el.addEventListener("input",function(){
-    const wc = document.getElementById("wc");
-    if(wc) wc.textContent="Words: "+this.value.trim().split(/\s+/).filter(w=>w).length;
-    updateProgress();
-  });
-  // Wire up input listeners for G/H open-ended textareas
-  ["g","h"].forEach(p=>{
-    for(let i=1;i<=10;i++){
-      const el=document.getElementById(p+i);
-      if(el) el.addEventListener("input",updateProgress);
-    }
-  });
-  // Always auto-restore saved answers silently — no prompt needed
-  const saved=loadLocal();
-  if(saved && saved.answers){
-    const savedName=(saved.name||"").toLowerCase().replace(/\s+/g,"");
-    const currentName=studentName.toLowerCase().replace(/\s+/g,"");
-    if(savedName===currentName){
-      restoreProgress();
-    }
-  }
-  // Also try to fetch latest from server in background
-  fetchAndRestore();
-}
-
-async function checkAndSubmit(part, type){
-  // Run the appropriate check first
-  if(type==="fill") checkFill(part,10);
-  else if(type==="ta") checkTA(part,10);
-  else if(type==="mcq") checkMCQ();
-  // Save to server
-  await autoSave(part);
-  // Check if all parts done
-  checkIfComplete();
-}
-
-async function checkAndSubmitPara(){
-  await checkParaAI();
-  await autoSave("i");
-  checkIfComplete();
-}
-
-async function checkAllAndSubmit(part) {
-  await checkAllAI(part);
-  await autoSave(part);
-}
-
-async function checkAllAI(part) {
-  const btn = document.getElementById("check-all-"+part);
-
-  // ── PRE-FLIGHT: detect duplicate answers before checking ─────
-  const answers = [];
-  for(let i=1; i<=10; i++){
-    const val = (document.getElementById(part+i)||{}).value||"";
-    answers.push(val.trim().toLowerCase().replace(/\s+/g," "));
-  }
-  const filledAnswers = answers.filter(a=>a.length>0);
-
-  // Check 1: Are all filled answers identical?
-  const uniqueAnswers = new Set(filledAnswers);
-  if(filledAnswers.length >= 5 && uniqueAnswers.size <= 2){
-    showDuplicateWarning(part, "identical");
-    return;
-  }
-
-  // Check 2: Are >60% of answers suspiciously similar (same first 8 words)?
-  const prefixes = filledAnswers.map(a=>a.split(" ").slice(0,8).join(" "));
-  const uniquePrefixes = new Set(prefixes);
-  if(filledAnswers.length >= 5 && uniquePrefixes.size <= 2){
-    showDuplicateWarning(part, "similar");
-    return;
-  }
-
-  // Check 3: Are any answers too short (under 5 words)?
-  const tooShort = answers.map((a,i)=>a.length>0&&a.split(" ").length<5 ? i+1 : null).filter(Boolean);
-  if(tooShort.length >= 5){
-    showQualityWarning(part, tooShort);
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = "Checking... please wait";
-  for (let i=1; i<=10; i++) {
-    const val = document.getElementById(part+i).value.trim();
-    if (val) { await checkAI(part, i); await new Promise(r=>setTimeout(r,600)); }
-  }
-  btn.disabled = false;
-  btn.innerHTML = "&#129302; Check &amp; Submit Part " + part.toUpperCase();
-  autoSave(part);
-}
-
-function checkIfComplete(){
-  // Count how many parts have been checked
-  const checkedParts = Object.values(sectionScores).filter(s=>s>0).length;
-  const hasAnswers = ["a","b","c","d","e","f"].every(p=>{
-    for(let i=1;i<=10;i++){
-      const el = document.getElementById(p+i);
-      if(el && el.value.trim()) return true;
-    }
-    return false;
-  });
-  // Show final result modal if all 6 auto-checked parts have been submitted
-  if(["a","b","c","d","e","f"].every(p=>sectionScores[p]!==undefined)){
-    const allChecked = ["a","b","c","d","e","f"].every(p=>sectionChecked[p]);
-    if(allChecked) showFinalResult();
-  }
-}
-
-function showFinalResult(){
-  const score=Object.values(sectionScores).reduce((a,b)=>a+b,0);
-  const pct=Math.round((score/60)*100);
-  const col=sc(pct);
-  document.getElementById("resScore").textContent=score+"/60";
-  document.getElementById("resScore").style.color=col;
-  document.getElementById("resSaved").style.cssText=`background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.25);color:#34d399`;
-  document.getElementById("resSaved").textContent="✓ All parts saved! Your teacher can see your full results.";
-  const msg=pct>=85?"Excellent work! Your command of environmental English is impressive.":pct>=70?"Well done! Strong grammar skills with room to grow further.":pct>=55?"Good effort! Focus on verb tenses and sentence structure.":"Keep going! Review the grammar rules in the hints carefully.";
-  document.getElementById("resMsg").textContent=msg;
-  document.getElementById("resGrid").innerHTML=["a","b","c","d","e","f"].map(p=>`<div class="res-item"><div class="v" style="color:${sc((sectionScores[p]||0)*10)}">${sectionScores[p]||0}/10</div><div class="l">Part ${p.toUpperCase()}</div></div>`).join("");
-  document.getElementById("resultModal").classList.add("open");
-}
-
-function closeResult(){document.getElementById("resultModal").classList.remove("open");}
-
-function showDuplicateWarning(part, type){
-  // Show a prominent warning in the section
-  const bodyEl = document.getElementById("body-"+part);
-  const existingWarn = document.getElementById("dup-warn-"+part);
-  if(existingWarn) existingWarn.remove();
-
-  const warn = document.createElement("div");
-  warn.id = "dup-warn-"+part;
-  warn.style.cssText = "background:rgba(248,113,113,.1);border:2px solid var(--err);border-radius:10px;padding:18px 20px;margin-bottom:16px;";
-  warn.innerHTML = `
-    <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--err);margin-bottom:10px">
-      &#9888;&#65039; Duplicate Answers Detected
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      ${type==="identical"
-        ? "You have written the <strong>same sentence for every question</strong>. This is not acceptable."
-        : "Your answers are <strong>too similar to each other</strong>. Each question requires a different, original sentence."}
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      Each question has a <strong>different original sentence</strong> that you need to expand or rewrite. 
-      Read each one carefully and write a unique sentence that relates specifically to that sentence.
-    </div>
-    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--warn)">
-      &#128161; <strong>Tip:</strong> Look at each question's original sentence. Ask yourself: <em>Who? What? When? Where? Why? How?</em> 
-      Use descriptive words (adjectives and adverbs) and add a clause with words like <em>"because", "although", "which", "when"</em>.
-    </div>
-    <button onclick="dismissWarning('${part}')" style="margin-top:12px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:8px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase">
-      I Understand — Let Me Redo My Answers
-    </button>`;
-  bodyEl.insertBefore(warn, bodyEl.firstChild);
-  warn.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
-function showQualityWarning(part, shortQnums){
-  const bodyEl = document.getElementById("body-"+part);
-  const existingWarn = document.getElementById("dup-warn-"+part);
-  if(existingWarn) existingWarn.remove();
-
-  const warn = document.createElement("div");
-  warn.id = "dup-warn-"+part;
-  warn.style.cssText = "background:rgba(245,158,11,.08);border:2px solid var(--warn);border-radius:10px;padding:18px 20px;margin-bottom:16px;";
-  warn.innerHTML = `
-    <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--warn);margin-bottom:10px">
-      &#9888;&#65039; Answers Too Short
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      Questions <strong>${shortQnums.join(", ")}</strong> have answers that are too short (fewer than 5 words). 
-      These questions require a <strong>complete, expanded sentence</strong> — not a phrase.
-    </div>
-    <div style="background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--a3)">
-      &#128216; <strong>Reminder:</strong> Each answer should be at least 12–15 words. 
-      Add adjectives, adverbs, and a clause to expand the original sentence properly.
-    </div>
-    <button onclick="dismissWarning('${part}')" style="margin-top:12px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:8px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase">
-      I Understand — Let Me Improve My Answers
-    </button>`;
-  bodyEl.insertBefore(warn, bodyEl.firstChild);
-  warn.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
-function dismissWarning(part){
-  const warn = document.getElementById("dup-warn-"+part);
-  if(warn) warn.remove();
-  // Clear all answers in this part so student must redo them
-  for(let i=1;i<=10;i++){
-    const el = document.getElementById(part+i);
-    if(el){ el.value=""; el.classList.remove("ok","bad"); }
-  }
-  // Clear any AI feedback
-  for(let i=1;i<=10;i++){
-    const fb = document.getElementById("ai-fb-"+part+i);
-    if(fb){ fb.className="ai-fb"; fb.querySelector(".ai-top").innerHTML=""; fb.querySelector(".ai-body").innerHTML=""; }
-  }
-  updateProgress();
-}
-
-// ── GRAMMAR CHECKER
-const G_QUESTIONS=['The iceberg melted.','Sea levels rose.','Scientists warned governments.','The coral reef died.','The flood devastated the village.','Nations disagreed at the summit.','Renewable energy expanded.','The activist protested.','Wildlife habitats disappeared.','The agreement was reached.'];
-const H_QUESTIONS=['The weather is getting worse.','Many animals are dying.','The air in the city is bad.','People wasted a lot of energy.','The government made new environment rules.','Plastic is a big problem in the ocean.','Scientists found worrying results.','Young people started caring about the environment.','Trees were cut down in the forest.','The temperature went up every year.'];
-
-const LT_API = "https://api.languagetool.org/v2/check";
-
-// Track which example sentences have been revealed to the student
-const shownExamples = {};  // tracks shown example sentences per question
-const submittedAnswers = {};  // tracks all answers submitted so far for duplicate detection
-
-// Check sentence length & complexity
-function analyseComplexity(text, part) {
-  const words = text.trim().split(/\s+/).length;
-  const hasAdj = /\b(enormous|vast|severe|critical|alarming|devastating|irreversible|unprecedented|catastrophic|significant|dramatic|widespread|acute|chronic|rapid|accelerating|fragile|vulnerable|urgent)\b/i.test(text);
-  const hasAdv = /\b(rapidly|severely|dramatically|significantly|increasingly|relentlessly|tirelessly|urgently|critically|devastatingly|alarmingly|profoundly)\b/i.test(text);
-  const hasClause = /\b(which|that|because|although|despite|while|when|as|since|unless|if|before|after|until|who|whose)\b/i.test(text);
-  const hasPunctuation = /[,;:]/.test(text);
-  
-  const issues = [];
-  if (part === 'g') {
-    if (words < 12) issues.push("Your sentence is too short. Try to expand it with adjectives, adverbs, or clauses (aim for at least 15 words).");
-    if (!hasAdj && !hasAdv) issues.push("Add descriptive adjectives (e.g. 'enormous', 'devastating') or adverbs (e.g. 'rapidly', 'alarmingly') to make your sentence more vivid.");
-    if (!hasClause) issues.push("Try adding a subordinate clause using words like 'which', 'because', 'although', or 'as' to create a more complex sentence.");
-  } else if (part === 'h') {
-    if (words < 10) issues.push("Your rewritten sentence is too short. Make it more formal and descriptive.");
-    if (!hasAdj && !hasAdv && !hasClause) issues.push("Use more sophisticated vocabulary, adjectives, or clause structures to make the sentence more formal and impactful.");
-  }
-  return issues;
-}
-
-// Main check function using LanguageTool
-async function checkAI(part, qnum) {
-  const val = document.getElementById(part+qnum).value.trim();
-  if (!val) { alert("Please write your answer first."); return; }
-
-  // ── COPY DETECTION ───────────────────────────────────────────
-  const normVal = val.toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();
-  if (shownExamples[part+qnum]) {
-    const example = shownExamples[part+qnum];
-    // Check similarity — if >80% of words match, flag as copied
-    const valWords = new Set(normVal.split(" "));
-    const exWords = example.split(" ");
-    const matchCount = exWords.filter(w => valWords.has(w)).length;
-    const similarity = matchCount / exWords.length;
-    if (similarity > 0.75) {
-      const btn2 = document.getElementById("ai-btn-"+part+qnum);
-      const fb2 = document.getElementById("ai-fb-"+part+qnum);
-      const top2 = document.getElementById("ai-top-"+part+qnum);
-      const body2 = document.getElementById("ai-body-"+part+qnum);
-      fb2.className = "ai-fb show incorrect";
-      top2.innerHTML = "&#128680; This appears to be copied from the example.";
-      body2.innerHTML = `<div style="background:rgba(248,113,113,.08);border-left:3px solid var(--err);padding:10px 13px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.7">
-        The example sentence is there to <strong>guide your thinking</strong>, not to be copied. 
-        Please write your own original sentence using your own words and ideas.<br><br>
-        <span style="color:var(--warn)">Tip: Think about what you know about the topic. Use the example's <em>structure</em> as inspiration but choose different words and details.</span>
-      </div>`;
-      return;
-    }
-  }
-
-  // ── SAME-AS-PREVIOUS DETECTION ──────────────────────────────────
-  if(qnum > 1){
-    const prevVal = (document.getElementById(part+(qnum-1))||{}).value||"";
-    const prevNorm = prevVal.trim().toLowerCase().replace(/\s+/g," ");
-    if(prevNorm.length > 10 && normVal === prevNorm){
-      const fb2 = document.getElementById("ai-fb-"+part+qnum);
-      const top2 = document.getElementById("ai-top-"+part+qnum);
-      const body2 = document.getElementById("ai-body-"+part+qnum);
-      fb2.className = "ai-fb show incorrect";
-      top2.innerHTML = "&#9888; This is the same as your previous answer.";
-      body2.innerHTML = `<div style="background:rgba(248,113,113,.08);border-left:3px solid var(--err);padding:10px 13px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.7">
-        Each question has a different original sentence. You must write a <strong>different, unique expansion</strong> for each one.
-        <br><br><span style="color:var(--warn)">Look at the original sentence for Q${qnum} and write something specific to it.</span>
-      </div>`;
-      return;
-    }
-  }
-
-  const btn = document.getElementById("ai-btn-"+part+qnum);
-  const spin = document.getElementById("ai-spin-"+part+qnum);
-  const fb = document.getElementById("ai-fb-"+part+qnum);
-  const top = document.getElementById("ai-top-"+part+qnum);
-  const body = document.getElementById("ai-body-"+part+qnum);
-
-  btn.disabled = true;
-  if (spin) spin.style.display = "inline-block";
-  fb.className = "ai-fb show loading";
-  top.innerHTML = '<span class="ai-spinner"></span> Checking grammar...';
-  body.innerHTML = "";
-
-  let grammarErrors = [];
-  try {
-    const params = new URLSearchParams({ text: val, language: "en-GB" });
-    const res = await fetch(LT_API, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: params
-    });
-    const data = await res.json();
-    grammarErrors = data.matches || [];
-  } catch(e) {
-    grammarErrors = [];
-  }
-
-  // Complexity / style analysis
-  const styleIssues = analyseComplexity(val, part);
-  const totalIssues = grammarErrors.length + styleIssues.length;
-
-  // Determine verdict
-  let verdict, icon, summaryText;
-  if (totalIssues === 0) {
-    verdict = "correct"; icon = "✓";
-    summaryText = "Well done! Your sentence is grammatically correct and well-structured.";
-  } else if (grammarErrors.length === 0 && styleIssues.length > 0) {
-    verdict = "partial"; icon = "~";
-    summaryText = "Grammar is correct but your sentence needs to be more expanded and descriptive.";
-  } else if (grammarErrors.length <= 2 && styleIssues.length <= 1) {
-    verdict = "partial"; icon = "~";
-    summaryText = `Almost there — ${grammarErrors.length} grammar issue${grammarErrors.length!==1?'s':''} found. See details below.`;
-  } else {
-    verdict = "incorrect"; icon = "✗";
-    summaryText = `${grammarErrors.length} grammar issue${grammarErrors.length!==1?'s':''} found. Please review and correct.`;
-  }
-
-  fb.className = "ai-fb show " + verdict;
-  top.innerHTML = icon + " " + summaryText;
-
-  let bodyHtml = "";
-
-  // Grammar errors from LanguageTool
-  if (grammarErrors.length > 0) {
-    bodyHtml += `<div style="margin-bottom:12px"><strong>Grammar Issues:</strong></div>`;
-    grammarErrors.slice(0,4).forEach(err => {
-      const wrong = val.substring(err.offset, err.offset + err.length);
-      const suggestions = err.replacements.slice(0,3).map(r=>r.value).join(', ');
-      bodyHtml += `<div style="background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px">
-        <div style="color:var(--err);font-family:var(--mono);font-size:10px;letter-spacing:1px;margin-bottom:4px">ERROR</div>
-        <div><span style="background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)">${wrong}</span> — ${err.message}</div>
-        ${suggestions ? `<div style="margin-top:5px;color:var(--ok)">&#10003; Suggestion: <strong>${suggestions}</strong></div>` : ''}
-      </div>`;
-    });
-  }
-
-  // Style / complexity suggestions
-  if (styleIssues.length > 0) {
-    bodyHtml += `<div style="margin-top:8px;margin-bottom:6px"><strong>How to improve:</strong></div>`;
-    styleIssues.forEach(tip => {
-      bodyHtml += `<div style="background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px">${tip}</div>`;
-    });
-  }
-
-  // Show example if incorrect — and record it so copy detection works
-  if (verdict !== "correct") {
-    const questions = part === 'g' ? G_QUESTIONS : H_QUESTIONS;
-    const original = questions[qnum-1];
-    const exampleText = getExample(part, qnum);
-    shownExamples[part+qnum] = exampleText.toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();
-    bodyHtml += `<div style="background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:6px;padding:10px 13px;margin-top:8px;font-size:12px">
-      <div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">Original sentence to expand</div>
-      <div style="color:var(--muted)">${original}</div>
-      <div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin:8px 0 5px">Example of a good expansion</div>
-      <div>${exampleText}</div>
-      <div style="margin-top:8px;font-size:11px;color:var(--warn);font-family:var(--mono)">&#9888; Use this as inspiration only — write your own sentence in your own words.</div>
-    </div>`;
-  }
-
-  body.innerHTML = bodyHtml || (verdict === "correct" ? "<div style='color:var(--ok)'>Your answer meets all the requirements for this question.</div>" : "");
-
-  btn.disabled = false;
-  if (spin) spin.style.display = "none";
-  autoSave(part);
-}
-
-// Example expansions for guidance (not the only correct answer)
-function getExample(part, qnum) {
-  const gEx = [
-    "Risking his personal safety, the courageous journalist reported tirelessly from the conflict zone, filing detailed and gripping dispatches that brought the harsh reality of war to living rooms around the world.",
-    "Within seconds of a single post, social media spread the sensational and unverified news to millions of users globally, demonstrating both its remarkable reach and its terrifying capacity for misinformation.",
-    "Broadcast to an audience of over fifty million viewers, the hard-hitting documentary shocked viewers deeply, exposing the devastating human cost of corporate greed and government corruption.",
-    "After more than a century of daily publication, the once-beloved newspaper closed its doors permanently, a victim of declining readership and the relentless rise of free online news.",
-    "In the middle of a tense live interview, the broadcast was abruptly interrupted by a breaking news alert, sending the studio into chaos and leaving millions of viewers anxiously waiting for updates.",
-    "Fuelled by political division and a lack of digital literacy, online misinformation grew at an alarming and unprecedented rate, poisoning public debate and eroding trust in established media institutions.",
-    "Driven by an unwavering commitment to truth, the seasoned reporter investigated the corruption scandal for over two years, painstakingly gathering evidence that would eventually bring down three senior government officials.",
-    "Just as the controversial and long-awaited interview was drawing to a close, the subject abruptly stood up and walked off set, leaving the stunned presenter at a loss for words.",
-    "Boosted by smartphone ownership and faster internet speeds, digital media expanded rapidly across developing nations, giving millions of previously marginalised communities a powerful platform and a global voice.",
-    "Shared by a celebrity with over twenty million followers, the heartwarming story went viral within hours, accumulating millions of likes and sparking an outpouring of generosity from people across the world."
-  ];
-  const hEx = [
-    "The proliferation of fake news across social media platforms has become one of the most serious and destabilising threats to democratic societies in the modern era.",
-    "An overwhelming and growing majority of people now consume their daily news through social media platforms rather than through traditional print or broadcast outlets.",
-    "Social media companies wield extraordinary and largely unregulated power over public discourse, shaping political opinions and influencing elections on a global scale.",
-    "The reckless and widespread habit of sharing unverified news stories has caused immeasurable damage to public trust and has repeatedly led to real-world violence and unrest.",
-    "In a landmark move, the school established a pioneering media literacy club, equipping students with the critical thinking skills necessary to navigate an increasingly complex information landscape.",
-    "The pervasive and largely unchecked influence of social media poses a significant and growing threat to the mental health and self-esteem of young people worldwide.",
-    "In a series of groundbreaking investigations, award-winning journalists uncovered deeply troubling evidence of systemic bias and deliberate misinformation within several major media outlets.",
-    "Today's digitally native generation has wholeheartedly embraced social media as their primary tool for communication, entertainment, political engagement, and social activism.",
-    "In a damaging lapse of editorial judgement, the newspaper published a wholly inaccurate and inflammatory front-page story, triggering a public outcry and demands for an immediate retraction.",
-    "The digital revolution has fundamentally and irreversibly transformed the landscape of human communication, collapsing geographical boundaries and giving every individual an unprecedented global platform."
-  ];
-  const examples = part === 'g' ? gEx : hEx;
-  return examples[(qnum-1)] || "Try expanding the sentence with more details, adjectives, and a subordinate clause.";
-}
-
-async function checkAllAndSubmit(part) {
-  await checkAllAI(part);
-  await autoSave(part);
-}
-
-async function checkAllAI(part) {
-  const btn = document.getElementById("check-all-"+part);
-
-  // ── PRE-FLIGHT: detect duplicate answers before checking ─────
-  const answers = [];
-  for(let i=1; i<=10; i++){
-    const val = (document.getElementById(part+i)||{}).value||"";
-    answers.push(val.trim().toLowerCase().replace(/\s+/g," "));
-  }
-  const filledAnswers = answers.filter(a=>a.length>0);
-
-  // Check 1: Are all filled answers identical?
-  const uniqueAnswers = new Set(filledAnswers);
-  if(filledAnswers.length >= 5 && uniqueAnswers.size <= 2){
-    showDuplicateWarning(part, "identical");
-    return;
-  }
-
-  // Check 2: Are >60% of answers suspiciously similar (same first 8 words)?
-  const prefixes = filledAnswers.map(a=>a.split(" ").slice(0,8).join(" "));
-  const uniquePrefixes = new Set(prefixes);
-  if(filledAnswers.length >= 5 && uniquePrefixes.size <= 2){
-    showDuplicateWarning(part, "similar");
-    return;
-  }
-
-  // Check 3: Are any answers too short (under 5 words)?
-  const tooShort = answers.map((a,i)=>a.length>0&&a.split(" ").length<5 ? i+1 : null).filter(Boolean);
-  if(tooShort.length >= 5){
-    showQualityWarning(part, tooShort);
-    return;
-  }
-
-  btn.disabled = true;
-  btn.innerHTML = "Checking... please wait";
-  for (let i=1; i<=10; i++) {
-    const val = document.getElementById(part+i).value.trim();
-    if (val) { await checkAI(part, i); await new Promise(r=>setTimeout(r,600)); }
-  }
-  btn.disabled = false;
-  btn.innerHTML = "&#129302; Check &amp; Submit Part " + part.toUpperCase();
-  autoSave(part);
-}
-
-function showDuplicateWarning(part, type){
-  // Show a prominent warning in the section
-  const bodyEl = document.getElementById("body-"+part);
-  const existingWarn = document.getElementById("dup-warn-"+part);
-  if(existingWarn) existingWarn.remove();
-
-  const warn = document.createElement("div");
-  warn.id = "dup-warn-"+part;
-  warn.style.cssText = "background:rgba(248,113,113,.1);border:2px solid var(--err);border-radius:10px;padding:18px 20px;margin-bottom:16px;";
-  warn.innerHTML = `
-    <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--err);margin-bottom:10px">
-      &#9888;&#65039; Duplicate Answers Detected
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      ${type==="identical"
-        ? "You have written the <strong>same sentence for every question</strong>. This is not acceptable."
-        : "Your answers are <strong>too similar to each other</strong>. Each question requires a different, original sentence."}
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      Each question has a <strong>different original sentence</strong> that you need to expand or rewrite. 
-      Read each one carefully and write a unique sentence that relates specifically to that sentence.
-    </div>
-    <div style="background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.3);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--warn)">
-      &#128161; <strong>Tip:</strong> Look at each question's original sentence. Ask yourself: <em>Who? What? When? Where? Why? How?</em> 
-      Use descriptive words (adjectives and adverbs) and add a clause with words like <em>"because", "although", "which", "when"</em>.
-    </div>
-    <button onclick="dismissWarning('${part}')" style="margin-top:12px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:8px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase">
-      I Understand — Let Me Redo My Answers
-    </button>`;
-  bodyEl.insertBefore(warn, bodyEl.firstChild);
-  warn.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
-function showQualityWarning(part, shortQnums){
-  const bodyEl = document.getElementById("body-"+part);
-  const existingWarn = document.getElementById("dup-warn-"+part);
-  if(existingWarn) existingWarn.remove();
-
-  const warn = document.createElement("div");
-  warn.id = "dup-warn-"+part;
-  warn.style.cssText = "background:rgba(245,158,11,.08);border:2px solid var(--warn);border-radius:10px;padding:18px 20px;margin-bottom:16px;";
-  warn.innerHTML = `
-    <div style="font-family:var(--mono);font-size:13px;font-weight:700;color:var(--warn);margin-bottom:10px">
-      &#9888;&#65039; Answers Too Short
-    </div>
-    <div style="font-size:13px;line-height:1.75;color:var(--text);margin-bottom:12px">
-      Questions <strong>${shortQnums.join(", ")}</strong> have answers that are too short (fewer than 5 words). 
-      These questions require a <strong>complete, expanded sentence</strong> — not a phrase.
-    </div>
-    <div style="background:rgba(96,165,250,.08);border:1px solid rgba(96,165,250,.2);border-radius:8px;padding:12px 14px;font-size:12px;color:var(--a3)">
-      &#128216; <strong>Reminder:</strong> Each answer should be at least 12–15 words. 
-      Add adjectives, adverbs, and a clause to expand the original sentence properly.
-    </div>
-    <button onclick="dismissWarning('${part}')" style="margin-top:12px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:1px;padding:8px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase">
-      I Understand — Let Me Improve My Answers
-    </button>`;
-  bodyEl.insertBefore(warn, bodyEl.firstChild);
-  warn.scrollIntoView({behavior:"smooth", block:"start"});
-}
-
-function dismissWarning(part){
-  const warn = document.getElementById("dup-warn-"+part);
-  if(warn) warn.remove();
-  // Clear all answers in this part so student must redo them
-  for(let i=1;i<=10;i++){
-    const el = document.getElementById(part+i);
-    if(el){ el.value=""; el.classList.remove("ok","bad"); }
-  }
-  // Clear any AI feedback
-  for(let i=1;i<=10;i++){
-    const fb = document.getElementById("ai-fb-"+part+i);
-    if(fb){ fb.className="ai-fb"; fb.querySelector(".ai-top").innerHTML=""; fb.querySelector(".ai-body").innerHTML=""; }
-  }
-  updateProgress();
-}
-
-// Paragraph checker for Part I
-async function checkParaAI() {
-  const val = document.getElementById("i1").value.trim();
-  if (!val) { alert("Please write your paragraph first."); return; }
-
-  const btn = document.getElementById("check-para-btn");
-  const fb = document.getElementById("para-ai-fb");
-  btn.disabled = true;
-  btn.textContent = "Checking paragraph...";
-  fb.className = "para-ai-fb show";
-  document.getElementById("para-ai-top").innerHTML = '<span style="font-family:var(--mono);font-size:12px;color:var(--a3)">&#9679; Analysing your paragraph...</span>';
-  ["para-ai-grammar","para-ai-vocab","para-ai-structure","para-ai-suggestion"].forEach(id=>document.getElementById(id).innerHTML="");
-
-  let matches = [];
-  try {
-    const params = new URLSearchParams({ text: val, language: "en-GB" });
-    const res = await fetch(LT_API, { method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body: params });
-    const data = await res.json();
-    matches = data.matches || [];
-  } catch(e) { matches = []; }
-
-  const words = val.trim().split(/\s+/).length;
-  const sentences = val.split(/[.!?]+/).filter(s=>s.trim()).length;
-  const hasTopicSentence = sentences >= 1;
-  const hasSupportDetails = sentences >= 4;
-  const hasConclusion = sentences >= 6;
-
-  // Grammar score
-  const grammarScore = Math.max(1, 10 - matches.length * 2);
-  // Vocab check
-  const richWords = (val.match(/\b(misinformation|disinformation|proliferation|credibility|transparency|sensationalism|censorship|propaganda|algorithm|viral|broadcast|journalism|accountability|verification|literacy|bias|manipulation|platform|disseminate|authentic)\b/gi)||[]).length;
-  const vocabScore = Math.min(10, 5 + richWords);
-  // Structure score
-  const structScore = (hasTopicSentence?3:0) + (hasSupportDetails?4:0) + (hasConclusion?3:0);
-  const avgScore = Math.round((grammarScore + vocabScore + structScore) / 3);
-
-  const col = avgScore >= 8 ? "var(--ok)" : avgScore >= 6 ? "var(--warn)" : "var(--err)";
-  const rating = avgScore >= 8 ? "GOOD" : avgScore >= 6 ? "FAIR" : "NEEDS WORK";
-  document.getElementById("para-ai-top").innerHTML = `<span style="font-family:var(--mono);font-size:13px;font-weight:700;color:${col}">${rating}</span><span style="font-size:13px;margin-left:10px">${words} words · ${sentences} sentence${sentences!==1?'s':''}</span>`;
-
-  // Grammar section
-  let gramHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Grammar — ${grammarScore}/10</div>`;
-  if (matches.length === 0) {
-    gramHtml += `<div style="color:var(--ok)">&#10003; No grammar errors detected. Well done!</div>`;
-  } else {
-    matches.slice(0,4).forEach(err => {
-      const wrong = val.substring(err.offset, err.offset+err.length);
-      const sug = err.replacements.slice(0,2).map(r=>r.value).join(', ');
-      gramHtml += `<div style="background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:8px 11px;border-radius:0 6px 6px 0;margin-bottom:7px;font-size:12px"><span style="background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)">${wrong}</span> — ${err.message}${sug?` <span style="color:var(--ok)">&#10003; Try: <strong>${sug}</strong></span>`:''}</div>`;
-    });
-  }
-  document.getElementById("para-ai-grammar").innerHTML = gramHtml;
-
-  // Vocab section
-  let vocabHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Vocabulary — ${vocabScore}/10</div>`;
-  if (richWords >= 3) {
-    vocabHtml += `<div style="color:var(--ok)">&#10003; Good use of advanced vocabulary related to the environment.</div>`;
-  } else {
-    vocabHtml += `<div>Try using more advanced environmental vocabulary such as: <span style="color:var(--a2)">unprecedented, catastrophic, biodiversity, emissions, sustainability, irreversible, deterioration, mitigation</span>.</div>`;
-  }
-  document.getElementById("para-ai-vocab").innerHTML = vocabHtml;
-
-  // Structure section
-  let structHtml = `<div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px">Structure — ${structScore}/10</div>`;
-  structHtml += `<div style="font-size:12px;line-height:1.8">`;
-  structHtml += `<span style="color:${hasTopicSentence?'var(--ok)':'var(--err)'}">${hasTopicSentence?'✓':'✗'}</span> Clear topic sentence<br>`;
-  structHtml += `<span style="color:${hasSupportDetails?'var(--ok)':'var(--err)'}">${hasSupportDetails?'✓':'✗'}</span> Supporting details (${sentences} sentence${sentences!==1?'s':''})<br>`;
-  structHtml += `<span style="color:${hasConclusion?'var(--ok)':'var(--err)'}">${hasConclusion?'✓':'✗'}</span> Sufficient length (target: 6–8 sentences)`;
-  if (words < 80) structHtml += `<br><span style="color:var(--warn)">&#9888; Your paragraph is only ${words} words. Aim for 100–140 words.</span>`;
-  structHtml += `</div>`;
-  document.getElementById("para-ai-structure").innerHTML = structHtml;
-
-  // Key tip
-  let tip = "";
-  if (matches.length > 0) tip = "Correct your grammar errors first — fix the highlighted words above.";
-  else if (richWords < 3) tip = "Enrich your vocabulary by replacing simple words with more advanced environmental terms like 'unprecedented', 'catastrophic', or 'biodiversity'.";
-  else if (!hasConclusion) tip = "Your paragraph needs more sentences. Add a concluding sentence summarising your view or calling for action.";
-  else if (words < 80) tip = "Expand your paragraph — add more supporting evidence or examples to reach the 100–140 word target.";
-  else tip = "Great work! Try reading your paragraph aloud to ensure each sentence flows naturally into the next.";
-
-  document.getElementById("para-ai-suggestion").innerHTML = `<div style="background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:10px 13px;border-radius:0 6px 6px 0"><div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px">&#128161; Key Tip</div><div style="font-size:13px">${tip}</div></div>`;
-
-  btn.disabled = false;
-  btn.innerHTML = "&#129302; Check My Paragraph";
-  autoSave('i');
-}
-
-
-
-window.onload = function(){
-  // AUTO-START from URL param — runs after ALL functions are defined
-  var urlName = new URLSearchParams(window.location.search).get('name');
-  if(urlName){
-    try {
-      beginTest(urlName);
-    } catch(e) {
-      document.body.style.background = "#0a0a0a";
-      document.body.innerHTML = '<div style="color:#f87171;font-family:monospace;padding:40px;font-size:14px;max-width:800px">'
-        + '<h2 style="margin-bottom:16px">Error loading test</h2>'
-        + '<pre style="background:#1a0a0a;padding:16px;border-radius:8px;overflow:auto">' + e.stack + '</pre>'
-        + '</div>';
-    }
-    return;
-  }
-
-  // Manual name entry helpers
-  var inp = document.getElementById("nameInput");
-  if(inp){
-    inp.addEventListener("input", function(){
-      var p = getProfile(this.value.trim());
-      var preview = document.getElementById("profilePreview");
-      if(p && this.value.trim().length >= 3){
-        preview.style.display="block";
-        preview.style.borderColor=p.colour;
-        preview.style.color=p.colour;
-        preview.innerHTML="&#128075; "+p.welcome;
-      } else {
-        preview.style.display="none";
-      }
-    });
-    inp.addEventListener("keydown", function(e){ if(e.key==="Enter") startTest(); });
-  }
+  renderParts();
   // Wire Part I word counter
   var i1=document.getElementById("i1");
   if(i1) i1.addEventListener("input",function(){
@@ -1652,6 +918,146 @@ window.onload = function(){
     if(wc) wc.textContent="Words: "+this.value.trim().split(/\s+/).filter(function(w){return w;}).length;
     updateProgress();
   });
+  // Wire G/H listeners
+  "gh".split("").forEach(function(p){for(var i=1;i<=10;i++){var el=document.getElementById(p+i);if(el)el.addEventListener("input",updateProgress);}});
+  // Restore saved answers
+  var saved=loadLocal();
+  if(saved&&saved.name&&saved.name.toLowerCase().replace(/\s+/g,"")=== studentName.toLowerCase().replace(/\s+/g,"")&&saved.answers){
+    document.getElementById("restoreBanner").style.display="flex";
+  }
+  // Fetch from server in background
+  fetchAndRestore();
+}
+
+// ════════════════════════════════════════════════════════
+// GRAMMAR CHECKER (LanguageTool)
+// ════════════════════════════════════════════════════════
+const LT_API="https://api.languagetool.org/v2/check";
+const shownExamples={};
+const G_QUESTIONS=["The journalist reported.","Social media spread the news.","The documentary shocked viewers.","The newspaper closed.","The broadcast was interrupted.","Online misinformation grew.","The reporter investigated.","The interview ended.","Digital media expanded.","The story went viral."];
+const H_QUESTIONS=["Fake news is a big problem.","Many people watch the news online.","The media has a lot of power.","People share news without checking.","The school started a media club.","Social media can be dangerous.","Journalists work very hard.","Young people use social media a lot.","The newspaper printed a false story.","Communication has changed a lot."];
+
+function getExample(part,qnum){
+  var gEx=["Risking his personal safety, the courageous journalist reported tirelessly from the conflict zone, filing detailed dispatches that brought the harsh reality of war to living rooms around the world.","Within seconds of a single post, social media spread the sensational news to millions of users globally, demonstrating both its remarkable reach and its terrifying capacity for misinformation.","Broadcast to an audience of over fifty million viewers, the hard-hitting documentary shocked viewers deeply, exposing the devastating human cost of corporate greed and government corruption.","After more than a century of daily publication, the once-beloved newspaper closed its doors permanently, a victim of declining readership and the relentless rise of free online news.","In the middle of a tense live interview, the broadcast was abruptly interrupted by a breaking news alert, sending the studio into chaos and leaving viewers anxiously waiting for updates.","Fuelled by political division and a lack of digital literacy, online misinformation grew at an alarming rate, poisoning public debate and eroding trust in established media institutions.","Driven by an unwavering commitment to truth, the seasoned reporter investigated the corruption scandal for over two years, gathering evidence that brought down three senior officials.","Just as the controversial interview was drawing to a close, the subject abruptly stood up and walked off set, leaving the stunned presenter at a loss for words.","Boosted by smartphone ownership and faster internet speeds, digital media expanded rapidly across developing nations, giving millions of communities a powerful global voice.","Shared by a celebrity with over twenty million followers, the heartwarming story went viral within hours, sparking an outpouring of generosity from people across the world."];
+  var hEx=["The proliferation of fake news across social media platforms has become one of the most serious threats to democratic societies in the modern era.","An overwhelming majority of people now consume their daily news through social media rather than through traditional print or broadcast outlets.","Social media companies wield extraordinary and largely unregulated power over public discourse, shaping political opinions and influencing elections on a global scale.","The reckless habit of sharing unverified news stories has caused immeasurable damage to public trust and has repeatedly led to real-world unrest.","In a landmark move, the school established a pioneering media literacy club, equipping students with critical thinking skills to navigate an increasingly complex information landscape.","The pervasive influence of social media poses a significant and growing threat to the mental health and self-esteem of young people worldwide.","Award-winning journalists uncovered deeply troubling evidence of systemic bias and deliberate misinformation within several major media outlets.","Today's digitally native generation has wholeheartedly embraced social media as their primary tool for communication, entertainment, and social activism.","In a damaging lapse of editorial judgement, the newspaper published a wholly inaccurate front-page story, triggering a public outcry and demands for an immediate retraction.","The digital revolution has fundamentally transformed the landscape of human communication, collapsing geographical boundaries and giving every individual an unprecedented global platform."];
+  return (part==="g"?gEx:hEx)[(qnum-1)]||"Expand the sentence with more details, adjectives, and a subordinate clause.";
+}
+
+function analyseComplexity(text,part){
+  var words=text.trim().split(/\s+/).length;
+  var hasAdj=/(alarming|devastating|significant|dramatic|widespread|rapid|unprecedented|profound|extraordinary|remarkable)/i.test(text);
+  var hasAdv=/(rapidly|significantly|dramatically|increasingly|relentlessly|profoundly|remarkably)/i.test(text);
+  var hasClause=/(which|that|because|although|despite|while|when|as|since|unless|who)/i.test(text);
+  var issues=[];
+  if(part==="g"){if(words<12)issues.push("Your sentence is too short — aim for at least 15 words.");if(!hasAdj&&!hasAdv)issues.push("Add descriptive adjectives or adverbs to make your sentence more vivid.");if(!hasClause)issues.push("Try adding a subordinate clause using 'which', 'because', 'although', or 'as'.");}
+  else if(part==="h"){if(words<10)issues.push("Your rewritten sentence is too short.");if(!hasAdj&&!hasAdv&&!hasClause)issues.push("Use more sophisticated vocabulary or clause structures.");}
+  return issues;
+}
+
+async function checkAI(part,qnum){
+  var val=document.getElementById(part+qnum).value.trim();
+  if(!val){alert("Please write your answer first.");return;}
+  var normVal=val.toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();
+  if(shownExamples[part+qnum]){
+    var ex=shownExamples[part+qnum];
+    var valWords=new Set(normVal.split(" "));
+    var exWords=ex.split(" ");
+    var matchCount=exWords.filter(function(w){return valWords.has(w);}).length;
+    if(matchCount/exWords.length>0.75){
+      var fb2=document.getElementById("ai-fb-"+part+qnum);
+      if(fb2){fb2.className="ai-fb show incorrect";fb2.querySelector(".ai-top").textContent="&#128680; This appears copied from the example.";fb2.querySelector(".ai-body").innerHTML="<div style='font-size:13px'>Please write your own original sentence.</div>";}
+      return;
+    }
+  }
+  if(qnum>1){var prev=(document.getElementById(part+(qnum-1))||{}).value||"";if(prev.trim().toLowerCase().replace(/\s+/g," ")===normVal&&normVal.length>10){var fb3=document.getElementById("ai-fb-"+part+qnum);if(fb3){fb3.className="ai-fb show incorrect";fb3.querySelector(".ai-top").textContent="&#9888; Same as previous answer.";fb3.querySelector(".ai-body").textContent="Write a different sentence for each question.";}return;}}
+  var btn=document.getElementById("ai-btn-"+part+qnum);
+  var spin=document.getElementById("ai-spin-"+part+qnum);
+  var fb=document.getElementById("ai-fb-"+part+qnum);
+  if(btn)btn.disabled=true;if(spin)spin.style.display="inline-block";
+  if(fb){fb.className="ai-fb show loading";fb.querySelector(".ai-top").innerHTML='<span class="ai-spinner"></span> Checking grammar...';}
+  var grammarErrors=[];
+  try{var params=new URLSearchParams({text:val,language:"en-GB"});var res=await fetch(LT_API,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:params});var data=await res.json();grammarErrors=data.matches||[];}catch(e){grammarErrors=[];}
+  var styleIssues=analyseComplexity(val,part);
+  var verdict=grammarErrors.length===0&&styleIssues.length===0?"correct":grammarErrors.length<=2&&styleIssues.length<=1?"partial":"incorrect";
+  var icon=verdict==="correct"?"✓":verdict==="partial"?"~":"✗";
+  var summary=verdict==="correct"?"Well done! Grammatically correct and well-structured.":verdict==="partial"?"Almost there — see details below.":"Issues found — please review.";
+  if(fb){fb.className="ai-fb show "+verdict;fb.querySelector(".ai-top").textContent=icon+" "+summary;}
+  var bodyHtml="";
+  if(grammarErrors.length>0){bodyHtml+="<div style='margin-bottom:12px'><strong>Grammar Issues:</strong></div>";grammarErrors.slice(0,4).forEach(function(err){var wrong=val.substring(err.offset,err.offset+err.length);var sug=err.replacements.slice(0,3).map(function(r){return r.value;}).join(", ");bodyHtml+="<div style='background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px'><span style='background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)'>"+wrong+"</span> — "+err.message+(sug?"<div style='margin-top:5px;color:var(--ok)'>&#10003; Try: <strong>"+sug+"</strong></div>":"")+"</div>";});}
+  if(styleIssues.length>0){styleIssues.forEach(function(tip){bodyHtml+="<div style='background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:9px 12px;border-radius:0 6px 6px 0;margin-bottom:8px;font-size:12px'>"+tip+"</div>";});}
+  if(verdict!=="correct"){var exText=getExample(part,qnum);shownExamples[part+qnum]=exText.toLowerCase().replace(/[^a-z0-9 ]/g,"").replace(/\s+/g," ").trim();bodyHtml+="<div style='background:rgba(96,165,250,.07);border:1px solid rgba(96,165,250,.2);border-radius:6px;padding:10px 13px;margin-top:8px;font-size:12px'><div style='font-family:var(--mono);font-size:10px;color:var(--a3);text-transform:uppercase;margin-bottom:5px'>Example</div><div>"+exText+"</div><div style='margin-top:8px;font-size:11px;color:var(--warn);font-family:var(--mono)'>&#9888; Use as inspiration only — write in your own words.</div></div>";}
+  if(fb) fb.querySelector(".ai-body").innerHTML=bodyHtml||(verdict==="correct"?"<div style='color:var(--ok)'>Your answer meets all requirements.</div>":"");
+  if(btn)btn.disabled=false;if(spin)spin.style.display="none";
+  autoSave(part);
+}
+
+async function checkAllAI(part){
+  var answers=[];
+  for(var i=1;i<=10;i++){var val=(document.getElementById(part+i)||{}).value||"";answers.push(val.trim().toLowerCase().replace(/\s+/g," "));}
+  var filled=answers.filter(function(a){return a.length>0;});
+  var unique=new Set(filled);
+  if(filled.length>=5&&unique.size<=2){showDupWarn(part,"identical");return;}
+  var prefixes=filled.map(function(a){return a.split(" ").slice(0,8).join(" ");});
+  if(filled.length>=5&&new Set(prefixes).size<=2){showDupWarn(part,"similar");return;}
+  var btn=document.getElementById("check-all-"+part);
+  if(btn){btn.disabled=true;btn.textContent="Checking...";}
+  for(var i=1;i<=10;i++){var val=document.getElementById(part+i).value.trim();if(val){await checkAI(part,i);await new Promise(function(r){setTimeout(r,600);});}}
+  if(btn){btn.disabled=false;btn.innerHTML="&#129302; Check &amp; Submit Part "+part.toUpperCase();}
+  autoSave(part);
+}
+
+function showDupWarn(part,type){
+  var bodyEl=document.getElementById("body-"+part);
+  var old=document.getElementById("dup-warn-"+part);if(old)old.remove();
+  var warn=document.createElement("div");warn.id="dup-warn-"+part;warn.style.cssText="background:rgba(248,113,113,.1);border:2px solid var(--err);border-radius:10px;padding:18px 20px;margin-bottom:16px;";
+  warn.innerHTML="<div style='font-family:var(--mono);font-size:13px;font-weight:700;color:var(--err);margin-bottom:10px'>&#9888;&#65039; "+(type==="identical"?"Identical Answers Detected":"Very Similar Answers Detected")+"</div><div style='font-size:13px;line-height:1.75;margin-bottom:12px'>"+(type==="identical"?"You wrote the same sentence for every question.":"Your answers are too similar to each other.")+" Each question needs a unique sentence.</div><button onclick="dismissWarn('"+part+"')" style='font-family:var(--mono);font-size:11px;font-weight:700;padding:8px 18px;background:var(--accent);color:#000;border:none;border-radius:6px;cursor:pointer;text-transform:uppercase'>I Understand — Let Me Redo</button>";
+  bodyEl.insertBefore(warn,bodyEl.firstChild);warn.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function dismissWarn(part){
+  var warn=document.getElementById("dup-warn-"+part);if(warn)warn.remove();
+  for(var i=1;i<=10;i++){var el=document.getElementById(part+i);if(el){el.value="";el.classList.remove("ok","bad");}}
+  updateProgress();
+}
+
+async function checkParaAI(){
+  var val=document.getElementById("i1").value.trim();
+  if(!val){alert("Please write your paragraph first.");return;}
+  var btn=document.getElementById("check-para-btn");
+  var fb=document.getElementById("para-ai-fb");
+  if(btn){btn.disabled=true;btn.textContent="Checking...";}
+  if(fb)fb.className="para-ai-fb show";
+  var top=document.getElementById("para-ai-top");
+  if(top)top.innerHTML="<span style='font-family:var(--mono);font-size:12px;color:var(--a3)'>&#9679; Analysing your paragraph...</span>";
+  ["para-ai-grammar","para-ai-vocab","para-ai-structure","para-ai-suggestion"].forEach(function(id){var el=document.getElementById(id);if(el)el.innerHTML="";});
+  var matches=[];
+  try{var params=new URLSearchParams({text:val,language:"en-GB"});var res=await fetch(LT_API,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:params});var data=await res.json();matches=data.matches||[];}catch(e){matches=[];}
+  var words=val.trim().split(/\s+/).length;
+  var sentences=val.split(/[.!?]+/).filter(function(s){return s.trim();}).length;
+  var gramScore=Math.max(1,10-matches.length*2);
+  var richWords=(val.match(/(misinformation|disinformation|proliferation|credibility|censorship|propaganda|algorithm|viral|journalism|accountability|verification|literacy|bias|manipulation|platform)/gi)||[]).length;
+  var vocabScore=Math.min(10,5+richWords);
+  var structScore=(sentences>=1?3:0)+(sentences>=4?4:0)+(sentences>=6?3:0);
+  var avgScore=Math.round((gramScore+vocabScore+structScore)/3);
+  var col=avgScore>=8?"var(--ok)":avgScore>=6?"var(--warn)":"var(--err)";
+  var rating=avgScore>=8?"GOOD":avgScore>=6?"FAIR":"NEEDS WORK";
+  if(top)top.innerHTML="<span style='font-family:var(--mono);font-size:13px;font-weight:700;color:"+col+"'>"+rating+"</span><span style='font-size:13px;margin-left:10px'>"+words+" words · "+sentences+" sentence"+( sentences!==1?"s":"")+"</span>";
+  var gramEl=document.getElementById("para-ai-grammar");
+  if(gramEl){var gh="<div style='font-family:var(--mono);font-size:10px;color:var(--a3);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px'>Grammar — "+gramScore+"/10</div>";if(matches.length===0)gh+="<div style='color:var(--ok)'>&#10003; No grammar errors detected. Well done!</div>";else matches.slice(0,4).forEach(function(err){var wrong=val.substring(err.offset,err.offset+err.length);var sug=err.replacements.slice(0,2).map(function(r){return r.value;}).join(", ");gh+="<div style='background:rgba(248,113,113,.07);border-left:3px solid var(--err);padding:8px 11px;border-radius:0 6px 6px 0;margin-bottom:7px;font-size:12px'><span style='background:rgba(248,113,113,.2);padding:1px 5px;border-radius:3px;font-family:var(--mono)'>"+wrong+"</span> — "+err.message+(sug?" <span style='color:var(--ok)'>&#10003; Try: <strong>"+sug+"</strong></span>":"")+"</div>";});gramEl.innerHTML=gh;}
+  var vocEl=document.getElementById("para-ai-vocab");if(vocEl)vocEl.innerHTML="<div style='font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px'>Vocabulary — "+vocabScore+"/10</div>"+(richWords>=3?"<div style='color:var(--ok)'>&#10003; Good use of media vocabulary.</div>":"<div>Use more advanced vocabulary: <span style='color:var(--a2)'>misinformation, proliferation, credibility, censorship, accountability, viral, literacy</span></div>");
+  var strEl=document.getElementById("para-ai-structure");if(strEl)strEl.innerHTML="<div style='font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px'>Structure — "+structScore+"/10</div><div style='font-size:12px;line-height:1.8'><span style='color:"+(sentences>=1?"var(--ok)":"var(--err)")+"'>"+(sentences>=1?"✓":"✗")+"</span> Topic sentence<br><span style='color:"+(sentences>=4?"var(--ok)":"var(--err)")+"'>"+(sentences>=4?"✓":"✗")+"</span> Supporting details<br><span style='color:"+(sentences>=6?"var(--ok)":"var(--err)")+"'>"+(sentences>=6?"✓":"✗")+"</span> Sufficient length"+(words<80?"<br><span style='color:var(--warn)'>&#9888; Only "+words+" words — aim for 100–140.</span>":"")+"</div>";
+  var tip=matches.length>0?"Fix grammar errors first.":richWords<3?"Use more advanced media vocabulary.":sentences<6?"Add more sentences to reach 6–8.":words<80?"Expand your paragraph to reach 100–140 words.":"Great work! Read aloud to check flow.";
+  var sugEl=document.getElementById("para-ai-suggestion");if(sugEl)sugEl.innerHTML="<div style='background:rgba(249,115,22,.07);border-left:3px solid var(--a2);padding:10px 13px;border-radius:0 6px 6px 0'><div style='font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:1px;text-transform:uppercase;margin-bottom:5px'>&#128161; Key Tip</div><div style='font-size:13px'>"+tip+"</div></div>";
+  if(btn){btn.disabled=false;btn.innerHTML="&#129302; Check &amp; Submit Part I";}
+  autoSave("i");
+}
+
+// ════════════════════════════════════════════════════════
+// AUTO-START
+// ════════════════════════════════════════════════════════
+window.onload = function(){
+  var urlName=new URLSearchParams(location.search).get('name');
+  if(urlName){ beginTest(urlName); return; }
+  document.getElementById("nameInput").addEventListener("keydown",function(e){if(e.key==="Enter")startTest();});
 };
 </script>
 </body>
