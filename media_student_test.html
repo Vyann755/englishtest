@@ -635,7 +635,30 @@ let studentName="",startTime=null;
 function norm(s){return(s||"").toLowerCase().replace(/[^a-z0-9 ',]/g,"").replace(/\s+/g," ").trim()}
 function sc(pct){return pct>=80?"#34d399":pct>=60?"#fbbf24":"#f87171"}
 
-// ── LOCAL STORAGE ─────────────────────────────────────
+// ── FETCH AND RESTORE FROM SERVER ────────────────────────
+async function fetchAndRestore(){
+  if(!studentName) return;
+  try{
+    const res = await fetch(`${API}/b/${BIN_ID}/latest`,{
+      headers:{"X-Master-Key":MASTER_KEY,"X-Bin-Meta":"false"},
+      cache:"no-store"
+    });
+    if(!res.ok) return;
+    const data = await res.json();
+    const subs = Array.isArray(data.submissions) ? data.submissions : [];
+    const theme = document.title.includes("Media") ? "Media & Communication" : "Environment & Climate Change";
+    const mine = subs.filter(s=>
+      (s.name||"").toLowerCase().replace(/\s+/g,"") === studentName.toLowerCase().replace(/\s+/g,"") &&
+      s.testTheme === theme
+    ).pop();
+    if(mine && mine.answers){
+      saveLocal({...mine, name:studentName});
+      restoreProgress(mine);
+    }
+  }catch(e){}
+}
+
+/ ── LOCAL STORAGE ─────────────────────────────────────
 function saveLocal(data){try{localStorage.setItem(STORAGE_KEY,JSON.stringify(data));}catch(e){}}
 function loadLocal(){try{const d=localStorage.getItem(STORAGE_KEY);return d?JSON.parse(d):null;}catch(e){return null;}}
 function clearLocal(){try{localStorage.removeItem(STORAGE_KEY);}catch(e){}}
@@ -782,12 +805,12 @@ function showFinalResult(){
 }
 
 // ── RESTORE ───────────────────────────────────────────
-function restoreProgress(){
-  const data=loadLocal();
+function restoreProgress(data){
+  if(!data) data=loadLocal();
   if(!data||!data.answers)return;
-  document.getElementById("restoreBanner").style.display="none";
-  // Wait for dynamic parts to be rendered
-  setTimeout(()=>{
+  // Hide restore banner if visible
+  const banner=document.getElementById("restoreBanner");
+  if(banner) banner.style.display="none";
   const ans=data.answers;
   "abcde".split("").forEach(p=>{for(let i=1;i<=10;i++){const el=document.getElementById(p+i);if(el&&ans[p+i])el.value=ans[p+i];}});
   for(let i=1;i<=10;i++){const key="f"+i;if(ans[key]){const ji="ABCD".indexOf(ans[key]);if(ji>=0){document.querySelectorAll(`#mcq-${i} .mcq-opt`).forEach(o=>o.classList.remove("sel"));const opt=document.getElementById(`opt-${i}-${ji}`);if(opt){opt.classList.add("sel");mcqSel[i]=ji;}}}}
@@ -795,7 +818,6 @@ function restoreProgress(){
   const i1=document.getElementById("i1");if(i1&&ans.i1)i1.value=ans.i1;
   if(data.sectionScores)Object.assign(sectionScores,data.sectionScores);
   updateDash();setStatus("saved","Progress restored ✓");setLastSaved();
-  },250); // end setTimeout
 }
 
 // ── MCQ ───────────────────────────────────────────────
@@ -957,16 +979,17 @@ function beginTest(val, autoRestore=false){
     document.getElementById("dispLevel").style.color = currentProfile.colour;
   }
   renderDynamicParts();
-  // Auto-restore saved answers
+  // Always auto-restore saved answers silently — no prompt needed
   const saved=loadLocal();
-  if(saved&&saved.name&&saved.name.toLowerCase().replace(/\s+/g,"")===studentName.toLowerCase().replace(/\s+/g,"")&&saved.answers){
-    if(autoRestore){
-      // Restore immediately without prompting
-      setTimeout(()=>{ restoreProgress(); setStatus("saved","Progress restored ✓"); }, 300);
-    } else {
-      document.getElementById("restoreBanner").style.display="flex";
+  if(saved && saved.answers){
+    const savedName=(saved.name||"").toLowerCase().replace(/\s+/g,"");
+    const currentName=studentName.toLowerCase().replace(/\s+/g,"");
+    if(savedName===currentName){
+      restoreProgress();
     }
   }
+  // Also try to fetch latest from server in background
+  fetchAndRestore();
 }
 
 // ── DYNAMIC PART RENDERING ────────────────────────────────────────────────
