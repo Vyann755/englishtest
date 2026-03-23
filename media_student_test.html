@@ -151,20 +151,18 @@ textarea.ta.bad{border-color:var(--err)}
 </head>
 <body>
 
-<!-- NAME GATE: only shown if no ?name= param -->
 <div id="nameGate">
   <div class="name-box">
     <div class="badge">Media &amp; Communication</div>
     <h2>Welcome!</h2>
-    <p>Enter your name to begin. Your personalised test loads automatically.</p>
+    <p>Enter your name to begin.</p>
     <input class="big" id="nameInput" placeholder="Your name..." maxlength="80" autocomplete="name">
-    <div class="err-msg" id="nameErr">Please enter your name to continue.</div>
+    <div class="err-msg" id="nameErr">Please enter your name.</div>
     <div id="profilePreview" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-family:var(--mono);border:1px solid var(--border)"></div>
     <button class="btn-primary" onclick="startTest()">Begin Test &#8594;</button>
   </div>
 </div>
 
-<!-- MAIN TEST: hidden until name confirmed -->
 <div class="wrap" id="mainTest" style="display:none">
   <div id="restoreBanner" style="display:none" class="restore-banner">
     <p>&#128196; Saved progress found. Restore your answers?</p>
@@ -191,11 +189,8 @@ textarea.ta.bad{border-color:var(--err)}
     <div class="prog-lbl"><span>Progress</span><span id="dPct">0%</span></div>
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
   </div>
-
-  <!-- Parts A–F rendered dynamically based on student profile -->
   <div id="dynamicParts"></div>
-
-  <!-- PART G -->
+<!-- PART G -->
 <!-- PART G -->
   <div class="section">
     <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow open" id="arr-g">&#9660;</span></div>
@@ -313,10 +308,8 @@ textarea.ta.bad{border-color:var(--err)}
 
 
 </div>
+</div>
 
-</div><!-- end mainTest -->
-
-<!-- RESULT MODAL -->
 <div id="resultModal">
   <div class="res-box">
     <div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:3px;margin-bottom:12px">FINAL RESULT</div>
@@ -330,6 +323,7 @@ textarea.ta.bad{border-color:var(--err)}
 </div>
 
 <script>
+// ── STUDENT PROFILES ────────────────────────────────────────────────────────
 const STUDENT_PROFILES = {
 
   // ══════════════════════════════════════════════════════════════════
@@ -611,7 +605,17 @@ function getProfile(name){
   return null;
 }
 
+// ── CORE VARIABLES ──────────────────────────────────────────────────────────
+const BIN_ID="69babf10b7ec241ddc7d652f";
+const MASTER_KEY="$2a$10$GeOyXKViWuf6OsSoiA9eT.bifbFDXJ/AsilT9KSjMz.2Ibg5mPDGS";
+const API="https://api.jsonbin.io/v3";
+const STORAGE_KEY="mc_progress";
+const sectionScores={a:0,b:0,c:0,d:0,e:0,f:0};
+const sectionChecked={a:false,b:false,c:false,d:false,e:false,f:false};
+const mcqSel={};
+let studentName="",startTime=null,currentProfile=null;
 
+// ── CORE FUNCTIONS ───────────────────────────────────────────────────────────
 const BIN_ID="69babf10b7ec241ddc7d652f";
 const MASTER_KEY="$2a$10$GeOyXKViWuf6OsSoiA9eT.bifbFDXJ/AsilT9KSjMz.2Ibg5mPDGS";
 const API="https://api.jsonbin.io/v3";
@@ -945,20 +949,7 @@ function collectAnswers(){
 let currentProfile = null;
 
 // Show profile preview as they type name
-document.addEventListener("DOMContentLoaded", ()=>{
-  const inp = document.getElementById("nameInput");
-  if(inp) inp.addEventListener("input", ()=>{
-    const p = getProfile(inp.value.trim());
-    const preview = document.getElementById("profilePreview");
-    if(p && inp.value.trim().length >= 3){
-      preview.style.display="block";
-      preview.style.borderColor = p.colour;
-      preview.style.color = p.colour;
-      preview.innerHTML = "&#128075; " + p.welcome;
-    } else {
-      preview.style.display="none";
-    }
-  });
+
 });
 
 function startTest(){
@@ -969,17 +960,7 @@ function startTest(){
 document.addEventListener("keydown",e=>{if(e.key==="Enter"&&document.getElementById("nameGate").style.display!=="none")startTest();});
 
 // Auto-start from URL param
-document.addEventListener("DOMContentLoaded",()=>{
-  const params = new URLSearchParams(window.location.search);
-  const urlName = params.get("name");
-  if(urlName){
-    // Fill input field
-    const inp = document.getElementById("nameInput");
-    if(inp) inp.value = urlName;
-    // beginTest hides gate, sets profile, renders parts
-    beginTest(urlName);
-  }
-});
+
 
 function beginTest(val, autoRestore=false){
   studentName=val; startTime=new Date();
@@ -1148,7 +1129,10 @@ async function submitAll(){
   document.getElementById("resScore").textContent=score+"/60";
   document.getElementById("resScore").style.color=col;
   document.getElementById("resSaved").style.cssText=`background:${saved?"rgba(52,211,153,.08)":"rgba(251,191,36,.08)"};border:1px solid ${saved?"rgba(52,211,153,.25)":"rgba(251,191,36,.25)"};color:${saved?"#34d399":"#fbbf24"}`;
-  document.getElementById("resSaved").textContent=saved?"&#10003; Saved! Your teacher will see your results.":"&#9888; Could not save. Please tell your teacher.";
+  d
+
+// ── GRAMMAR CHECKER ──────────────────────────────────────────────────────────
+ocument.getElementById("resSaved").textContent=saved?"&#10003; Saved! Your teacher will see your results.":"&#9888; Could not save. Please tell your teacher.";
   const msg=pct>=85?"Excellent work! Your command of environmental English is impressive.":pct>=70?"Well done! Strong grammar skills with room to grow further.":pct>=55?"Good effort! Focus on verb tenses and sentence structure.":"Keep going! Review the grammar rules in the hints carefully.";
   document.getElementById("resMsg").textContent=msg;
   document.getElementById("resGrid").innerHTML=["a","b","c","d","e","f"].map(p=>`<div class="res-item"><div class="v" style="color:${sc((sectionScores[p]||0)*10)}">${sectionScores[p]||0}/10</div><div class="l">Part ${p.toUpperCase()}</div></div>`).join("");
@@ -1571,6 +1555,44 @@ async function checkParaAI() {
   btn.innerHTML = "&#129302; Check My Paragraph";
   autoSave('i');
 }
+
+
+// ── INIT: runs after ALL functions are defined ────────────────────────────────
+window.onload = function(){
+  // Wire Part I word counter
+  var i1 = document.getElementById("i1");
+  if(i1) i1.addEventListener("input", function(){
+    var wc = document.getElementById("wc");
+    if(wc) wc.textContent = "Words: " + this.value.trim().split(/\s+/).filter(function(w){return w;}).length;
+    updateProgress();
+  });
+
+  // Profile preview on name input
+  var inp = document.getElementById("nameInput");
+  if(inp){
+    inp.addEventListener("input", function(){
+      var p = getProfile(this.value.trim());
+      var preview = document.getElementById("profilePreview");
+      if(p && this.value.trim().length >= 3){
+        preview.style.display = "block";
+        preview.style.borderColor = p.colour;
+        preview.style.color = p.colour;
+        preview.innerHTML = "&#128075; " + p.welcome;
+      } else {
+        preview.style.display = "none";
+      }
+    });
+    inp.addEventListener("keydown", function(e){
+      if(e.key === "Enter") startTest();
+    });
+  }
+
+  // Auto-start from URL param — runs AFTER all functions defined
+  var urlName = new URLSearchParams(window.location.search).get("name");
+  if(urlName){
+    beginTest(urlName);
+  }
+};
 </script>
 </body>
 </html>
