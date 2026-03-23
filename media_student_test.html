@@ -150,18 +150,6 @@ textarea.ta.bad{border-color:var(--err)}
 </style>
 </head>
 <body>
-<script>
-// Hide name gate immediately if name param exists — prevents flash of login screen
-if(new URLSearchParams(window.location.search).get("name")){
-  document.addEventListener("DOMContentLoaded",function(){
-    var g=document.getElementById("nameGate");
-    if(g) g.style.display="none";
-    var m=document.getElementById("mainTest");
-    if(m) m.style.display="block";
-  });
-}
-</script>
-
 <div id="nameGate">
   <div class="name-box">
     <div class="badge">Media &amp; Communication</div>
@@ -207,9 +195,9 @@ if(new URLSearchParams(window.location.search).get("name")){
 
   <!-- PART G -->
   <div class="section">
-    <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow" id="arr-g">&#9660;</span></div>
-    <div class="sec-body" id="body-g">
-      <div class="example-box"><div class="ex-lbl">EXAMPLE</div><div class="ex-s">The forest burned.</div><div class="ex-e">&#8594; Driven by months of drought and record-breaking heat, the ancient forest burned uncontrollably for weeks, releasing vast amounts of carbon dioxide into an already fragile atmosphere.</div></div>
+    <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow open" id="arr-g">&#9660;</span></div>
+    <div class="sec-body open" id="body-g">
+      <div class="example-box"><div class="ex-lbl">EXAMPLE</div><div class="ex-s">The news spread.</div><div class="ex-e">&#8594; Within minutes of being posted online, the shocking breaking news spread rapidly across social media platforms, reaching millions of people around the world before journalists could verify its accuracy.</div></div>
       <div class="qb"><div class="qnum">Q1</div><div class="qtext">The journalist reported.</div><textarea class="ta" id="g1" placeholder="Expand into a complex descriptive sentence..."></textarea>
         <button class="check-ai-btn" id="ai-btn-g1" onclick="checkAI('g',1)"><span class="ai-spinner" id="ai-spin-g1" style="display:none"></span>&#129302; Check with AI</button>
         <div class="ai-fb" id="ai-fb-g1"><div class="ai-top" id="ai-top-g1"></div><div class="ai-body" id="ai-body-g1"></div></div></div>
@@ -249,8 +237,8 @@ if(new URLSearchParams(window.location.search).get("name")){
 
   <!-- PART H -->
   <div class="section">
-    <div class="sec-hdr" onclick="toggle('h')"><span class="sec-tag">PART H</span><div><div class="sec-title">Composition Sentence Practice</div><div class="sec-sub">Rewrite each sentence to be more vivid, formal and impactful</div></div><span class="sec-arrow" id="arr-h">&#9660;</span></div>
-    <div class="sec-body" id="body-h">
+    <div class="sec-hdr" onclick="toggle('h')"><span class="sec-tag">PART H</span><div><div class="sec-title">Composition Sentence Practice</div><div class="sec-sub">Rewrite each sentence to be more vivid, formal and impactful</div></div><span class="sec-arrow open" id="arr-h">&#9660;</span></div>
+    <div class="sec-body open" id="body-h">
       <div class="qb"><div class="qnum">Q1</div><div class="qtext">Fake news is a big problem.</div><textarea class="ta" id="h1" placeholder="Rewrite more descriptively..."></textarea>
         <button class="check-ai-btn" id="ai-btn-h1" onclick="checkAI('h',1)"><span class="ai-spinner" id="ai-spin-h1" style="display:none"></span>&#129302; Check with AI</button>
         <div class="ai-fb" id="ai-fb-h1"><div class="ai-top" id="ai-top-h1"></div><div class="ai-body" id="ai-body-h1"></div></div></div>
@@ -290,8 +278,8 @@ if(new URLSearchParams(window.location.search).get("name")){
 
   <!-- PART I -->
   <div class="section">
-    <div class="sec-hdr" onclick="toggle('i')"><span class="sec-tag">PART I</span><div><div class="sec-title">Paragraph Writing</div><div class="sec-sub">Write 6&ndash;8 sentences &middot; Target: 100&ndash;140 words</div></div><span class="sec-arrow" id="arr-i">&#9660;</span></div>
-    <div class="sec-body" id="body-i">
+    <div class="sec-hdr" onclick="toggle('i')"><span class="sec-tag">PART I</span><div><div class="sec-title">Paragraph Writing</div><div class="sec-sub">Write 6&ndash;8 sentences &middot; Target: 100&ndash;140 words</div></div><span class="sec-arrow open" id="arr-i">&#9660;</span></div>
+    <div class="sec-body open" id="body-i">
       <div class="topic-box">
         <div class="t-lbl">Writing Topic</div>
         <h4>The Impact of Social Media on Communication and Society</h4>
@@ -969,14 +957,10 @@ document.addEventListener("DOMContentLoaded",()=>{
   const params = new URLSearchParams(window.location.search);
   const urlName = params.get("name");
   if(urlName){
-    // Hide gate immediately
-    const gate = document.getElementById("nameGate");
-    if(gate) gate.style.display="none";
-    const main = document.getElementById("mainTest");
-    if(main) main.style.display="block";
-    // Fill input and start
+    // Fill input field
     const inp = document.getElementById("nameInput");
     if(inp) inp.value = urlName;
+    // beginTest hides gate, sets profile, renders parts
     beginTest(urlName);
   }
 });
