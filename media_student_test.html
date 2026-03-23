@@ -150,6 +150,18 @@ textarea.ta.bad{border-color:var(--err)}
 </style>
 </head>
 <body>
+<script>
+// SYNCHRONOUS - runs before ANY rendering
+// If ?name= in URL, add class to body immediately
+if(new URLSearchParams(location.search).get('name')){
+  document.documentElement.className='has-name';
+}
+</script>
+<style>
+/* Hide nameGate instantly when name param present - no flash possible */
+html.has-name #nameGate { display: none !important; }
+html.has-name #mainTest { display: block !important; }
+</style>
 
 <div id="nameGate">
   <div class="name-box">
