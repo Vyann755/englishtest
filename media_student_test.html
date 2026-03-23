@@ -865,26 +865,27 @@ function renderDynamicParts(){
       + "</div>";
     return;
   }
-  container.innerHTML = "<div style='color:#34d399;font-family:monospace;padding:10px'>Profile loaded: " + p.level + " — rendering parts...</div>";
-  
   let html = "";
-  
-  // Parts A, B — fill-in inputs
-  ["A","B"].forEach(part=>{
-    const pd = p.parts[part];
-    html += renderFillSection(part, pd);
-  });
-  
-  // Parts C, D, E — textareas
-  ["C","D","E"].forEach(part=>{
-    const pd = p.parts[part];
-    html += renderTASection(part, pd);
-  });
-  
-  // Part F — MCQ
-  html += renderMCQSection(p.parts.F);
-  
-  container.innerHTML = html;
+  try {
+    ["A","B"].forEach(part=>{
+      const pd = p.parts[part];
+      if(!pd) throw new Error("Missing part "+part+" in profile for "+studentName);
+      html += renderFillSection(part, pd);
+    });
+    ["C","D","E"].forEach(part=>{
+      const pd = p.parts[part];
+      if(!pd) throw new Error("Missing part "+part+" in profile for "+studentName);
+      html += renderTASection(part, pd);
+    });
+    html += renderMCQSection(p.parts.F);
+    container.innerHTML = html;
+  } catch(err) {
+    container.innerHTML = "<div style='color:#f87171;font-family:monospace;padding:20px;font-size:13px;background:#1a0000;border-radius:8px'>"
+      + "<b>RENDER ERROR:</b><br>" + err.message + "<br><br>"
+      + "Profile keys: " + JSON.stringify(Object.keys(p.parts||{})) + "<br>"
+      + "Level: " + p.level
+      + "</div>";
+  }
   
   // Attach input listeners
   container.querySelectorAll("input.fill,textarea.ta").forEach(el=>el.addEventListener("input",updateProgress));
