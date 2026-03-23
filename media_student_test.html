@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>English Test — Media & Communication</title>
+<title>English Test — Media &amp; Communication</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -150,11 +150,13 @@ textarea.ta.bad{border-color:var(--err)}
 </style>
 </head>
 <body>
+
+<!-- NAME GATE: only shown if no ?name= param -->
 <div id="nameGate">
   <div class="name-box">
     <div class="badge">Media &amp; Communication</div>
     <h2>Welcome!</h2>
-    <p>Enter your name to begin. The test will be personalised to your level automatically.</p>
+    <p>Enter your name to begin. Your personalised test loads automatically.</p>
     <input class="big" id="nameInput" placeholder="Your name..." maxlength="80" autocomplete="name">
     <div class="err-msg" id="nameErr">Please enter your name to continue.</div>
     <div id="profilePreview" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:8px;font-size:13px;font-family:var(--mono);border:1px solid var(--border)"></div>
@@ -162,6 +164,7 @@ textarea.ta.bad{border-color:var(--err)}
   </div>
 </div>
 
+<!-- MAIN TEST: hidden until name confirmed -->
 <div class="wrap" id="mainTest" style="display:none">
   <div id="restoreBanner" style="display:none" class="restore-banner">
     <p>&#128196; Saved progress found. Restore your answers?</p>
@@ -171,7 +174,6 @@ textarea.ta.bad{border-color:var(--err)}
     <div class="as-left"><div class="as-dot" id="asDot"></div><span id="asText">Auto-saves when you check answers</span></div>
     <span style="font-size:11px;color:var(--muted);font-family:var(--mono)" id="lastSaved"></span>
   </div>
-
   <div class="hdr">
     <div class="badge" id="levelBadge">Media &amp; Communication</div>
     <h1>English Language <span>Assessment</span></h1>
@@ -190,10 +192,11 @@ textarea.ta.bad{border-color:var(--err)}
     <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
   </div>
 
-  <!-- PARTS A-F: Dynamically rendered based on student profile -->
+  <!-- Parts A–F rendered dynamically based on student profile -->
   <div id="dynamicParts"></div>
 
   <!-- PART G -->
+<!-- PART G -->
   <div class="section">
     <div class="sec-hdr" onclick="toggle('g')"><span class="sec-tag">PART G</span><div><div class="sec-title">Sentence Expansion</div><div class="sec-sub">Expand each simple sentence into a complex, descriptive sentence</div></div><span class="sec-arrow open" id="arr-g">&#9660;</span></div>
     <div class="sec-body open" id="body-g">
@@ -311,6 +314,9 @@ textarea.ta.bad{border-color:var(--err)}
 
 </div>
 
+</div><!-- end mainTest -->
+
+<!-- RESULT MODAL -->
 <div id="resultModal">
   <div class="res-box">
     <div style="font-family:var(--mono);font-size:10px;color:var(--a2);letter-spacing:3px;margin-bottom:12px">FINAL RESULT</div>
@@ -324,8 +330,6 @@ textarea.ta.bad{border-color:var(--err)}
 </div>
 
 <script>
-// ── MEDIA & COMMUNICATION — STUDENT PROFILES ─────────────────────────────────
-
 const STUDENT_PROFILES = {
 
   // ══════════════════════════════════════════════════════════════════
@@ -606,6 +610,18 @@ function getProfile(name){
   }
   return null;
 }
+
+
+const BIN_ID="69babf10b7ec241ddc7d652f";
+const MASTER_KEY="$2a$10$GeOyXKViWuf6OsSoiA9eT.bifbFDXJ/AsilT9KSjMz.2Ibg5mPDGS";
+const API="https://api.jsonbin.io/v3";
+const STORAGE_KEY="mc_progress";
+
+const sectionScores={a:0,b:0,c:0,d:0,e:0,f:0};
+const sectionChecked={a:false,b:false,c:false,d:false,e:false,f:false};
+const mcqSel={};
+let studentName="",startTime=null,currentProfile=null;
+
 
 
 const BIN_ID="69babf10b7ec241ddc7d652f";
@@ -980,6 +996,20 @@ function beginTest(val, autoRestore=false){
     document.getElementById("dispLevel").style.color = currentProfile.colour;
   }
   renderDynamicParts();
+  // Wire up Part I word counter
+  const i1el = document.getElementById("i1");
+  if(i1el) i1el.addEventListener("input",function(){
+    const wc = document.getElementById("wc");
+    if(wc) wc.textContent="Words: "+this.value.trim().split(/\s+/).filter(w=>w).length;
+    updateProgress();
+  });
+  // Wire up input listeners for G/H open-ended textareas
+  ["g","h"].forEach(p=>{
+    for(let i=1;i<=10;i++){
+      const el=document.getElementById(p+i);
+      if(el) el.addEventListener("input",updateProgress);
+    }
+  });
   // Always auto-restore saved answers silently — no prompt needed
   const saved=loadLocal();
   if(saved && saved.answers){
@@ -1126,6 +1156,7 @@ async function submitAll(){
   btn.disabled=false;btn.textContent="Submit & Save Results";
 }
 function closeResult(){document.getElementById("resultModal").classList.remove("open");}
+
 // ── GRAMMAR CHECKER (LanguageTool Free API) ───────────────────────────────
 const G_QUESTIONS=['The iceberg melted.','Sea levels rose.','Scientists warned governments.','The coral reef died.','The flood devastated the village.','Nations disagreed at the summit.','Renewable energy expanded.','The activist protested.','Wildlife habitats disappeared.','The agreement was reached.'];
 const H_QUESTIONS=['The weather is getting worse.','Many animals are dying.','The air in the city is bad.','People wasted a lot of energy.','The government made new environment rules.','Plastic is a big problem in the ocean.','Scientists found worrying results.','Young people started caring about the environment.','Trees were cut down in the forest.','The temperature went up every year.'];
