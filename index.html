@@ -58,22 +58,19 @@ h1 span{color:#38bdf8}
 .footer{font-size:11px;color:#334155;font-family:'Space Mono',monospace;margin-top:28px}
 
 /* RESTORE BANNER */
-.restore-banner{display:none;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.25);border-radius:8px;padding:12px 16px;margin-bottom:12px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.restore-banner.show{display:flex}
-.restore-banner p{font-size:13px;color:#fbbf24;font-family:'Space Mono',monospace}
-.restore-banner button{font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:1px;padding:7px 14px;background:#fbbf24;color:#000;border:none;border-radius:5px;cursor:pointer;text-transform:uppercase;flex-shrink:0}
+
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="badge">English Assessment Portal</div>
   <h1>Choose Your <span>Test</span></h1>
-  <p class="sub">Enter your name — the system will load the right test for you automatically.</p>
+  <p class="sub">Type your name and press Go — the test will be personalised to your level.</p>
 
   <!-- NAME GATE -->
   <div class="name-gate">
     <h2>Who are you?</h2>
-    <p>Type your name below. Your personalised test and saved progress will load automatically.</p>
+    <p>Type your full name below. The system will recognise you and load your personalised test — including any answers you saved last time.</p>
     <div class="name-row">
       <input class="name-input" id="nameInput" placeholder="Enter your name..." maxlength="40" autocomplete="name">
       <button class="btn-go" onclick="goToTest()">Go →</button>
@@ -85,13 +82,7 @@ h1 span{color:#38bdf8}
       <button onclick="goToTestWithRestore()">Restore &amp; Continue →</button>
     </div>
   </div>
-
-  <!-- TODAY'S TEST CARDS (shown after name entered) -->
-  <div class="tests" id="testCards" style="display:none">
-    <a href="#" class="test-card card-media" id="card-media">
-      <div class="test-card-inner">
-        <div class="test-icon">📱</div>
-        <div class="test-info">
+  <div class="test-info">
           <div class="test-title">Media &amp; Communication</div>
           <div class="test-meta" id="meta-media">S2 / S1 / P6 &nbsp;·&nbsp; Parts A–I &nbsp;·&nbsp; Personalised</div>
         </div>
@@ -116,14 +107,10 @@ h1 span{color:#38bdf8}
 
 <script>
 const KNOWN_STUDENTS = {
-  "zenv": {name:"ZenV", level:"Secondary 2", colour:"#34d399", grade:"S2"},
-  "zenz": {name:"ZenZ", level:"Secondary 1", colour:"#60a5fa", grade:"S1"},
-  "zene": {name:"ZenE", level:"Primary 6",   colour:"#f97316", grade:"P6"}
+  "zenv": {name:"ZenV", level:"Secondary 2", colour:"#34d399"},
+  "zenz": {name:"ZenZ", level:"Secondary 1", colour:"#60a5fa"},
+  "zene": {name:"ZenE", level:"Primary 6",   colour:"#f97316"}
 };
-const STORAGE_KEYS = {media:"mc_progress"};
-
-let currentName = "";
-let pendingUrl = "";
 
 function getStudent(name){
   const key = (name||"").trim().toLowerCase().replace(/\s+/g,"");
@@ -133,98 +120,38 @@ function getStudent(name){
   return null;
 }
 
-function checkSavedProgress(name){
-  // Check both test types for saved progress
-  const saved = {};
-  for(const [theme, skey] of Object.entries(STORAGE_KEYS)){
-    try{
-      const d = localStorage.getItem(skey);
-      if(d){
-        const parsed = JSON.parse(d);
-        if(parsed && parsed.name && parsed.name.toLowerCase().replace(/\s+/g,"") === name.toLowerCase().replace(/\s+/g,"")){
-          saved[theme] = parsed;
-        }
-      }
-    }catch(e){}
-  }
-  return saved;
-}
+const inp = document.getElementById("nameInput");
+const preview = document.getElementById("profilePreview");
+const banner = document.getElementById("restoreBanner");
+const err = document.getElementById("nameErr");
 
-document.getElementById("nameInput").addEventListener("input", function(){
-  const val = this.value.trim();
-  const student = getStudent(val);
-  const preview = document.getElementById("profilePreview");
-  const cards = document.getElementById("testCards");
-  const banner = document.getElementById("restoreBanner");
-  const err = document.getElementById("nameErr");
+// Live preview as student types
+inp.addEventListener("input", function(){
+  const student = getStudent(this.value.trim());
   err.style.display = "none";
-
-  if(student && val.length >= 3){
-    // Show profile preview
+  if(student && this.value.trim().length >= 3){
     preview.className = "profile-preview show";
     preview.style.borderColor = student.colour;
     preview.style.color = student.colour;
-    preview.innerHTML = `👋 ${student.name} &mdash; ${student.level}`;
-
-    // Show test cards with their level
-    cards.style.display = "flex";
-
-    document.getElementById("meta-media").textContent = `${student.level} · Parts A–I · Personalised`;
-
-    // Set links with name param
-
-    document.getElementById("card-media").href = `./media_student_test.html?name=${encodeURIComponent(student.name)}`;
-
-    // Check for saved progress
-    const saved = checkSavedProgress(student.name);
-    const themes = Object.keys(saved);
-    if(themes.length > 0){
-      const latestTheme = themes[themes.length-1];
-      const latestData = saved[latestTheme];
-      const answered = Object.values(latestData.answers||{}).filter(v=>String(v).trim()).length;
-      banner.className = "restore-banner show";
-      document.getElementById("restoreMsg").textContent =
-        `📄 ${answered} answers saved from your last Media test`;
-      // Set restore target
-      pendingUrl = `./media_student_test.html?name=${encodeURIComponent(student.name)}&restore=1`;
-    } else {
-      banner.className = "restore-banner";
-    }
-    currentName = student.name;
+    preview.innerHTML = `👋 ${student.name} — ${student.level}`;
   } else {
     preview.className = "profile-preview";
-    cards.style.display = "none";
-    banner.className = "restore-banner";
-    currentName = "";
   }
 });
 
-document.getElementById("nameInput").addEventListener("keydown", e=>{
-  if(e.key==="Enter") goToTest();
-});
+// Enter key triggers go
+inp.addEventListener("keydown", e => { if(e.key==="Enter") goToTest(); });
 
 function goToTest(){
-  const val = document.getElementById("nameInput").value.trim();
+  const val = inp.value.trim();
   const student = getStudent(val);
   if(!student){
-    document.getElementById("nameErr").style.display="block";
-    document.getElementById("nameErr").textContent = val.length<2
-      ? "Please enter your name."
-      : "Name not recognised. Please check with your teacher.";
+    err.style.display = "block";
+    err.textContent = val.length < 2 ? "Please enter your name." : "Name not recognised. Please check with your teacher.";
     return;
   }
-  // Navigate to most recent unfinished test, or let them pick
-  const saved = checkSavedProgress(student.name);
-  const themes = Object.keys(saved);
-  if(themes.length > 0){
-    const latestTheme = themes[themes.length-1];
-    pendingUrl = `./media_student_test.html?name=${encodeURIComponent(student.name)}&restore=1`;
-    document.getElementById("restoreBanner").className = "restore-banner show";
-  }
-}
-
-function goToTestWithRestore(){
-  if(pendingUrl) window.location.href = pendingUrl;
+  // Navigate directly — the test page handles everything else
+  window.location.href = `./media_student_test.html?name=${encodeURIComponent(student.name)}`;
 }
 </script>
 </body>
