@@ -659,7 +659,8 @@ function buildSubmission(isFinal){
     if(filled.length>=5 && unique.size<=2) duplicateFlags[p]="duplicate";
     else if(filled.length>=5 && new Set(vals.map(v=>v.split(" ").slice(0,8).join(" "))).size<=2) duplicateFlags[p]="similar";
   });
-  return{name:studentName,submittedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"}),duration,score,pct,sectionScores:{...sectionScores},answers:ans,isDraft:!isFinal,testTheme:"Media & Communication",studentLevel:currentProfile?currentProfile.level:"Unknown",studentGrade:currentProfile?currentProfile.grade:"?",duplicateFlags};
+  // Always save as final — each Check & Submit is a real submission
+  return{name:studentName,submittedAt:new Date().toLocaleString("en-MY",{dateStyle:"medium",timeStyle:"short"}),duration,score,pct,sectionScores:{...sectionScores},answers:ans,isDraft:false,testTheme:"Media & Communication",studentLevel:currentProfile?currentProfile.level:"Unknown",studentGrade:currentProfile?currentProfile.grade:"?",duplicateFlags};
 }
 
 // ── ROBUST SAVE WITH RETRY ────────────────────────────────
@@ -689,19 +690,17 @@ async function pushToServer(data, retries=3){
       const existing = await getRes.json();
       let subs = Array.isArray(existing.submissions) ? existing.submissions : [];
 
-      // Step 2: Update or insert this student's entry
-      // Match on name + isDraft — replace draft, or add new final
-      if(data.isDraft){
-        const idx = subs.findIndex(s=>s.name===data.name && s.isDraft===true);
-        if(idx>=0) subs[idx] = data;
-        else subs.push(data);
+      // Step 2: Upsert — replace any existing entry for same student+theme today
+      const today = new Date().toLocaleDateString("en-MY");
+      const existingIdx = subs.findIndex(s=>
+        s.name===data.name &&
+        s.testTheme===data.testTheme &&
+        (s.submittedAt||"").includes(today)
+      );
+      if(existingIdx >= 0){
+        subs[existingIdx] = data; // Update existing
       } else {
-        // Final submission — remove all drafts for this student and add final
-        subs = subs.filter(s=>!(s.name===data.name && s.isDraft===true));
-        // Also remove any previous final for same student+theme+date (avoid duplicates)
-        const today = new Date().toLocaleDateString("en-MY");
-        subs = subs.filter(s=>!(s.name===data.name && !s.isDraft && (s.submittedAt||"").includes(today)));
-        subs.push(data);
+        subs.push(data); // Add new
       }
 
       // Step 3: PUT back
@@ -715,6 +714,7 @@ async function pushToServer(data, retries=3){
 
     } catch(e){
       console.warn(`Save attempt ${attempt} failed:`, e.message);
+      setStatus("saving", `Attempt ${attempt} failed, retrying...`);
       if(attempt < retries){
         // Wait before retrying: 1s, 2s, 4s
         await new Promise(r=>setTimeout(r, 1000 * Math.pow(2, attempt-1)));
